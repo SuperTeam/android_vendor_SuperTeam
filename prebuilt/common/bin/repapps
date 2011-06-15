@@ -1,0 +1,13 @@
+#! /system/bin/sh
+#
+
+echo "--- Reinstalando aplicaciones";
+    for apk in /data/app/*.apk ; do
+	pm install -r $apk;
+    done;
+    for apk in /data/app-private/*.apk ; do
+	pm install -r $apk;
+    done;
+
+echo "--- Reparando permisos";
+    /system/bin/sh /system/bin/fix_permissions;

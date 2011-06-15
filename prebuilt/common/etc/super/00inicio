@@ -1,0 +1,17 @@
+#!/system/bin/sh
+echo "+++ Bienvenido a Android `getprop ro.build.version.release` / `getprop ro.modversion`";
+
+# Instalador de temas
+#
+if [ -e /cache/SupTheme ];
+    then
+echo "+++ Instalando Tema"
+	busybox mount -o rw,remount /system;
+	busybox cp -a /cache/SupTheme/* /;
+	busybox rm -r /cache/SupTheme;
+	busybox mount -o ro,remount /system;
+echo "+++ Nuevo tema instalado"
+	else
+echo "----- No hay tema que instalar"
+fi;
+rwsystem;

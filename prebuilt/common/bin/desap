@@ -1,0 +1,9 @@
+#!/system/bin/sh
+
+rwsystem;
+sleep 3;
+echo "Desactivando Apps2Sd";
+#cp /system/bin/noap /data/firstboot.sh;
+cp -f /system/bin/desapp2sd /system/bin/desap;
+rm /system/bin/desapp2sd;
+/system/bin/noap;

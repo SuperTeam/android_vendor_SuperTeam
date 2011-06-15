@@ -1,0 +1,32 @@
+#!/system/bin/sh
+#
+case "$1" in
+   start)
+		kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)
+	count=1
+		while [ $count -le 20 ]
+		do
+	setprop gsm.sim.operator.numeric 21401
+	count=`busybox expr $count + 1`
+	sleep 10
+echo "*** Aplicaciones de pago han sido activadas con exito"
+done;
+   ;;
+   
+   stop)
+	if [ -e /data/operator ];
+	then
+		kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)
+	operador=`cat /data/operator`
+	setprop gsm.sim.operator.numeric $operador
+fi;
+   ;;
+   estado)
+      
+   ;;
+   *)
+      echo "Usage: $0 {start|stop|estado}"
+      exit 1
+esac
+
+exit 0

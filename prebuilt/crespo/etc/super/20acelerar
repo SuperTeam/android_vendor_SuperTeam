@@ -1,0 +1,5 @@
+#!/system/bin/sh
+
+#Gracias a Supercurio por el patch
+
+mount -o remount,noauto_da_alloc /data /data

@@ -1,0 +1,23 @@
+#!/system/bin/sh
+# Linux-SWAP
+# Super@tmel
+#
+
+DEV2=/dev/block/mmcblk0p3
+
+case "$1" in
+   start)
+	echo "+++ Creando Sdcard Swap"
+      busybox mkswap $DEV2;
+	echo "+++ Activando Linux-Swap"
+		busybox swapon $DEV2;
+   ;;
+
+   stop)
+      swapoff $DEV2 >/dev/null 2>&1
+   ;;
+   *)
+      exit 1
+esac
+
+exit 0

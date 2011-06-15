@@ -1,0 +1,14 @@
+#!/system/bin/sh
+#
+#/system/bin/supmar
+#
+count=1
+# Establece que se repetira 1 veces cada dos minutos y medio luego acaba.
+while [ $count -le 20 ]
+	do
+	setprop gsm.sim.operator.numeric 21401
+	#busybox	kill $(ps | grep vending | tr -s  ' ' | cut -d ' ' -f2)
+
+	count=`busybox expr $count + 1`
+	sleep 10
+done;

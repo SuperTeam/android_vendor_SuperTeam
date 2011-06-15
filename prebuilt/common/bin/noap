@@ -1,0 +1,38 @@
+#!/system/bin/sh
+
+echo "[ ] Desactivando Apps2Sd.";
+echo "";
+echo "===================================================";
+if [ -h /data/app ];
+  then
+        busybox rm -rf /data/app;
+        busybox mkdir /data/app;
+        busybox chmod 777 /data/app;
+        busybox cp -a -f /system/sd/app/* /data/app;
+        busybox echo "                [*] Reparacion 1";
+      else
+        busybox echo "";
+    fi;
+
+if [ -h /data/app-private ];
+  then
+        busybox rm -rf /data/app-private;
+        busybox mkdir /data/app-private;
+        busybox chmod 777 /data/app-private;
+        busybox cp -a -f /system/sd/app-private/* /data/app-private;
+        busybox echo "                [*] Reparacion 2";
+      else
+        busybox echo "";
+fi;
+        busybox rm -rf /cache/dalvik-cache;
+        busybox mkdir /cache/dalvik-cache;
+        busybox chmod 777 /cache/dalvik-cache;
+        busybox rm -rf /data/dalvik-cache;
+        busybox mkdir /data/dalvik-cache;
+        busybox chmod 777 /data/dalvik-cache;
+        busybox echo "                [*] Reparacion 3";
+#busybox rm /data/firstboot.sh;
+#/system/bin/fix_permissions;
+sleep 1;
+rosystem;
+reiniciar;

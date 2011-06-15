@@ -1,0 +1,62 @@
+# Compcache
+service compcache /system/bin/handle_compcache
+    user root
+    group root
+    oneshot
+
+# Swap
+service swap_on /system/bin/logwrapper /system/bin/sh /system/bin/swap start
+    disabled
+    oneshot
+
+service swap_off /system/bin/logwrapper /system/bin/sh /system/bin/swap stop
+    disabled
+    oneshot
+
+on property:persist.service.swap=1
+    start swap_on
+
+on property:persist.service.swap=0
+    start swap_off
+
+# Apps2SD
+service apps2sd_on /system/bin/logwrapper /system/bin/sh /system/bin/apps2sd start
+    disabled
+    oneshot
+
+service apps2sd_off /system/bin/logwrapper /system/bin/sh /system/bin/apps2sd stop
+    disabled
+    oneshot
+
+on property:persist.service.apps2sd=1
+    start apps2sd_on
+
+on property:persist.service.apps2sd=0
+    start apps2sd_off
+
+#Market
+service supmar_on /system/bin/logwrapper /system/bin/sh /system/bin/supmar start
+    disabled
+    oneshot
+
+service supmar_off /system/bin/logwrapper /system/bin/sh /system/bin/supmar stop
+    disabled
+    oneshot
+
+on property:persist.service.supmar=1
+    start supmar_on
+
+on property:persist.service.supmar=0
+    start supmar_off
+
+service bootsound /system/bin/bootsound
+ user media
+ group audio
+ disabled
+ oneshot
+
+on property:init.svc.bootanim=running # to correct timin
+ start bootsound
+
+#on property:dev.bootcomplete=1
+ stop bootsound

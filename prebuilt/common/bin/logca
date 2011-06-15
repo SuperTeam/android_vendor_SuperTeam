@@ -1,0 +1,37 @@
+#!/system/bin/sh
+busybox mount -o rw,remount /system;
+for i in com.google.android.apps.maps maps com.myspace.android myspace com.facebook.katana facebook;
+do
+	busybox rm -rf /system/app/$i.apk;
+	busybox rm -rf /data/app/$i.apk;
+	busybox rm -rf /system/sd/app/$i.apk;
+	busybox rm -rf /data/dalvik-cache/*$i.apk*classes.dex;
+done;
+busybox mount -o ro,remount /system;
+busybox rm -rf /data/data/com.google.android.apps.maps;
+busybox rm -rf /data/data/com.facebook.katana;
+busybox rm -rf /data/data/com.myspace.android;
+IN_REM_LINE=0;
+busybox cp /data/system/packages.xml /data/system/packages.xml.tmp;
+echo -n > /data/system/packages.xml;
+cat /data/system/packages.xml.tmp |
+while read -r line;
+do
+	if 	[ `echo "$line" | busybox grep -c '<package name="com.google.android.apps.maps" codePath='` -eq 0 ] &&
+		[ `echo "$line" | busybox grep -c '<shared-user name="com.google.android.apps.maps"'` -eq 0 ]       &&
+		[ `echo "$line" | busybox grep -c '<package name="com.facebook.katana" codePath="'` -eq 0 ]         &&
+		[ `echo "$line" | busybox grep -c '<package name="com.myspace.android" codePath="'` -eq 0 ]         &&
+		[ "$IN_REM_LINE" -eq 0 ];
+	then
+		busybox printf "$line""\n" >> /data/system/packages.xml;
+	else
+		IN_REM_LINE=1;
+
+		if [ `echo "$line" | busybox grep -c '</package>'` -eq 1 ] || [ `echo "$line" | busybox grep -c '</shared-user>'` -eq 1 ];
+		then
+			IN_REM_LINE=0;
+		fi;
+	fi;
+done;
+busybox rm /data/system/packages.xml.tmp;
+

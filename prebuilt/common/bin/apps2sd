@@ -1,0 +1,27 @@
+#!/system/bin/sh
+# Linux-SWAP
+# Super@tmel
+#
+
+case "$1" in
+   start)
+if [ -e /system/bin/actapps2sd ];
+then
+	sh /system/bin/actapps2sd install;
+fi;
+   ;;
+
+   stop)
+if [ -e /system/bin/desapp2sd ];
+then
+	/system/bin/desapp2sd;
+fi;
+echo "Apps2sd desactivado.";
+echo "";
+echo "===================================================";
+   ;;
+   *)
+      exit 1
+esac
+
+exit 0

@@ -1,0 +1,9 @@
+#!/system/bin/sh
+#
+# 
+MODULES=""
+
+for i in $MODULES;
+do
+    modprobe $i;
+done

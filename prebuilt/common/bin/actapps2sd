@@ -1,0 +1,259 @@
+#!/system/bin/bash
+
+# Darktremor Apps2SD/A2SD Setup Program version 2.7
+# By: Travis Kirton
+# Date: June 21, 2010
+# Based on the Darktremor A2SD version 2.6R2 code
+
+echo "Control de Apps2SD"
+if [ -e /system/bin/desap ];
+then
+echo "Activando retorno"
+	rwsystem;
+	cp -f -a /system/bin/desap /system/bin/desapp2sd;
+	cp -f -a /system/bin/desap /system/bin/arranque;
+	chmod 4755 /system/bin/desapp2sd;
+	chmod 4755 /system/bin/arranque;
+	busybox rm  /system/bin/desap;
+        /system/bin/e2fsck -y /dev/block/mmcblk0p2;
+echo "Fin del Control"
+echo "Reiniciando en 5 segundos"
+sleep 5
+/system/bin/reiniciar;
+exit;
+fi;
+
+echo "Arranque 1"
+	if [ -e /system/bin/arranque ];
+	then
+	echo "Limpiando dalvik-cache"
+	rwsystem;	
+	cp -f -a /system/bin/arranque /system/bin/arranque2;
+	rm  /system/bin/arranque;	
+
+fi;
+
+	echo "+++ Finalizacion de la activacion con arranque 2"
+	if [ -e /system/bin/arranque2 ];
+	then
+	echo "+++ Apps2sd activacion total"
+	rwsystem;
+	rm  /system/bin/arranque2;
+fi;
+
+if [ $# == 0 ];
+  then
+    export a2sdsetup="none";
+  else
+    export a2sdsetup=$1;
+fi;
+
+export a2sdfs=`/system/bin/toolbox getprop cm.filesystem.ready`;
+export a2sdfix=`busybox grep -q -e cm.filesystem.ready /init.rc; busybox echo $?;`
+
+export a2sdfs=`/system/bin/toolbox getprop cm.filesystem.ready`;
+export a2sdfix=`busybox grep -q -e cm.filesystem.ready /init.rc;busybox echo $?;`;
+
+if [ !$a2sdfs ];
+  then
+    if [ $a2sdfix == 1 ];
+      then
+        /system/bin/toolbox setprop cm.filesystem.ready -1;
+        export a2sdfix=-1;
+      else
+        /system/bin/toolbox setprop cm.filesystem.ready 0;
+        export a2sdfix=0;
+    fi;
+  else
+    export a2sdfix=$a2sdfs;
+fi;
+
+export a2sdfs2=`/system/bin/toolbox getprop dc.filesystem.ready`;
+export a2sdfix2=`busybox grep -q -e dc.filesystem.ready /init.rc;busybox echo $?;`;
+
+if [ !$a2sdfs ];
+  then
+    if [ $a2sdfix == 1 ];
+      then
+        /system/bin/toolbox setprop dc.filesystem.ready -1;
+        export a2sdfix2=-1;
+      else
+        /system/bin/toolbox setprop dc.filesystem.ready 0;
+        export a2sdfix2=0;
+    fi;
+  else
+    export a2sdfix2=$a2sdfs2;
+fi;
+
+if [ $a2sdfix == -1 ] && [ $a2sdfix2 == -1 ];
+  then
+    export a2sdfix=-1;
+  else
+    if [ $a2sdfix == 1 ] || [ $a2sdfix2 == 1 ];
+      then
+        export a2sdfix=1;
+      else
+        export a2sdfix=0;
+     fi;
+fi;
+
+busybox echo "[ ] Buscando punto de montaje...";
+if [ -d /system/sd ];
+  then
+    busybox echo "[!] Punto de montaje existe, pero sin accion requerida.";
+  else
+    busybox echo "[ ] Creando punto de montaje.";
+    busybox mkdir /system/sd;
+    chmod 777 /system/sd;
+    busybox echo "[ ] Punto de montaje creado.";
+fi;
+
+
+busybox echo "[ ] Remontando /system para leer-escribir";
+busybox mount -o remount,rw /system;
+
+busybox echo "[ ] Checkeando particion externa";
+if [ -e /dev/block/mmcblk0p2 ];
+  then
+    export a2sdmount=`busybox grep -q -e /dev/block/mmcblk0p2 /proc/mounts;busybox echo $?;`;
+    if [ $a2sdmount == 1 ];    
+      then
+        busybox echo "[!] Particion externa existe pero no esta montada.";
+        if [ $a2sdfs != -1 ];
+          then
+            busybox echo "[ ] Checkeando particion Externa...";
+            /system/bin/e2fsck -y /dev/block/mmcblk0p2;
+            /system/bin/toolbox setprop cm.e2fsck.errors $?;
+        fi;
+        busybox echo "[ ] Montando particion externa";
+        busybox mount -o noatime,nodiratime -t auto /dev/block/mmcblk0p2 /system/sd;
+        if [ $? != 0 ];
+          then
+            busybox echo "[X] Fallo al montar la particion externa.";
+            busybox echo "[X] No puedo continuar... abortando.";
+            if [ -h /data/dalvik-cache ];
+	      then
+		busybox echo "[!] Reseteando Dalvik Cache de vuelta a el almacenamiento interno.";
+		busybox rm -rf /data/dalvik-cache;
+		busybox mkdir /data/dalvik-cache;
+		busybox chmod 777 /data/dalvik-cache;
+	     fi;
+	     if [ -h /data/app ];
+	       then
+	         busybox echo "[!] Reseteando aplicaciones de vuelta a el almacenamiento interno.";
+	         busybox rm -rf /data/app;
+	         busybox mkdir /data/app;
+	         busybox chmod 777 /data/app;
+	     fi;
+	     if [ -h /data/app-private ];
+	       then
+	         busybox echo "[!] Reseteando aplicaciones de vuelta a el almacenamiento interno.";
+	         busybox rm -rf /data/app-private;
+	         busybox mkdir /data/app-private;
+	         busybox chmod 777 /data/app-private;
+	     fi;
+             busybox echo "[ ] Remontando /system para leer.";
+             busybox mount -o remount,ro /system;
+             exit;
+        fi;
+	busybox echo "[*] Particion externa montada.";
+      else
+        busybox echo "[*] Prticion externa existe y ya esta montada.";
+    fi;
+  else
+    busybox echo "[X] No existe particion externa";
+    busybox echo "    /dev/block/mmcblk0p2.";
+    busybox echo "";
+    busybox echo "    Requerida particion ext2, ext3, o ext4";
+    busybox echo "    no existe en /dev/block/mmcblk0p2.";
+    busybox echo "";
+    busybox echo "    Reiniciar el telefono en recovery y crear";
+    busybox echo "    una particion ext2, ext3 o ext4."; 
+    if [ -h /data/dalvik-cache ];
+      then
+        busybox echo "[!] Reseteando Dalvik Cache de vuelta a el almacenamiento interno.";
+	busybox rm -rf /data/dalvik-cache;
+	busybox mkdir /data/dalvik-cache;
+	busybox chmod 777 /data/dalvik-cache;
+    fi;
+    if [ -h /data/app ];
+      then
+        busybox echo "[!] Reseteando aplicaciones de vuelta a el almacenamiento interno.";
+        busybox rm -rf /data/app;
+	busybox mkdir /data/app;
+	busybox chmod 777 /data/app;
+    fi;
+    if [ -h /data/app-private ];
+      then
+        busybox echo "[!] Reseteando aplicaciones privadas de vuelta a el almacenamiento interno.";
+        busybox rm -rf /data/app-private;
+	busybox mkdir /data/app-private;
+	busybox chmod 777 /data/app-private;
+    fi;	
+    busybox echo "[ ] Remontando /system para leer-escribir.";
+    busybox mount -o remount,ro /system;
+    exit;
+fi;
+
+case $a2sdsetup
+  in
+    "install")
+    busybox mount -o remount,rw /system;
+              busybox echo "[ ] Instalando A2SD Links...";
+              if [ ! -h /data/app ];
+                then
+                  if [ ! -d /system/sd/app ];
+                    then
+                      busybox echo "[ ] Creando /system/sd/app";
+                      busybox mkdir /system/sd/app;
+                  fi;
+                  busybox echo "[ ] Copiando /data/app hacia /system/sd/app";
+		  busybox cp -a /data/app/* /system/sd/app;
+		  busybox echo "[ ] Borrando /data/app";
+		  busybox rm -rf /data/app;
+		  busybox echo "[ ] Creando /data/app link hacia /system/sd/app";
+		  busybox ln -s /system/sd/app /data/app
+	      fi;
+	      if [ ! -h /data/app-private ];
+	        then
+                  if [ ! -d /system/sd/app-private ];
+		    then
+		      busybox echo "[ ] Creando /system/sd/app-private";
+                      busybox mkdir /system/sd/app-private;
+	          fi;
+	          busybox echo "[ ] Copiando /data/app-private hacia /system/sd/app-private";
+	          busybox cp -a /data/app-private/* /system/sd/app-private;
+	          busybox echo "[ ] Borrando /data/app-private";
+	          busybox rm -rf /data/app-private;
+	          busybox echo "[ ] Creando /data/app-private link hacia /system/sd/app-private";
+	          busybox ln -s /system/sd/app-private /data/app-private
+              fi;
+	          if [ ! -h /data/dalvik-cache ];
+		    then
+		      if [ ! -d /system/sd/dalvik-cache ];
+	                then
+		          busybox echo "[ ] Creando /system/sd/dalvik-cache";
+                          busybox mkdir /system/sd/dalvik-cache;
+		       fi;
+		       busybox echo "[ ] Borrando /data/dalvik-cache";
+		       busybox rm -rf /data/dalvik-cache;
+		       busybox echo "[ ] Creando /data/dalvik-cache link hacia /system/sd/dalvik-cache";
+		       busybox ln -s /system/sd/dalvik-cache /data/dalvik-cache
+		       CONTROLAPPS2SD=1
+		  fi;
+echo "Control de Apps2SD"
+echo $CONTROLAPPS2SD
+echo ""
+if [ "$CONTROLAPPS2SD" -eq 1 ];
+	then
+echo "[ ] Reiniciando telefono en 1 segundo.";
+	sleep 1;
+	/system/bin/reiniciar;
+	else
+echo "Apps2SD correctamente activado";
+fi;
+;;           
+esac;           
+busybox echo "[ ] Remontando /system para leer.";
+busybox mount -o remount,ro /system;
+

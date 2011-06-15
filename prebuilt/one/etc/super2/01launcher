@@ -1,0 +1,16 @@
+#!/system/bin/sh
+
+echo "Tiempo 230 segundos para GeeksPhone One"
+echo 255 > /sys/class/leds/white/blink;
+sleep 230:
+#busybox cp -r /data/launcher/* /data/data/com.fede.launcher;
+#busybox sh /system/bin/fix_permissions -f /data/app/com.fede.launcher-1.apk;
+#busybox sh /system/bin/fix_permissions -f /data/app/com.fede.launcher-2.apk;
+#echo "Desactivando Launcher Pro"
+#sleep 4;
+#pm disable com.fede.launcher;
+#pm enable com.android.launcher;
+rwsystem;
+busybox rm /system/etc/super2/01launcher;
+rosystem;
+

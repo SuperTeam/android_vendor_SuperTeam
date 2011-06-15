@@ -1,0 +1,6 @@
+#!/system/bin/sh
+# Rebotando
+# Super@tmel
+#
+#/system/bin/busybox.a2sd reboot -f;
+reboot;
