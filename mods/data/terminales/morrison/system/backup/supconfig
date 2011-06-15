@@ -1,0 +1,8 @@
+# Feature Sets
+TURBO="NO"
+SUPERATMEL="YES"
+
+# Size Settings
+MIN_CPU="122880"
+MAX_CPU="528000"
+SWAPPINESS="50"
