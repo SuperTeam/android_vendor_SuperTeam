@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DSPManager</string>
+    <string name="dB">+0 dB</string>
+    <string name="select_configuration_title">Selecciona configuración</string>
+    <string name="headset_title">Auriculares</string>
+    <string name="speaker_title">Teléfono</string>
+    <string name="bluetooth_title">Bluetooth</string>
+    <string name="dsp_settings">Ajustes DSP</string>
+    <string name="pref_dsp_title">Rango dinámico de compresión</string>
+    <string name="pref_dsp_summary_on">Compresión activada</string>
+    <string name="pref_dsp_summary_off">Compresión desactivada</string>
+    <string name="pref_dsp_enable">Activar</string>
+    <string name="pref_effect_title">Tipo de efecto</string>
+    <string name="dialog_effect">Fuerza de efecto</string>
+    <string name="pref_equalizer_title">Equalizador</string>
+    <string name="pref_equalizer_summary_on">Equalizador activado</string>
+    <string name="pref_equalizer_summary_off">Equalizador desactivado</string>
+    <string name="pref_equalizer_enable">Activar</string>
+    <string name="pref_headset_virtual_title">Efecto virtual de auriculares</string>
+    <string name="pref_headset_virtual_summary_on">Efecto virtual de auriculares activado</string>
+    <string name="pref_headset_virtual_summary_off">Efecto virtual de auriculares desactivado</string>
+    <string name="pref_headset_virtual_enable">Activar</string>
+    <string name="pref_room_title">Selecciona tipo de espacio</string>
+    <string name="dialog_room">Tipo de espacio</string>
+</resources>

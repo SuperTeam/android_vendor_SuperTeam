@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="headphone_modes">
+        <item>Estudio</item>
+        <item>Habitación</item>
+        <item>Gran habitación</item>
+        <item>Estadio</item>
+    </string-array><string-array name="headphone_modes_values"><item>0</item>
+<item>333</item>
+<item>666</item>
+<item>1000</item>
+</string-array>
+
+<string-array name="compression_modes"><item>Normal</item>
+<item>Moderado</item>
+<item>Extremo</item>
+
+</string-array>
+<string-array name="compression_modes_values"><item>0</item>
+<item>500</item>
+<item>1000</item>
+</string-array>
+
+<string-array name="bassboost_modes"><item>Normal</item>
+<item>Moderato</item>
+<item>Extremo</item>
+
+</string-array>
+<string-array name="bassboost_modes_values"><item>0</item>
+<item>500</item>
+<item>1000</item>
+</string-array>
+
+</resources>

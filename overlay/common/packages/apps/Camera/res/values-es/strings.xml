@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Advanced options label -->
+    <string name="advanced_options_label">Opciones avanzadas</string>
+
+    <!-- More Settings screen, volume buttons title -->
+    <string name="pref_camera_vol_shutter_title">Disparo con volumen</string>
+    <string name="pref_camera_vol_up_shutter">Volumen arriba</string>
+    <string name="pref_camera_vol_up_shutter_summary">Volumen arriba toma una fotografía</string>
+    <string name="pref_camera_vol_down_shutter">Volumen a bajo</string>
+    <string name="pref_camera_vol_down_shutter_summary">Volumen abajo toma una fotografía</string>
+
+    <!-- More Settings screen, zoom button title -->
+    <string name="pref_camera_vol_zoom_title">Zoom con volumen</string>
+    <string name="pref_camera_vol_zoom">botones de zoom con volumen</string>
+    <string name="pref_camera_vol_zoom_summary">Volumen arriba/abajo zoom +/- respectivamente</string>
+
+    <!-- More Settings screen, search button title -->
+    <string name="pref_camera_search_shutter_title">Disparo con botón busqueda</string>
+
+    <!-- More Settings screen, search button -->
+    <string name="pref_camera_search_shutter">Botón busqueda</string>  
+    <string name="pref_camera_search_shutter_summary">Botón busqueda toma una fotografía</string>  
+
+    <!-- Settings screen, custom focus title -->
+    <string name="pref_camera_settings_focus_title">Enfoque</string>
+
+    <!-- Settings screen, focus settings -->
+    <string name="pref_camera_settings_focus">Pre-Enfoque</string>
+    <string name="pref_camera_settings_focus_summary">Enfoque antes de tomar una fotografía</string>
+    <string name="pref_camera_settings_long_focus">Enfoque largo</string>
+    <string name="pref_camera_settings_long_focus_summary">Manteniendo pulsado el enfoque toma una fotografía</string>
+
+</resources>

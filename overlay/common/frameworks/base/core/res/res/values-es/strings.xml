@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/* //device/apps/common/assets/res/any/strings.xml
+**
+** Copyright 2006, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="reboot_system">Reiniciar el teléfono</string>
+    <string name="reboot_progress">Reiniciando el teléfono\u2026</string>
+    <string name="reboot_confirm">Su teléfono se reiniciará.</string>
+    <string name="global_action_power_off" msgid="4471879440839879722">"Apagar"</string>
+    <string name="global_action_reboot">Reiniciar</string>
+    <string name="global_actions_toggle_airplane_mode" msgid="5884330306926307456">"Modo avión"</string>
+    <string name="global_actions_airplane_mode_on_status" msgid="2719557982608919750">"Modo avión activado. Desactivar."</string>
+    <string name="global_actions_airplane_mode_off_status" msgid="5075070442854490296">"Modo avión desactivado. Activar."</string>
+    <string name="lockscreen_discharging">Descargando (<xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g>)</string>
+    <string name="lockscreen_low_battery">Conecta tu cargador (<xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g>)</string>
+    <!-- Name of wildcard profile. -->
+    <string name="wildcardProfile">Otros</string>
+    <!-- label for item that reboots the phone in phone options dialog -->
+    <string name="global_action_choose_profile">Escoje perfil</string>
+    <!-- Displayed on lock screen's extra left tab - phone 
+    <string name="lockscreen_phone_label">Teléfono</string>
+     Displayed on lock screen's extra right tab - messaging 
+    <string name="lockscreen_messaging_label">Mensajes</string> -->
+</resources>
