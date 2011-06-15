@@ -14,7 +14,7 @@ PRODUCT_PACKAGES += \
 #
 # Setup device specific product configuration.
 #
-PRODUCT_NAME := team_geeksphone
+PRODUCT_NAME := team_one
 PRODUCT_BRAND := geeksphone
 PRODUCT_DEVICE := one
 PRODUCT_MODEL := Geeksphone ONE
