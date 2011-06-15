@@ -1,0 +1,473 @@
+#!/bin/sh
+#
+# Squish a otapackage for distribution
+# Superatmel y Blerfont (Base Cyanogen)
+#
+OUT_TARGET_HOST=linux-x86
+MD5=md5sum
+OPTICHARGER=$ANDROID_BUILD_TOP/vendor/SuperTeam/tools/opticharger
+OPTICHARGER_FRAMEWORK=$ANDROID_BUILD_TOP/vendor/SuperTeam/tools/opticharger_framework
+MOD_MDPI=$ANDROID_BUILD_TOP/vendor/SuperTeam/mods/mdpi/*
+MOD_HDPI=$ANDROID_BUILD_TOP/vendor/SuperTeam/mods/hdpi/*
+MOD_DATA=$ANDROID_BUILD_TOP/vendor/SuperTeam/mods/data/terminales
+SPLASH=$ANDROID_BUILD_TOP/vendor/SuperTeam/mods/data/splash/
+QUIET=-q
+DELETE_BINS="applypatch applypatch_static check_prereq recovery updater"
+squash_opts="-force-uid 1000 -force-gid 1000 -no-progress -noappend -no-exports -no-recovery"
+REPACK=$OUT/repack.d
+updater=$REPACK/ota/META-INF/com/google/android/updater-script
+MDPI=0
+G2D=0
+G3D=0
+ONE=0
+BRAVO=0
+DREAM=0
+#BATT=0
+CONTROLGALLERY=$OUT/system/app/
+#Colores
+YELLOW="\033[1;33m"	#el primer número es 1 (negrita); después el color
+GREEN="\033[1;32m"
+RED="\033[1;31m"
+BLUE="\033[1;34m"
+BLUEs="\033[1;36m"
+WHITE="\033[1;37m"
+ENDCOLOR="\033[0m"
+
+# Verificación de entorno de desarrollo operativo
+if [ -z "$OUT" -o ! -d "$OUT" ]; then
+	echo $RED"ERROR: $0 solo funciona con un entorno completo de desarrollo. $OUT debe existir."$ENDCOLOR
+	exit 1
+fi
+
+# Se establece la variable OTAPACKAGE
+OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$LOGNAME.zip
+if [ ! -f "$OTAPACKAGE" ]; then
+	echo "$OTAPACKAGE no existe!";
+	exit 1
+fi
+
+# Algunos dispositivos necesitan que xbin esté en squashfs para ahorrar espacio
+case "$TARGET_PRODUCT" in
+	team_dream_sapphire) WANT_SQUASHFS=1 ;;
+	*) WANT_SQUASHFS=0 ;;
+esac
+
+# Discriminación dispositivos MDPI o HDPI
+case "$TARGET_PRODUCT" in
+	team_dream_sapphire) MDPI=1 ;;
+	team_one) MDPI=1 ;;
+	team_legend) MDPI=1 ;;
+	team_hero) MDPI=1 ;;
+	team_z71) MDPI=1 ;;
+	team_zero) MDPI=1 ;;
+	team_zeppelin) MDPI=1 ;;
+	*) MDPI=0
+esac
+
+# Discriminación de que dispositivos llevarán Gallery3D
+case "$TARGET_PRODUCT" in
+	team_buzz) G3D=1 ;;
+	team_hero) G3D=1 ;;
+	team_zeppelin) G3D=1 ;;
+	team_z71) G3D=1 ;;
+	*) G3D=0
+esac
+
+# Discriminación de que dispositivos llevan Galeria 2D
+case "$TARGET_PRODUCT" in
+	team_dream_sapphire) G2D=1 ;;
+	team_legend) G2D=1 ;;
+	*) G2D=0
+esac
+
+# Discriminación de que dispositivos llevarán splash
+case "$TARGET_PRODUCT" in
+	team_one) ONE=1 ;;
+	*) ONE=0
+esac
+
+# Discriminación de que dispositivos llevarán control extra de apps por falta de espacio en cache
+case "$TARGET_PRODUCT" in
+	team_bravo) BRAVO=1 ;;
+	*) BRAVO=0
+esac
+
+# Discriminación de que dispositivos llevan control especial
+case "$TARGET_PRODUCT" in
+	team_dream_sapphire) DREAM=1 ;;
+	*) DREAM=0
+esac
+
+#Control de Dispositivo
+case "$TARGET_PRODUCT" in
+	team_passion) nexus=1 ;;
+	*) nexus=0
+esac
+
+#Control de Dispositivo
+case "$TARGET_PRODUCT" in
+	team_crespo) nexusS=1 ;;
+	*) nexusS=0
+esac
+
+#Control de Dispositivo
+case "$TARGET_PRODUCT" in
+	team_galaxysmtd) galaxyS=1 ;;
+	*) galaxyS=0
+esac
+
+#Control de Dispositivo
+case "$TARGET_PRODUCT" in
+	team_zero) ZERO=1 ;;
+	*) ZERO=0
+esac
+
+#Control de Dispositivo
+case "$TARGET_PRODUCT" in
+	team_zeppelin) ZEPPELIN=1 ;;
+	*) ZEPPELIN=0
+esac
+
+#Control de Dispositivo
+case "$TARGET_PRODUCT" in
+        team_morrison) MORRISON=1 ;;
+        *) MORRISON=0
+esac
+
+# Control de Gallery 2D
+if [ "$G2D" -eq 1 ];
+then
+	if [ ! -f $CONTROLGALLERY/Gallery.apk ]
+	then
+		echo " "
+		echo $RED" Gallery.apk no esta compilado, ejecuta make Gallery y make otapackage"$ENDCOLOR
+		exit 1
+	else
+		echo " "
+		echo $GREEN" Control de Gallery.apk correcto"$ENDCOLOR
+	fi
+fi
+
+# Si se requiere squashfs se verifica si existe el comando y su versión
+if [ "$WANT_SQUASHFS" -eq 1 ]; then
+	fatal=0
+	MKSQUASHFS_VER_REQ=4
+	if type mksquashfs >/dev/null 2>&1; then
+		if mksquashfs -version | grep -q "version $MKSQUASHFS_VER_REQ"; then :; else
+			echo
+			echo "ERROR: mksquashfs debe estar al menos en versión $MKSQUASHFS_VER_REQ para este build."
+			fatal=1
+		fi
+	else
+		echo
+		echo "ERROR: $TARGET_PRODUCT requiere mksquashfs."
+		fatal=1
+	fi
+
+	if [ "$fatal" -ne 0 ]; then
+		echo
+		echo "       Paquete sin optimizar está disponible en"
+		echo "         $OTAPACKAGE"
+		exit $fatal
+	fi
+fi
+
+# Elimina cualquier directorio de un trabajo antiguo
+echo ""
+clear
+#printf " Limpiando entorno..."
+echo " "
+echo $WHITE" Limpiando el entorno..."$ENDCOLOR
+rm -rf $REPACK
+mkdir -p $REPACK
+echo
+
+# Descomprime el otapackage y ejecuta opticharge en todos los apks
+mkdir $REPACK/ota
+(
+	cd $REPACK/ota
+#printf " Desempaquetando $OTAPACKAGE..."
+	echo $YELLOW" Desempaquetando..."$ENDCOLOR
+	unzip $QUIET $OTAPACKAGE
+	echo
+	
+# Copiado de archivos base mdpi o hdpi
+	mkdir $REPACK/ota/data
+	if [ "$MDPI" -eq 1 ]; then
+		cp -r $MOD_MDPI $REPACK/ota/
+	else
+		cp -r $MOD_HDPI $REPACK/ota/
+	fi
+	
+# Copiado de archivos base data
+	cp -r $MOD_DATA/common/* $REPACK/ota/data/
+	case "$TARGET_PRODUCT" in
+		team_bravo) cp -r $MOD_DATA/bravo/* $REPACK/ota/ ;;
+		team_buzz) cp -r $MOD_DATA/buzz/* $REPACK/ota/ ;;
+		team_crespo) cp -r $MOD_DATA/crespo/* $REPACK/ota/ ;;
+		team_dream_sapphire) cp -r $MOD_DATA/dream_sapphire/* $REPACK/ota/ ;;
+		team_galaxysmtd) cp -r $MOD_DATA/galaxys/* $REPACK/ota/ ;;
+		team_hero) cp -r $MOD_DATA/hero/* $REPACK/ota/ ;;
+		team_legend) cp -r $MOD_DATA/legend/* $REPACK/ota/ ;;
+		team_one) cp -r $MOD_DATA/one/* $REPACK/ota/ ;;
+		team_passion) cp -r $MOD_DATA/passion/* $REPACK/ota/ ;;
+		team_z71) cp -r $MOD_DATA/z71/* $REPACK/ota/ ;;
+		team_zeppelin) cp -r $MOD_DATA/zeppelin/* $REPACK/ota/ ;;
+		team_morrison) cp -r $MOD_DATA/morrison/* $REPACK/ota/ ;;
+		team_zero) cp -r $MOD_DATA/zero/* $REPACK/ota/ ;;
+		*) printf "REVISA EL PRODUCT QUE ESTÁS COMPILANDO, NO TIENE CONFIGURACIÓN DE COPIADO DE ""DATA"""
+	esac
+	
+# Necesario para Desire
+	if [ "$BRAVO" -eq 1 ]; then
+		echo $BLUE" Dispositivo Desire"
+		echo " "
+		echo " Pasando archivos de system a data para conseguir espacio"
+		mv  $REPACK/ota/system/app/Gmail.apk $REPACK/ota/data/app/com.google.android.gm.apk
+		mv  $REPACK/ota/system/app/Maps.apk $REPACK/ota/data/app/com.android.apps.maps.apk
+		mv  $REPACK/ota/system/app/VoiceSearch.apk $REPACK/ota/data/app/com.google.android.voiceSearch.apk
+		mv  $REPACK/ota/system/app/Street.apk $REPACK/ota/data/app/com.google.android.street.apk
+		mv  $REPACK/ota/system/app/YouTube.apk $REPACK/ota/data/app/com.google.android.youtube.apk
+		mv  $REPACK/ota/system/app/RomManager.apk $REPACK/ota/data/app/com.koushikdutta.rommanager.apk
+		mv  $REPACK/ota/system/app/PassionQuickOffice.apk $REPACK/ota/data/app/PassionQuickOffice.apk$ENDCOLOR
+	fi
+	
+# Necesario para Dream&Magic
+	if [ "$DREAM" -eq 1 ]; then
+		echo " "
+		echo $BLUE" Dispositivo Sapphire"
+		echo " "
+		echo " Pasando archivos de system a data para conseguir espacio"
+		rm -rf $REPACK/ota/system/app/FM.apk
+		rm -rf $REPACK/ota/system/app/Launcher2.apk
+		rm -rf $REPACK/ota/system/app/RomManager.apk
+        rm -rf $REPACK/ota/system/app/Torch.apk
+        rm -rf $REPACK/ota/system/lib/modules/wlan.ko
+		mv  $REPACK/ota/system/app/Gmail.apk $REPACK/ota/data/app/com.google.android.gm.apk
+		mv  $REPACK/ota/system/app/Maps.apk $REPACK/ota/data/app/com.android.apps.maps.apk
+		mv  $REPACK/ota/system/app/VoiceSearch.apk $REPACK/ota/data/app/com.google.android.voiceSearch.apk
+		mv  $REPACK/ota/system/app/Street.apk $REPACK/ota/data/app/com.google.android.street.apk
+		mv  $REPACK/ota/system/app/YouTube.apk $REPACK/ota/data/app/com.google.android.youtube.apk
+	fi
+	
+# Necesario para GeeksPhone One
+	if [ "$ONE" -eq 1 ]; then
+		echo " "
+		echo $BLUE" Dispositivo GeeksPhone One"
+		echo " "
+		echo " Pasando archivos de system a data para conseguir espacio"
+		cp -r $SPLASH/one/splash.img $REPACK/ota/
+		rm -rf $REPACK/ota/system/app/RomManager.apk
+		rm -rf $REPACK/ota/system/app/FM.apk
+		rm -rf $REPACK/ota/system/app/Torch.apk
+		mv  $REPACK/ota/system/app/Gmail.apk $REPACK/ota/data/app/com.google.android.gm.apk
+		mv  $REPACK/ota/system/app/Street.apk $REPACK/ota/data/app/com.google.android.street.apk
+		mv  $REPACK/ota/system/app/YouTube.apk $REPACK/ota/data/app/com.google.android.youtube.apk
+		mv  $REPACK/ota/system/app/Maps.apk $REPACK/ota/data/app/com.android.apps.maps.apk
+		mv  $REPACK/ota/system/app/VoiceSearch.apk $REPACK/ota/data/app/com.google.android.voiceSearch.apk$ENDCOLOR
+	fi
+	
+	
+# Necesario para GeeksPhone Zero
+	if [ "$ZERO" -eq 1 ]; then
+		echo " "
+		echo $BLUE" Dispositivo GeeksPhone Zero"
+		echo " "
+		echo " Pasando archivos de system a data para conseguir espacio"
+		rm -rf $REPACK/ota/system/app/RomManager.apk
+		rm -rf $REPACK/ota/system/app/FM.apk
+		rm -rf $REPACK/ota/system/app/Torch.apk
+		mv  $REPACK/ota/system/app/Gmail.apk $REPACK/ota/data/app/com.google.android.gm.apk
+		mv  $REPACK/ota/system/app/Street.apk $REPACK/ota/data/app/com.google.android.street.apk
+		mv  $REPACK/ota/system/app/YouTube.apk $REPACK/ota/data/app/com.google.android.youtube.apk
+		mv  $REPACK/ota/system/app/Maps.apk $REPACK/ota/data/app/com.android.apps.maps.apk
+		mv  $REPACK/ota/system/app/VoiceSearch.apk $REPACK/ota/data/app/com.google.android.voiceSearch.apk$ENDCOLOR
+	fi
+
+# Necesario para zeppelin / cliqxt
+	if [ "$ZEPPELIN" -eq 1 ]; then
+		echo " "
+		echo $BLUE" Dispositivo zeppelin"
+		echo " "
+		echo " Pasando archivos de system a data para conseguir espacio"
+		rm -rf $REPACK/ota/system/app/RomManager.apk
+		#mv  $REPACK/ota/system/app/Gmail.apk $REPACK/ota/data/app/com.google.android.gm.apk
+		#mv  $REPACK/ota/system/app/Street.apk $REPACK/ota/data/app/com.google.android.street.apk
+		#mv  $REPACK/ota/system/app/YouTube.apk $REPACK/ota/data/app/com.google.android.youtube.apk
+		#mv  $REPACK/ota/system/app/Maps.apk $REPACK/ota/data/app/com.android.apps.maps.apk
+		#mv  $REPACK/ota/system/app/VoiceSearch.apk $REPACK/ota/data/app/com.google.android.voiceSearch.apk$ENDCOLOR
+	fi
+
+# Necesario para morrison / cliq
+        if [ "$MORRISON" -eq 1 ]; then
+                echo " "
+                echo $BLUE" Dispositivo morrison"
+                echo " "
+                echo " Pasando archivos de system a data para conseguir espacio"
+                rm -rf $REPACK/ota/system/app/RomManager.apk
+                #mv  $REPACK/ota/system/app/Gmail.apk $REPACK/ota/data/app/com.google.android.gm.apk
+                #mv  $REPACK/ota/system/app/Street.apk $REPACK/ota/data/app/com.google.android.street.apk
+                #mv  $REPACK/ota/system/app/YouTube.apk $REPACK/ota/data/app/com.google.android.youtube.apk
+                #mv  $REPACK/ota/system/app/Maps.apk $REPACK/ota/data/app/com.android.apps.maps.apk
+                #mv  $REPACK/ota/system/app/VoiceSearch.apk $REPACK/ota/data/app/com.google.android.voiceSearch.apk$ENDCOLOR
+        fi
+
+# Control de dispositivo para Galaxy S
+if [ "$galaxyS" -eq 1 ]; then
+	echo " "
+	echo $BLUE" Dispositivo Galaxy S"$ENDCOLOR
+fi
+
+# Control de dispositivo para Nexus S
+	if [ "$nexusS" -eq 1 ]; then
+		echo " "
+		echo $BLUE" Dispositivo Nexus S"$ENDCOLOR
+	fi
+	
+# Control de dispositivo para Nexus One
+	if [ "$nexus" -eq 1 ]; then
+		echo $BLUE" "
+		echo " Dispositivo Nexus One"$ENDCOLOR
+	fi
+	
+# Renombrado Gallery dependiendo del dispositivo que sea
+	if [ "$G3D" -eq 1 ]; then
+		mv $REPACK/ota/system/app/Gallery.apk $REPACK/ota/system/app/Gallery.app
+		echo $YELLOW" Activado Gallery 3D y desactivado Gallery 2D"$ENDCOLOR
+	fi
+	
+# Renombrado Gallery dependiendo del dispositivo que sea
+	if [ "$G2D" -eq 1 ]; then
+		mv $REPACK/ota/system/app/Gallery3D.apk $REPACK/ota/system/app/Gallery3D.app
+		echo $YELLOW" Activado Gallery 2D y desactivado Gallery 3D"$ENDCOLOR
+	fi
+	
+	echo
+	cd $REPACK/ota/system/framework
+# Ejecuta opticharger especial sobre el framework para copiar las imagenes modificadas de la rom dentro de él
+	$OPTICHARGER_FRAMEWORK framework-res.apk
+#Ejecuta opticharger sobre el resto de apks de la rom
+	cd $REPACK/ota/system/app
+	find ./ -name \*.apk | xargs  --max-args=1 --max-procs=`grep 'processor' /proc/cpuinfo | wc -l`  $OPTICHARGER
+)
+
+# Modificaciones de SuperTeam
+rm -rf $REPACK/ota/system/app/RomManager.apk
+rm -rf $REPACK/ota/system/app/OpenWnn.apk
+rm -rf $REPACK/ota/system/app/PinyinIME.apk
+rm -rf $REPACK/ota/system/app/Protips.apk 
+rm -rf $REPACK/ota/system/app/Provision.apk
+rm -rf $REPACK/ota/system/app/QuickSearchBox.apk
+rm -rf $REPACK/ota/system/app/SpareParts.apk
+rm -rf $REPACK/ota/system/app/SpeechRecorder.apk
+rm -rf $REPACK/ota/system/lib/libWnnJpnDic.so
+rm -rf $REPACK/ota/system/lib/libwnndict.so
+
+if [ "$DREAM" -eq 1 ]; 
+then
+    mv $REPACK/ota/system/app/Stk.apk $REPACK/ota/system/app/Stk.app
+    mv $REPACK/ota/data/*.apk $REPACK/ota/data/app
+else
+    mv $REPACK/ota/system/app/FileManager.apk $REPACK/ota/system/app/FileManager.app
+fi
+mv $REPACK/ota/system/app/Development.apk $REPACK/ota/system/app/Development.app
+
+if [ "$WANT_SQUASHFS" -eq 1 ]; then
+	# Recoloca su
+	cp -a $REPACK/ota/system/xbin $REPACK/_xbin/
+	rm -f $REPACK/_xbin/su $REPACK/ota/system/bin/su
+	mv $REPACK/ota/system/xbin/su $REPACK/ota/system/bin/su
+	chmod -R 555 $REPACK/_xbin/*
+
+	# Crea enlaces simbolicos para su y busybox (updater-script no puede funcionar con el sistema de ficheros squashfs).
+	ln -s ../bin/su $REPACK/_xbin/su
+	for link in `sed -n -e's/,//g' -e'/symlink(.*busybox/,/xbin.*);/p' $updater | tr '"' '\n' | sed -n -e'\,/system/xbin/,s,/system/xbin/,,p'`
+	do
+		ln -s busybox $REPACK/_xbin/$link
+	done
+
+	# Crea el squashfs con un nuevo y mejorado linkado simbolico!
+	mksquashfs $REPACK/_xbin/* $REPACK/_xbin.sqf $squash_opts
+	rm -r $REPACK/ota/system/xbin/*
+	mv $REPACK/_xbin.sqf $REPACK/ota/system/xbin/xbin.sqf
+	chmod 444 $REPACK/ota/system/xbin/xbin.sqf
+
+	# Borrado lo referente a xbin y corregido updater-script
+	sed -i -e's,system/xbin/su,system/bin/su,g' -e'/xbin/d' $updater
+fi
+
+# Corregir build.prop
+sed -i \
+	-e '/ro\.kernel\.android\.checkjni/d' \
+	-e '/ro\.build\.type/s/eng/user/' \
+	$REPACK/ota/system/build.prop
+
+# Control de dispositivo para Galaxy S
+if [ "$galaxyS" -eq 1 ]; then
+	echo " "
+	sed -i 's/ro.kernel.android.checkjni=0//g' $REPACK/ota/system/build.prop
+	sed -i 's/ro.kernel.android.checkjni=1//g' $REPACK/ota/system/build.prop
+	sed -i 's/ro.config.alarm_alert=Alarm_Classic.ogg//g' $REPACK/ota/system/build.prop
+	sed -i 's/ro.config.notification_sound=OnTheHunt.ogg//g' $REPACK/ota/system/build.prop
+	sed -i 's/ro.config.ringtone=Playa.ogg//g' $REPACK/ota/system/build.prop
+else
+echo " "
+fi
+
+
+# Eliminar binarios innecesarios
+( cd $REPACK/ota/system/bin; echo $DELETE_BINS | xargs rm -f; )
+
+# Eliminar drivers inalambricos
+rm -rf $REPACK/ota/system/lib/modules/*/kernel/drivers/net
+
+# No se necesita recovery (en caso de existir)
+rm -r $REPACK/ota/recovery
+
+# Strip modulos
+if [ "$DREAM" -eq 1 ] || [ "$ONE" -eq 1 ] || [ "$nexus" -eq 1 ] || [ "$nexusS" -eq 1 ] || [ "$ZERO" -eq 1 ] || [ "$ZEPPELIN" -eq 1 ] || [ "$MORRISON" -eq 1 ]
+then
+	echo ""
+	echo $RED " No necesita comprimir modulos"
+	echo ""
+else
+    find $REPACK/ota/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
+fi
+
+# Determinar como se llamará el paquete firmado
+MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACK/ota/system/build.prop`
+: ${MODVERSION:=test}
+OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
+
+# Empaquetar y firmar
+#printf " Comprimiendo..."
+echo $WHITE"Comprimiendo..."
+echo ""
+( cd $REPACK/ota; zip $QUIET -r $REPACK/update.zip . )
+echo
+#printf " Firmando..."
+echo $WHITE"Firmando la ROM..."
+SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
+java -Xmx512m \
+	-jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
+	-w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
+	$REPACK/update.zip $OUTFILE
+echo
+#printf " Limpiando la casa..."
+echo $YELLOW"Limpiando el entorno..."$ENDCOLOR
+rm -rf $REPACK
+
+# Crear md5 para el paquete firmado
+(
+	img=`basename $OUTFILE`
+	cd `dirname $OUTFILE`
+	$MD5 $img >$img.md5sum
+	echo
+	echo $BLUEs"Paquete creado: $OUTFILE"$ENDCOLOR
+	echo $WHITE" "
+	cat $img.md5sum
+	echo $ENDCOLOR
+	echo
+)
+
+exit 0
