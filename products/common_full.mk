@@ -1,5 +1,5 @@
 # Inherit common stuff
-$(call inherit-product, vendor/Superteam/products/common.mk)
+$(call inherit-product, vendor/SuperTeam/products/common.mk)
 
 # Bring in all audio files
 include frameworks/base/data/sounds/AudioPackage5.mk
