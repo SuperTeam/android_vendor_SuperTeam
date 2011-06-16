@@ -216,8 +216,8 @@ mkdir $REPACKOTA
     if [ "$GALLERY" = 2D ]; then
         mv $REPACKOTA/system/app/Gallery3D.apk $REPACKOTA/system/app/Gallery3D.app
         cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.apk
-    else
-        cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.app
+#    else
+#        cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.app
     fi
   
     $ECHO
