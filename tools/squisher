@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Squish a otapackage for distribution
 # Superatmel y Blerfont (Base Cyanogen)
@@ -69,6 +69,9 @@ case "$ALIAS" in
        GALLERY=2D
        KERNELMOD=1
        ;;
+    crespo)
+       KERNELMOD=0
+       ;;
     dream_sapphire) 
         WANT_SQUASHFS=1
         DPI=mdpi
@@ -76,9 +79,9 @@ case "$ALIAS" in
         ANIM=1
         ;;
     galaxysmtd)
-        KERNELMOD=1
+        KERNELMOD=0
         ;;
-    geeksphone) 
+    one) 
         DPI=mdpi 
         LOWDISK=1
         ANIM=1
@@ -92,6 +95,9 @@ case "$ALIAS" in
     legend) 
         DPI=mdpi 
         ;;
+    passion)
+       KERNELMOD=0
+       ;;
     z71) 
         DPI=mdpi
         GALLERY=2D
@@ -111,7 +117,8 @@ esac
 MOD_DPI=$ANDROID_BUILD_TOP/$VENDOR/mods/$DPI
 
 # Control de Gallery 2D
-if [ ! -f $OUT/system/app/Gallery.apk ]
+if [ "$GALLERY" = 2D ]; then
+	if [ ! -f $OUT/system/app/Gallery.apk ]
 then
   $ECHO " "
   $ECHO $RED" Gallery.apk no esta compilado, ejecuta make Gallery y make otapackage"$ENDCOLOR
@@ -120,7 +127,7 @@ else
   $ECHO " "
   $ECHO $GREEN" Control de Gallery.apk correcto"$ENDCOLOR
 fi
-
+fi
 # Si se requiere squashfs se verifica si existe el comando y su versión
 if [ "$WANT_SQUASHFS" -eq 1 ]; then
   fatal=0
@@ -216,7 +223,7 @@ mkdir $REPACKOTA
     $ECHO
     cd $REPACKOTA/system/framework
   
-# Modificaciones de SuperAosp
+# Modificaciones de SuperTeam
     rm -rf $REPACKOTA/system/app/RomManager.apk
     rm -rf $REPACKOTA/system/app/OpenWnn.apk
     rm -rf $REPACKOTA/system/app/PinyinIME.apk
@@ -292,9 +299,9 @@ if [ "$KERNELMOD" -eq 1 ];  then
 fi
 
 # Determinar como se llamará el paquete firmado
-MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperAosp-//p' $REPACKOTA/system/build.prop`
+MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build.prop`
 : ${MODVERSION:=test}
-OUTFILE=$OUT/SuperAosp-$MODVERSION.zip
+OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
 
 # Empaquetar y firmar
 #printf " Comprimiendo..."
