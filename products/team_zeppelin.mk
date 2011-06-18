@@ -14,7 +14,7 @@ $(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 PRODUCT_NAME := team_zeppelin
 PRODUCT_BRAND := motorola
 PRODUCT_DEVICE := zeppelin
-PRODUCT_MODEL := CLIQ XT
+PRODUCT_MODEL := MB501
 PRODUCT_MANUFACTURER := Motorola
 
 # Extra Zeppelin overlay
