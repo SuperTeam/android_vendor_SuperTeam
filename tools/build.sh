@@ -58,11 +58,13 @@ while [ ! $option -eq 3 ]; do
 	        accion=borrar
 	    fi
 	    if [[ $accion == "copiar" ]]; then
-	    	echo "adb push $UNZIPDIR$file $file"
+            echo "copiando $file"
+            adb push $UNZIPDIR$file $file
 	    	cp -r $UNZIPDIR$file $RELEASEDIR$file
 	    fi
 	    if [[ $accion == "borrar" ]]; then
-	    	echo "adb exec rm -r $file"
+            echo "borrando $file"
+            adb exec rm -r $file
 	    	rm -r $RELEASEDIR$file
 	    fi 
 	done < $ROMDIR/diff.txt	
