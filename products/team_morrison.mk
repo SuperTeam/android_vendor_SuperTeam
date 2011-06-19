@@ -17,13 +17,16 @@ PRODUCT_DEVICE := morrison
 PRODUCT_MODEL := MB200
 PRODUCT_MANUFACTURER := Motorola
 
-# Extra Zeppelin overlay
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=morrison BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GRJ22 BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys"
+
+# Extra overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/morrison
 
-# Add the Torch app
 PRODUCT_PACKAGES += \
     Launcher2 \
     DSPManager
+
+PRODUCT_PACKAGES += FM
 
 #
 # Set ro.modversion
@@ -42,19 +45,17 @@ PRODUCT_COPY_FILES +=  \
 	vendor/SuperTeam/prebuilt/morrison/etc/super2/02permisos:system/etc/super2/02permisos \
 	vendor/SuperTeam/prebuilt/morrison/etc/super2/04control:system/etc/super2/04control
 
-#PRODUCT_LOCALES := \
-#    es_ES \
-#    ca_ES \
-#    en_US \
-#    de_DE \
-#    eu_ES \
-#    fr_FR \
-#    it_IT \
-#    pt_PT \
-#    ru_RU \
-#    hdpi
+PRODUCT_LOCALES := \
+    es_ES \
+    ca_ES \
+    en_US \
+    en_GB \
+    de_DE \
+    eu_ES \
+    fr_FR \
+    it_IT \
+    pt_PT \
+    pt_BR \
+    mdpi
 
-#PRODUCT_DEFAULT_LANGUAGE := es_ES
-
-# Add the FM app
-PRODUCT_PACKAGES += FM
+PRODUCT_DEFAULT_LANGUAGE := en_US

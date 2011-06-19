@@ -14,8 +14,10 @@ $(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 PRODUCT_NAME := team_zeppelin
 PRODUCT_BRAND := motorola
 PRODUCT_DEVICE := zeppelin
-PRODUCT_MODEL := CLIQ XT
+PRODUCT_MODEL := MB501
 PRODUCT_MANUFACTURER := Motorola
+
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=zeppelin BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GRJ22 BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys"
 
 # Extra Zeppelin overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/zeppelin
