@@ -25,8 +25,8 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/p990
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=SuperOsr-ST@-Optimus2x-8.0 \
-    ro.stats.romversion=8.0 \
+    ro.modversion=SuperOSR-ST@-Optimus2x-1.0 \
+    ro.stats.romversion=1.0 \
     ro.config.play.bootsound=0
 
 PRODUCT_PACKAGES += Launcher2 DSPManager Torch
