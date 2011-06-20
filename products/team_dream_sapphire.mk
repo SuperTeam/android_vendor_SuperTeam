@@ -36,10 +36,6 @@ PRODUCT_PACKAGES += \
 # Include apps
 PRODUCT_PACKAGES += Gallery
 
-PRODUCT_COPY_FILES += \
-	vendor/SuperTeam/prebuilt/dream_sapphire/etc/super/02audio:system/etc/super/02audio \
-	vendor/SuperTeam/prebuilt/dream_sapphire/etc/super/02ctrlwipe:system/etc/super/02ctrlwipe
-
 # Enable Compcache by default on D/S
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.modversion=SuperOSR-ST@-DS-1-AW \
@@ -57,16 +53,6 @@ WITH_DS_HTCACOUSTIC_HACK := true
 PRODUCT_COPY_FILES +=  \
   frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml  
 
-#
-# Copy DS specific prebuilt files
-#
-PRODUCT_COPY_FILES +=  \
-	vendor/SuperTeam/prebuilt/dream_sapphire/etc/AudioPara_dream.csv:system/etc/AudioPara_dream.csv \
-	vendor/SuperTeam/prebuilt/dream_sapphire/etc/AudioPara_sapphire.csv:system/etc/AudioPara_sapphire.csv \
-  vendor/SuperTeam/prebuilt/dream_sapphire/etc/super/02audio:system/etc/super/02audio \
-	vendor/SuperTeam/prebuilt/dream_sapphire/etc/super2/02permisos:system/etc/super2/02permisos \
-	vendor/SuperTeam/prebuilt/dream_sapphire/etc/super2/04control:system/etc/super2/04control 
-
 PRODUCT_LOCALES := \
     es_ES \
     ca_ES \
@@ -82,10 +68,5 @@ PRODUCT_LOCALES := \
     mdpi
 
 PRODUCT_DEFAULT_LANGUAGE := es_ES
-
-#copiamos los recursos para el núcleo.
-PRODUCT_COPY_FILES += \
-    vendor/SuperTeam/prebuilt/kernels/dream_sapphire/2708-modules.sqf:system/lib/modules/modules.sqf \
-    vendor/SuperTeam/prebuilt/dream_sapphire/etc/super/12zram_compcache:system/etc/super/12zram_compcache
 
 TARGET_BUILD_TYPE=release

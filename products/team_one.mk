@@ -41,13 +41,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
 
-# Copy DS specific prebuilt files
-#
-PRODUCT_COPY_FILES +=  \
-	vendor/SuperTeam/prebuilt/one/etc/super/02ctrlwipe:system/etc/super/02ctrlwipe \
-	vendor/SuperTeam/prebuilt/one/etc/super/04modulos:system/etc/super/04modulos \
-	vendor/SuperTeam/prebuilt/one/etc/super2/01launcher:system/etc/super2/01launcher \
-	vendor/SuperTeam/prebuilt/one/etc/super2/02permisos:system/etc/super2/02permisos \
-	vendor/SuperTeam/prebuilt/one/etc/super2/04control:system/etc/super2/04control
-
 PRODUCT_LOCALES := es_ES ca_ES en_US de_DE eu_ES fr_FR it_IT pt_PT ru_RU mdpi

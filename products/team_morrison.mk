@@ -35,15 +35,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.modversion=SuperOSR-ST@-Morrison-S-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
-#
-# Copy specific prebuilt files
-#
-PRODUCT_COPY_FILES +=  \
-	vendor/SuperTeam/prebuilt/morrison/etc/super/02ctrlwipe:system/etc/super/02ctrlwipe \
-	vendor/SuperTeam/prebuilt/morrison/etc/super/04modulos:system/etc/super/04modulos \
-	vendor/SuperTeam/prebuilt/morrison/etc/super2/01launcher:system/etc/super2/01launcher \
-	vendor/SuperTeam/prebuilt/morrison/etc/super2/02permisos:system/etc/super2/02permisos \
-	vendor/SuperTeam/prebuilt/morrison/etc/super2/04control:system/etc/super2/04control
 
 PRODUCT_LOCALES := \
     es_ES \
