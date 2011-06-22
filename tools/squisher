@@ -57,6 +57,7 @@ LOWDISK=0
 GALLERY=3D
 ANIM=0
 KERNELMOD=0
+WALLPAPER=0
 ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
@@ -185,7 +186,14 @@ mkdir $REPACKOTA
     if [ "$ANIM" -eq 0 ]; then
        $ECHO " "
        $ECHO $WHITE" Con animaciones especiales"$ENDCOLOR
-       cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim res/anim/
+       cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim/* res/anim/
+       $ECHO " "
+    fi
+
+    if [ "$WALLPAPER" -eq 0 ]; then
+       $ECHO " "
+       $ECHO $WHITE" Con Wallpaper personalizado"$ENDCOLOR
+       cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
        $ECHO " "
     fi
 
