@@ -31,9 +31,10 @@ ui_print(" ");
 ui_print(" ");
 ui_print(" ");
 ui_print(" ");
-ui_print("Instalando GingerBread 2.3.4...");
+ui_print("Installing SuperOSR");
+ui_print("(Gingerbread 2.3.4)");
 ui_print(" ");
-ui_print("Por Superte@m :)");
+ui_print("By SuperTeam");
 ui_print(" ");
 show_progress(0.100000, 0);
 format("yaffs2", "MTD", "system");
@@ -153,10 +154,10 @@ set_perm(0, 0, 0777, "/tmp/verify_cache_partition_size.sh");
 run_program("/tmp/verify_cache_partition_size.sh");
 show_progress(0.200000, 10);
 ui_print("");
-ui_print("Escribiendo Boot...");
+ui_print("Writing boot.img");
 assert(package_extract_file("boot.img", "/tmp/boot.img"),
        write_raw_image("/tmp/boot.img", "boot"),
        delete("/tmp/boot.img"));
 show_progress(0.100000, 0);
-ui_print("Instalacion finalizada!!!!");
+ui_print("Flashing terminated");
 unmount("/system");
