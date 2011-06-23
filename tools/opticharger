@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Super-mega opticharger of doom
 # Shrinks apks by running pngcrush on png images
@@ -25,6 +25,7 @@ else
     OUT_TARGET_HOST=darwin-x86
 fi
 
+ECHO="echo -e"
 set -e
 QUIET=1
 QFLAG=-q
@@ -36,38 +37,38 @@ then
     APKCERTS=$OUT/obj/PACKAGING/target_files_intermediates/$TARGET_PRODUCT-target_files-$TARGET_BUILD_VARIANT.$LOGNAME/META/apkcerts.txt
     if [ ! -f "$APKCERTS" ];
     then
-        echo "Set APKCERTS to the path to your apkcerts.txt file"
+        $ECHO "Set APKCERTS to the path to your apkcerts.txt file"
         exit 1;
     fi
 fi
 
 if [ ! -f "$APKCERTS" ];
 then
-    echo "Invalid path to apkcerts.txt, set APKCERTS to the correct path."
+    $ECHO "Invalid path to apkcerts.txt, set APKCERTS to the correct path."
 fi
 
 if [ "`which pngcrush`" = "" ];
 then
-    echo "Por favor instala pngcrush"
+    $ECHO "Por favor instala pngcrush"
     exit 1;
 fi
 
 if [ "`which aapt`" = "" ];
 then
-    echo "Asegurate que aapt esta en tu \$PATH"
+    $ECHO "Asegurate que aapt esta en tu \$PATH"
     exit 1;
 fi
 
 if [ "`which zipalign`" = "" ];
 then
-    echo "Asegurate que zipalign esta en tu \$PATH"
+    $ECHO "Asegurate que zipalign esta en tu \$PATH"
     exit 1;
 fi
 
 if [ -e "$1" ];
 then
     NAME=`basename $1`;
-    echo $WHITE"Optimizando $ENDCOLOR $GREEN $NAME..."$ENDCOLOR;
+    $ECHO $WHITE"Optimizando $ENDCOLOR $GREEN $NAME..."$ENDCOLOR;
 
     if [ "$2" != "" ];
     then
@@ -75,27 +76,27 @@ then
         KEY=build/target/product/security/$2.pk8
         if [ ! -f "$ANDROID_BUILD_TOP/$CERT" ];
         then
-            echo $RED"$CERT does not exist!"$ENDCOLOR;
+            $ECHO $RED"$CERT does not exist!"$ENDCOLOR;
             exit 1;
         fi
     else
         APKINFO=`grep "name=\"$NAME\"" $APKCERTS`;
-        [ $QUIET ] || echo "APKINFO: $APKINFO";
+        [ $QUIET ] || $ECHO "APKINFO: $APKINFO";
         if [ "$APKINFO" = "" ];
         then
-            echo "No apk info for $NAME";
+            $ECHO "No apk info for $NAME";
             exit 1;
         fi
-        CERT=`echo $APKINFO | awk {'print $2'} | cut -f 2 -d "=" | tr -d "\""`;
-        KEY=`echo $APKINFO | awk {'print $3'} | cut -f 2 -d "=" | tr -d "\""`;
+        CERT=`$ECHO $APKINFO | awk {'print $2'} | cut -f 2 -d "=" | tr -d "\""`;
+        KEY=`$ECHO $APKINFO | awk {'print $3'} | cut -f 2 -d "=" | tr -d "\""`;
         if [ "$CERT" = "" ];
         then
-            echo "Unable to find certificate for $NAME"
+            $ECHO "Unable to find certificate for $NAME"
             exit 1;
         fi
     fi
 
-    [ $QUIET ] || echo "Certificate: $CERT";
+    [ $QUIET ] || $ECHO "Certificate: $CERT";
 
     [ -d $TMPDIR/$NAME ] && rm -rf $TMPDIR/$NAME
     mkdir -p $TMPDIR/$NAME
@@ -104,7 +105,7 @@ then
     unzip -q $BASE/$1
     for x in `find . -name "*.png" | grep -v "\.9.png$" | tr "\n" " "`
     do
-        [ $QUIET ] || echo "Crushing $x"
+        [ $QUIET ] || $ECHO "Crushing $x"
         pngcrush $QFLAG $x $x.crushed 1>/dev/null
         if [ -e "$x.crushed" ];
         then
@@ -113,14 +114,14 @@ then
     done
     cp $BASE/$1 $BASE/$1.old
 
-    [ $QUIET ] || echo "Repacking apk.."
+    [ $QUIET ] || $ECHO "Repacking apk.."
     aapt p -0 res/raw -0 res/raw-en -F $NAME .
     
-    [ $QUIET ] || echo "Resigning with cert: `echo $CERT`"
+    [ $QUIET ] || $ECHO "Resigning with cert: `$ECHO $CERT`"
 
-    [ $QUIET ] || echo java -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar $ANDROID_BUILD_TOP/$CERT $ANDROID_BUILD_TOP/$KEY $NAME signed_$NAME
+    [ $QUIET ] || $ECHO java -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar $ANDROID_BUILD_TOP/$CERT $ANDROID_BUILD_TOP/$KEY $NAME signed_$NAME
     java -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar $ANDROID_BUILD_TOP/$CERT $ANDROID_BUILD_TOP/$KEY $NAME signed_$NAME
-    [ $QUIET ] || echo "Zipalign.."
+    [ $QUIET ] || $ECHO "Zipalign.."
     zipalign -f 4 signed_$NAME $BASE/$1
     if [ ! $QUIET ]; then
         ls -l $BASE/$1.old
@@ -128,6 +129,6 @@ then
     fi
     rm $BASE/$1.old
 else
-    echo "Usage: $0 [apk file]"
+    $ECHO "Usage: $0 [apk file]"
 fi
 

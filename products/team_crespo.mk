@@ -39,15 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.modversion=SuperOSR-ST@-Nexus-S-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
-#
-# Copy Nexus S specific prebuilt files
-#
-PRODUCT_COPY_FILES +=  \
-	vendor/SuperTeam/prebuilt/crespo/etc/super/02ctrlwipe:system/etc/super/02ctrlwipe \
-	vendor/SuperTeam/prebuilt/crespo/etc/super/04modulos:system/etc/super/04modulos \
-	vendor/SuperTeam/prebuilt/crespo/etc/super2/01launcher:system/etc/super2/01launcher \
-	vendor/SuperTeam/prebuilt/crespo/etc/super2/02permisos:system/etc/super2/02permisos \
-	vendor/SuperTeam/prebuilt/crespo/etc/super2/04control:system/etc/super2/04control
 
 #PRODUCT_LOCALES := \
 #    es_ES \

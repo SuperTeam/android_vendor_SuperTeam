@@ -6,8 +6,8 @@ TURBO="NO"
 SUPERATMEL="YES"
 
 # Default - Numeric & Size Values
-MAX_CPU="528000"
-MIN_CPU="245000"
+MAX_CPU="1000000"
+MIN_CPU="100000"
 SWAPPINESS="50"
 
 #mount_ep_system_write() {

@@ -49,16 +49,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
 
-#
-# Copy Passion specific prebuilt files
-#
-PRODUCT_COPY_FILES +=  \
-	vendor/SuperTeam/prebuilt/passion/etc/super/02ctrlwipe:system/etc/super/02ctrlwipe \
-	vendor/SuperTeam/prebuilt/passion/etc/super/04modulos:system/etc/super/04modulos \
-	vendor/SuperTeam/prebuilt/passion/etc/super2/01launcher:system/etc/super2/01launcher \
-	vendor/SuperTeam/prebuilt/passion/etc/super2/02permisos:system/etc/super2/02permisos \
-	vendor/SuperTeam/prebuilt/passion/etc/super2/04control:system/etc/super2/04control
-
 PRODUCT_LOCALES := \
     es_ES \
     ca_ES \

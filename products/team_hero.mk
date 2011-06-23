@@ -13,7 +13,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=GRI40 BUILD_DISPLAY_ID=GRI40 BUILD_FING
 
 PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/SuperTeam/prelink-linux-arm-hero.map
 
-PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=$(TOP)/vendor/SuperTeam/prebuilt/kernels/hero/kernel
+PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=$(TOP)/vendor/SuperTeam/kernels/hero/kernel
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/hero
 
@@ -29,13 +29,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.modversion=SuperOSR-ST@-Hero-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
-
-PRODUCT_COPY_FILES +=  \
-	vendor/SuperTeam/prebuilt/hero/etc/super/02ctrlwipe:system/etc/super/02ctrlwipe \
-	vendor/SuperTeam/prebuilt/hero/etc/super/04modulos:system/etc/super/04modulos \
-	vendor/SuperTeam/prebuilt/hero/etc/super2/01launcher:system/etc/super2/01launcher \
-	vendor/SuperTeam/prebuilt/hero/etc/super2/02permisos:system/etc/super2/02permisos \
-	vendor/SuperTeam/prebuilt/hero/etc/super2/04control:system/etc/super2/04control
 
 PRODUCT_LOCALES := \
     es_ES \

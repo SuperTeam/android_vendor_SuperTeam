@@ -6,7 +6,7 @@ TURBO="NO"
 SUPERATMEL="YES"
 
 # Default - Numeric & Size Values
-MAX_CPU="528000"
+MAX_CPU="600000"
 MIN_CPU="245000"
 SWAPPINESS="50"
 
