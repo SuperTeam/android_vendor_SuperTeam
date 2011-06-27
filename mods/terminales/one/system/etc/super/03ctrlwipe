@@ -10,6 +10,7 @@ echo "Recuperacion de datos"
 cp /system/backup/configsupcf /data/configsup.cf;
 cp /system/backup/supconfig /data/sup.config;
 cp /system/backup/SupSetup /data/app/org.jros.SupSetupV20.apk;
+cp /system/backup/android /data/android_first.mp3;
 sleep 2;
 reboot;
 fi;
