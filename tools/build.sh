@@ -1,20 +1,25 @@
 #!/bin/bash
 
 #Inicializamos las variables
+SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
 DEVICE=$1
 ROMDIR=$TOPDIR/rom/$DEVICE
-UNZIPDIR=$ROMDIR/last_build
+BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
+PATCHDIR=$ROMDIR/last_patch
+. mensajes.sh
 
 option=0
-while [ ! $option -eq 3 ]; do
+while [ ! $option -eq 4 ]; do
+	#inicializamos estados
 	echo "Elige una opción para compilar:"
-	echo "1: make + squisher"
-	echo "2: squisher"
-	echo "3: salir"
+	echo "1: make"
+    echo "2: squisher"
+    echo "3: patch"
+	echo "4: salir"
 	read option
-	if [ $option -eq 3 ]; then
+	if [ $option -eq 4 ]; then
 		exit 0
 	fi
 	
@@ -25,49 +30,78 @@ while [ ! $option -eq 3 ]; do
 	
 	if [ $option -eq 1 ]; then
 	    make otapackage
-	fi
-	
-	vendor/SuperTeam/tools/squisher
-	
-	if [ -d $UNZIPDIR ]; then
-		rm -r $UNZIPDIR
-	fi
-	
-	mk -p $UNZIPDIR
-	for f in `ls $OUT/SuperOSR*.zip`; do
-	    unzip -d $UNZIPDIR/ $f
-	done  
-	
-	exec diff -qr $UNZIPDIR/system $RELEASEDIR/system | sort > $ROMDIR/diff.txt
-	
-#borramos los ficheros que no están y copiamos los cambiados.
-	adb remount
-	while read line; do
-	#echo "adb push $line ${line:${#UNZIPDIR}}"
-	    if [[ "$line" =~ "$UNZIPDIR" ]]; then
-	    	base=${line#*$UNZIPDIR*}
-	        if [[ "$line" =~ "Only" ]]; then
-	            file=${base/: //}
-	        else
-	            file=${base%* and*}
-	        fi
-	        accion=copiar
+	    if [ "$?" -eq 0 ]; then
+	        msgOK "Compilación correcta"
 	    else
-	        base=${line#*$RELEASEDIR*}
-	        file=${base/: //}
-	        accion=borrar
+	        msgErr "Error en compilación"
 	    fi
-	    if [[ $accion == "copiar" ]]; then
-            echo "copiando $file"
-            adb push $UNZIPDIR$file $file
-	    	cp -r $UNZIPDIR$file $RELEASEDIR$file
+	fi
+
+    if [ $option -eq 2 ]; then
+    	$SCRIPTDIR/squisher
+	    if [ "$?" -eq 0 ]; then
+	        msgOK "Personalización correcta"
+	    else
+	        msgErr "Error al ejecutar squisher"
 	    fi
-	    if [[ $accion == "borrar" ]]; then
-            echo "borrando $file"
-            adb exec rm -r $file
-	    	rm -r $RELEASEDIR$file
-	    fi 
-	done < $ROMDIR/diff.txt	
-	adb remount
+    fi
+    
+    if [ $option -eq 3 ]; then
+		if [ -d $BUILDDIR ]; then
+			rm -r $BUILDDIR
+		fi
+		
+		mkdir -p $BUILDDIR
+		for f in `ls $OUT/SuperOSR*.zip`; do
+            msgStatus "Descomprimiendo $f"
+		    unzip -qd $BUILDDIR/ $f
+		done  
+		
+		if [ ! -d $RELEASEDIR ]; then
+			msgErr "No existe el directorio $RELEASEDIR, se mueve la versión build y se obvia la gestión de cambios"
+			mv $BUILDDIR $RELEASEDIR
+		fi
+	
+        if [ ! -d $PATCHDIR ]; then
+            msgErr "No existe el directorio $PATCHDIR, se inicia una nueva versión del parche"
+            mkdir $PATCHDIR
+        fi
+    
+		msgStatus "Calculando las diferencias con la anterior versión"
+		exec diff -qr $BUILDDIR/system $RELEASEDIR/system | sort > $ROMDIR/diff.txt
+		
+        #borramos los ficheros que no están y copiamos los cambiados.
+		adb remount
+		while read line; do
+		    if [[ "$line" =~ "$BUILDDIR" ]]; then
+		    	base=${line#*$BUILDDIR*}
+		        if [[ "$line" =~ "Only" ]]; then
+		            file=${base/: //}
+		        else
+		            file=${base%* and*}
+		        fi
+		        accion=copiar
+		    else
+		        base=${line#*$RELEASEDIR*}
+		        file=${base/: //}
+		        accion=borrar
+		    fi
+		    if [[ $accion == "copiar" ]]; then
+	            msgStatus "copiando $file"
+	            adb push $BUILDDIR$file $file
+		    	cp -r $BUILDDIR$file $RELEASEDIR$file
+		    	cd $BUILDDIR
+		    	cp --parents .$file $PATCHDIR
+		    	cd ..
+		    fi
+		    if [[ $accion == "borrar" ]]; then
+	            msgWarn "borrando $file"
+	            adb shell rm -r $file
+                rm -r $RELEASEDIR$file
+                rm -r $PATCHDIR$file
+		    fi 
+		done < $ROMDIR/diff.txt	
+		adb remount
+    fi
 done
 	

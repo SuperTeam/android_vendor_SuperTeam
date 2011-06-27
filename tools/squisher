@@ -4,21 +4,11 @@
 # Superatmel y Blerfont (Base Cyanogen)
 #
 
-#Colores
-YELLOW="\033[1;33m" #el primer número es 1 (negrita); después el color
-GREEN="\033[1;32m"
-RED="\033[1;31m"
-BLUE="\033[1;34m"
-BLUEs="\033[1;36m"
-WHITE="\033[1;37m"
-ENDCOLOR="\033[0m"
-
 OUT_TARGET_HOST=linux-x86
 VENDOR=vendor/SuperTeam
 MODS=$VENDOR/mods
 OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$LOGNAME.zip
 
-ECHO="echo -e"
 MD5=md5sum
 OPTICHARGER=$ANDROID_BUILD_TOP/$VENDOR/tools/opticharger
 OPTICHARGER_FRAMEWORK=$ANDROID_BUILD_TOP/$VENDOR/tools/opticharger_framework
@@ -29,15 +19,17 @@ REPACK=$OUT/repack.d
 REPACKOTA=$REPACK/ota
 updater=$REPACKOTA/META-INF/com/google/android/updater-script
 
+. mensajes.sh
+
 # Verificación de entorno de desarrollo operativo
 if [ -z "$OUT" -o ! -d "$OUT" ]; then
-  $ECHO $RED"ERROR: $0 solo funciona con un entorno completo de desarrollo. $OUT debe existir."$ENDCOLOR
+  msgErr "$0 solo funciona con un entorno completo de desarrollo. $OUT debe existir."
   exit 1
 fi
 
 # Se verifica que existe el fichero inicial.
 if [ ! -f "$OTAPACKAGE" ]; then
-  $ECHO "$OTAPACKAGE no existe!";
+  msgErr "$OTAPACKAGE no existe!"
   exit 1
 fi
 
@@ -120,57 +112,46 @@ MOD_DPI=$ANDROID_BUILD_TOP/$VENDOR/mods/$DPI
 # Control de Gallery 2D
 if [ "$GALLERY" = 2D ]; then
 	if [ ! -f $OUT/system/app/Gallery.apk ]
-then
-  $ECHO " "
-  $ECHO $RED" Gallery.apk no esta compilado, ejecuta make Gallery y make otapackage"$ENDCOLOR
-  exit 1
-else
-  $ECHO " "
-  $ECHO $GREEN" Control de Gallery.apk correcto"$ENDCOLOR
+	then
+	  msgErr "Gallery.apk no esta compilado, ejecuta make Gallery y make otapackage"
+	  exit 1
+	else
+	  msgOK "Control de Gallery.apk correcto"
+	fi
 fi
-fi
+
 # Si se requiere squashfs se verifica si existe el comando y su versión
 if [ "$WANT_SQUASHFS" -eq 1 ]; then
   fatal=0
   MKSQUASHFS_VER_REQ=4
   if type mksquashfs >/dev/null 2>&1; then
     if mksquashfs -version | grep -q "version $MKSQUASHFS_VER_REQ"; then :; else
-      $ECHO
-      $ECHO "ERROR: mksquashfs debe estar al menos en versión $MKSQUASHFS_VER_REQ para este build."
+      msgErr "mksquashfs debe estar al menos en versión $MKSQUASHFS_VER_REQ para este build."
       fatal=1
     fi
   else
-    $ECHO
-    $ECHO "ERROR: $TARGET_PRODUCT requiere mksquashfs."
+    msgErr "$TARGET_PRODUCT requiere mksquashfs."
     fatal=1
   fi
 
   if [ "$fatal" -ne 0 ]; then
-    $ECHO
-    $ECHO "       Paquete sin optimizar está disponible en"
-    $ECHO "         $OTAPACKAGE"
+    msgErr "Paquete sin optimizar está disponible en $OTAPACKAGE"
     exit $fatal
   fi
 fi
 
 # Elimina cualquier directorio de un trabajo antiguo
-$ECHO ""
 clear
-#printf " Limpiando entorno..."
-$ECHO " "
-$ECHO $WHITE" Limpiando el entorno..."$ENDCOLOR
+msgInfo "Limpiando el entorno..."
 rm -rf $REPACK
 mkdir -p $REPACK
-$ECHO
 
 # Descomprime el otapackage y ejecuta opticharge en todos los apks
 mkdir $REPACKOTA
 (
     cd $REPACKOTA
-#printf " Desempaquetando $OTAPACKAGE..."
-    $ECHO $YELLOW" Desempaquetando $OTAPACKAGE..."$ENDCOLOR
+    msgStatus "Desempaquetando $OTAPACKAGE..."
     unzip $QUIET $OTAPACKAGE
-    $ECHO
   
 # Copiado de archivos comunes
     cp -rf $ANDROID_BUILD_TOP/$MODS/common/* $REPACKOTA/
@@ -179,26 +160,22 @@ mkdir $REPACKOTA
 # Extraemos el framework para modificarlo
     mkdir $REPACKOTA/system/framework/opticharge
     cd $REPACKOTA/system/framework/opticharge
-    $ECHO $YELLOW" Desempaquetando framework-res..."$ENDCOLOR
+    msgStatus "Desempaquetando framework-res..."
     unzip -q ../framework-res.apk
     cp -rf $ANDROID_BUILD_TOP/$MODS/frame_$DPI/* res/drawable-$DPI/
   
     if [ "$ANIM" -eq 0 ]; then
-       $ECHO " "
-       $ECHO $WHITE" Con animaciones especiales"$ENDCOLOR
+       msgStatus "Con animaciones especiales"
        cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim/* res/anim/
-       $ECHO " "
     fi
 
     if [ "$WALLPAPER" -eq 0 ]; then
-       $ECHO " "
-       $ECHO $WHITE" Con Wallpaper personalizado"$ENDCOLOR
+       msgInfo "Con Wallpaper personalizado"
        cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
-       $ECHO " "
     fi
 
 # Comprimimos sin optimizar pues lo haremos luego 
-    $ECHO $YELLOW" Comprimiendo framework..."$ENDCOLOR
+    msgStatus "Comprimiendo framework..."
     zip -rq framework-res.apk *
     mv -f framework-res.apk ../framework-res.apk
     cd ..
@@ -209,9 +186,8 @@ mkdir $REPACKOTA
   
 # Para los que necesitan espacio
     if [ "$LOWDISK" -eq 1 ]; then
-        $ECHO $BLUE" Dispositivo con espacio al límite"
-        $ECHO " "
-        $ECHO " Pasando archivos de system a data para conseguir espacio"
+        msgInfo "Dispositivo con espacio al límite"
+        msgStatus "Pasando archivos de system a data para conseguir espacio"
         mv  $REPACKOTA/system/app/Gmail.apk $REPACKOTA/data/app/com.google.android.gm.apk
         mv  $REPACKOTA/system/app/Maps.apk $REPACKOTA/data/app/com.android.apps.maps.apk
         mv  $REPACKOTA/system/app/VoiceSearch.apk $REPACKOTA/data/app/com.google.android.voiceSearch.apk
@@ -220,15 +196,12 @@ mkdir $REPACKOTA
     fi
   
 # Renombrado Gallery dependiendo del dispositivo que sea
-    $ECHO $YELLOW" Activado Gallery $GALLERY"$ENDCOLOR
+    msgStatus "Activado Gallery $GALLERY"
     if [ "$GALLERY" = 2D ]; then
         mv $REPACKOTA/system/app/Gallery3D.apk $REPACKOTA/system/app/Gallery3D.app
         cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.apk
-#    else
-#        cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.app
     fi
   
-    $ECHO
     cd $REPACKOTA/system/framework
   
 # Modificaciones de SuperTeam
@@ -300,9 +273,7 @@ rm -r $REPACKOTA/recovery
 
 # Strip modulos
 if [ "$KERNELMOD" -eq 1 ];  then
-    $ECHO ""
-    $ECHO $RED " Comprimiendo módulos"
-    $ECHO ""
+    msgStatus "Comprimiendo módulos"
     find $REPACKOTA/system/lib/modules -name "*.ko" -print0 | xargs -0 arm-eabi-strip --strip-unneeded
 fi
 
@@ -312,21 +283,18 @@ MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build
 OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
 
 # Empaquetar y firmar
-#printf " Comprimiendo..."
-$ECHO $WHITE"Comprimiendo..."
-$ECHO ""
+msgStatus "Comprimiendo..."
 ( cd $REPACKOTA; zip $QUIET -r $REPACK/update.zip . )
-$ECHO
-#printf " Firmando..."
-$ECHO $WHITE"Firmando la ROM..."
+
+msgStatus "Firmando la ROM..."
 SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
 java -Xmx512m \
   -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
   -w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
   $REPACK/update.zip $OUTFILE
 $ECHO
-#printf " Limpiando la casa..."
-$ECHO $YELLOW"Limpiando el entorno..."$ENDCOLOR
+
+msgStatus "Limpiando el entorno..."
 rm -rf $REPACK
 
 # Crear md5 para el paquete firmado
@@ -334,12 +302,8 @@ rm -rf $REPACK
   img=`basename $OUTFILE`
   cd `dirname $OUTFILE`
   $MD5 $img >$img.md5sum
-  $ECHO
-  $ECHO $BLUEs"Paquete creado: $OUTFILE"$ENDCOLOR
-  $ECHO $WHITE" "
-  cat $img.md5sum
-  $ECHO $ENDCOLOR
-  $ECHO
+  msgOK "Paquete creado: $OUTFILE"
+  msgOK `cat $img.md5sum`
 )
 
 exit 0
