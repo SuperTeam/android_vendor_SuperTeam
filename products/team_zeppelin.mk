@@ -32,7 +32,7 @@ PRODUCT_PACKAGES += \
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=SuperAosp-ST@-Zeppelin-S-1-AW \
+    ro.modversion=SuperOSR-ST@-Zeppelin-S-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
 
