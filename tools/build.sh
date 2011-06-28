@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ $# -lt 1 ]
+then
+   echo >&2 "Usage: $0 <device>"
+   exit 1
+fi
+
 #Inicializamos las variables
 SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
@@ -8,70 +14,75 @@ ROMDIR=$TOPDIR/rom/$DEVICE
 BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
-. mensajes.sh
+CORES=$( cat /proc/cpuinfo | grep -c processor )
+
+. $( dirname $0 )/mensajes.sh
 
 option=0
-while [ ! $option -eq 4 ]; do
-	#inicializamos estados
-	echo "Elige una opción para compilar:"
-	echo "1: make"
+while [ $option -ne 4 ]
+do
+    #inicializamos estados
+    echo "Elige una opción para compilar:"
+    echo "1: make"
     echo "2: squisher"
     echo "3: patch"
-	echo "4: salir"
-	read option
-	if [ $option -eq 4 ]; then
-		exit 0
-	fi
+    echo "4: salir"
+
+    read option
+
+    if [ $option -eq 4 ]; then
+    		exit 0
+    fi
 	
-	if [ "$OUT" = "" ]; then
-		. build/envsetup.sh
-		lunch team_$DEVICE-eng
-	fi
+    if [ "$OUT" = "" ]; then
+    	. build/envsetup.sh
+    	lunch team_$DEVICE-eng
+    fi
 	
-	if [ $option -eq 1 ]; then
-	    make otapackage
-	    if [ "$?" -eq 0 ]; then
-	        msgOK "Compilación correcta"
-	    else
-	        msgErr "Error en compilación"
-	    fi
-	fi
+    if [ $option -eq 1 ]; then
+        make -j${CORE} showcommands otapackage
+        if [ "$?" -eq 0 ]; then
+            msgOK "Compilación correcta"
+        else
+            msgErr "Error en compilación"
+        fi
+    fi
 
     if [ $option -eq 2 ]; then
     	$SCRIPTDIR/squisher
-	    if [ "$?" -eq 0 ]; then
-	        msgOK "Personalización correcta"
-	    else
-	        msgErr "Error al ejecutar squisher"
-	    fi
+        if [ "$?" -eq 0 ]; then
+            msgOK "Personalización correcta"
+        else
+            msgErr "Error al ejecutar squisher"
+        fi
     fi
     
     if [ $option -eq 3 ]; then
-		if [ -d $BUILDDIR ]; then
-			rm -r $BUILDDIR
-		fi
+    	if [ -d $BUILDDIR ]; then
+    		rm -r $BUILDDIR
+    	fi
+    	
+    	mkdir -p $BUILDDIR
+    	for f in `ls $OUT/SuperOSR*.zip`; do
+               msgStatus "Descomprimiendo $f"
+    	    unzip -qd $BUILDDIR/ $f
+    	done  
 		
-		mkdir -p $BUILDDIR
-		for f in `ls $OUT/SuperOSR*.zip`; do
-            msgStatus "Descomprimiendo $f"
-		    unzip -qd $BUILDDIR/ $f
-		done  
-		
-		if [ ! -d $RELEASEDIR ]; then
-			msgErr "No existe el directorio $RELEASEDIR, se mueve la versión build y se obvia la gestión de cambios"
-			mv $BUILDDIR $RELEASEDIR
-		fi
+    	if [ ! -d $RELEASEDIR ]; then
+    		msgErr "No existe el directorio $RELEASEDIR, se mueve la versión build y se obvia la gestión de cambios"
+    		mv $BUILDDIR $RELEASEDIR
+    	fi
 	
         if [ ! -d $PATCHDIR ]; then
             msgErr "No existe el directorio $PATCHDIR, se inicia una nueva versión del parche"
             mkdir $PATCHDIR
         fi
     
-		msgStatus "Calculando las diferencias con la anterior versión"
-		exec diff -qr $BUILDDIR/system $RELEASEDIR/system | sort > $ROMDIR/diff.txt
+    	msgStatus "Calculando las diferencias con la anterior versión"
+    	exec diff -qr $BUILDDIR/system $RELEASEDIR/system | sort > $ROMDIR/diff.txt
 		
         #borramos los ficheros que no están y copiamos los cambiados.
-		adb remount
+    	adb remount
 		while read line; do
 		    if [[ "$line" =~ "$BUILDDIR" ]]; then
 		    	base=${line#*$BUILDDIR*}
