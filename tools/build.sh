@@ -40,7 +40,7 @@ do
     fi
 	
     if [ $option -eq 1 ]; then
-        make -j${CORE} showcommands otapackage
+        make -j${CORES} showcommands otapackage
         if [ "$?" -eq 0 ]; then
             msgOK "Compilación correcta"
         else
