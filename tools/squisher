@@ -19,6 +19,8 @@ REPACK=$OUT/repack.d
 REPACKOTA=$REPACK/ota
 updater=$REPACKOTA/META-INF/com/google/android/updater-script
 
+CORES=$( cat /proc/cpuinfo | grep -c processor )
+
 . mensajes.sh
 
 # Verificación de entorno de desarrollo operativo
@@ -96,10 +98,13 @@ case "$ALIAS" in
         GALLERY=2D
         KERNELMOD=1
         ;;
-    zeppelin) 
+    zeppelin)
+        DPI=mdpi
+        #LOWDISK=1
+        ;;
+    morrison) 
         DPI=mdpi 
-        LOWDISK=1
-        GALLERY=2D
+        #LOWDISK=1
         ;;
     zero) 
         DPI=mdpi 
@@ -148,7 +153,7 @@ mkdir -p $REPACK
 
 # Descomprime el otapackage y ejecuta opticharge en todos los apks
 mkdir $REPACKOTA
-(
+
     cd $REPACKOTA
     msgStatus "Desempaquetando $OTAPACKAGE..."
     unzip $QUIET $OTAPACKAGE
@@ -226,8 +231,8 @@ mkdir $REPACKOTA
 
 #Ejecuta opticharger sobre el resto de apks de la rom
   cd $REPACKOTA/system/app
-  find ./ -name \*.apk | xargs  --max-args=1 --max-procs=`grep 'processor' /proc/cpuinfo | wc -l`  $OPTICHARGER
-)
+  find ./ -name \*.apk | xargs --max-args=1 --max-procs=${CORES} $OPTICHARGER
+
 
 mv $REPACKOTA/system/app/Stk.apk $REPACKOTA/system/app/Stk.app
 mv $REPACKOTA/system/app/Development.apk $REPACKOTA/system/app/Development.app
@@ -263,7 +268,8 @@ sed -i \
   $REPACKOTA/system/build.prop
 
 # Eliminar binarios innecesarios
-( cd $REPACKOTA/system/bin; $ECHO $DELETE_BINS | xargs rm -f; )
+cd $REPACKOTA/system/bin
+$ECHO $DELETE_BINS | xargs rm -f
 
 # Eliminar drivers inalambricos
 rm -rf $REPACKOTA/system/lib/modules/*/kernel/drivers/net
@@ -284,7 +290,8 @@ OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
 
 # Empaquetar y firmar
 msgStatus "Comprimiendo..."
-( cd $REPACKOTA; zip $QUIET -r $REPACK/update.zip . )
+cd $REPACKOTA
+zip $QUIET -r $REPACK/update.zip . 
 
 msgStatus "Firmando la ROM..."
 SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
@@ -298,12 +305,12 @@ msgStatus "Limpiando el entorno..."
 rm -rf $REPACK
 
 # Crear md5 para el paquete firmado
-(
-  img=`basename $OUTFILE`
-  cd `dirname $OUTFILE`
-  $MD5 $img >$img.md5sum
-  msgOK "Paquete creado: $OUTFILE"
-  msgOK `cat $img.md5sum`
-)
+
+img=`basename $OUTFILE`
+cd `dirname $OUTFILE`
+$MD5 $img > $img.md5sum
+msgOK "Paquete creado: $OUTFILE"
+msgOK `cat $img.md5sum`
+
 
 exit 0
