@@ -10,7 +10,7 @@ fi
 SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
 DEVICE=$1
-ROMDIR=$TOPDIR/rom/$DEVICE
+ROMDIR=$TOPDIR/out/target/product/$DEVICE
 BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
