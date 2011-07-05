@@ -1,7 +1,7 @@
 #!/system/bin/sh
 #
 #Control de WIPE
-if [ -d /data/configsup.cf ];
+if [ -e /data/configsup.cf ];
 then
     echo "Existe en data, no ha habido Wipe";
 else
@@ -13,7 +13,6 @@ else
     cp /system/backup/android /data/android_first.mp3;
     cp /system/backup/configsup.cf /data/configsup.cf;
     cp /system/backup/ctrsound /data/ctrsound;
-    cp /system/backup/firstboot.sh /data/firstboot.sh;
     cp /system/backup/SupSetup /data/app/org.jros.SupSetupV20.apk;
     cp /system/backup/sup.config /data/sup.config;
 	sleep 2;

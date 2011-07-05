@@ -7,7 +7,6 @@ if [ -e /data/supsetup/sup.config ];
 then
     busybox mount -o remount,rw /system
     echo "+++ Restaurando el backup del SupSetup";
-	busybox cp -a /data/supsetup/sup.config /system/bin;
 	busybox rm -f /data/supsetup/sup.config;
     busybox mount -o remount,ro /system;
 else
