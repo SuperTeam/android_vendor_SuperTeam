@@ -36,19 +36,23 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
 
-#PRODUCT_LOCALES := \
-#    es_ES \
-#    ca_ES \
-#    en_US \
-#    de_DE \
-#    eu_ES \
-#    fr_FR \
-#    it_IT \
-#    pt_PT \
-#    ru_RU \
-#    hdpi
+PRODUCT_LOCALES := \
+    es_ES \
+    ca_ES \
+    en_US \
+    en_GB \
+    de_DE \
+    eu_ES \
+    fr_FR \
+    it_IT \
+    zh_CN \
+    pt_PT \
+    pt_BR \
+    ko_KR \
+    ru_RU \
+    hdpi
 
-#PRODUCT_DEFAULT_LANGUAGE := es_ES
+PRODUCT_DEFAULT_LANGUAGE := en_US
 
 # Add the FM app
 PRODUCT_PACKAGES += FM
