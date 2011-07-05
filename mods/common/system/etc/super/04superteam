@@ -1,0 +1,60 @@
+#!/system/bin/sh
+#
+
+CPUDIR=/sys/devices/system/cpu
+CPU0DIR=$CPUDIR/cpu0/cpufreq
+
+#
+# Read config
+#
+if [ -e /system/etc/sup.config ];
+then
+	. /system/etc/sup.config
+fi
+
+#
+# Set CPU Clocking
+#
+
+if [ "$MAX_CPU" -neq "" ];
+then
+    echo "$MAX_CPU" > $CPU0DIR/scaling_max_freq;
+fi
+
+if [ "$MIN_CPU" -neq "" ];
+then
+    echo "$MIN_CPU" > $CPU0DIR/scaling_min_freq;
+fi
+
+if [ "$GOVERNOR" -neq "" ];
+then
+    echo "$GOVERNOR" > $CPU0DIR/scaling_governor;
+fi
+
+if [ "$GOVERNOR" -eq "ondemand" && "$SAMPLING_RATE" -neq "" ];
+then
+    echo "$SAMPLING_RATE" > $CPUDIR/cpufreq/ondemand/sampling_rate;
+fi
+
+#
+# Set VM swappiness
+#
+if [ "$SWAPPINESS" -neq "" ];
+then
+    echo $SWAPPINESS > /proc/sys/vm/swappiness;
+fi
+
+#
+# Load modules kernel
+#
+
+VER=`uname -r`
+if [ -d /system/lib/modules/$VER ];
+then
+	for i in $MODULES
+	do
+	    modprobe $i >/dev/null 2>&1
+	done
+fi
+
+exit 0

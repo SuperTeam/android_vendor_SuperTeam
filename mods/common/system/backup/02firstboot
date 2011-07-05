@@ -1,0 +1,11 @@
+#!/system/bin/sh
+# execute any postinstall script then kill it
+
+echo "+++ Gracias a todos por elegir esta rom, espero que la disfruteis, y agradecimientos a todo el foro de Movilzona"
+
+if [ -e /data/firstboot.sh ];
+then
+   log -p i -t boot "Ejecutando firstboot.sh..";
+   logwrapper /system/bin/sh /data/firstboot.sh;
+   rm -f /data/firstboot.sh;
+fi;

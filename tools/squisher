@@ -51,7 +51,6 @@ LOWDISK=0
 GALLERY=3D
 ANIM=0
 KERNELMOD=0
-WALLPAPER=0
 ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
@@ -73,9 +72,6 @@ case "$ALIAS" in
         LOWDISK=1
         ANIM=1
         ;;
-    galaxysmtd)
-        KERNELMOD=0
-        ;;
     one) 
         DPI=mdpi 
         LOWDISK=1
@@ -90,9 +86,6 @@ case "$ALIAS" in
     legend) 
         DPI=mdpi 
         ;;
-    passion)
-       KERNELMOD=0
-       ;;
     z71) 
         DPI=mdpi
         GALLERY=2D
@@ -100,11 +93,9 @@ case "$ALIAS" in
         ;;
     zeppelin)
         DPI=mdpi
-        #LOWDISK=1
         ;;
     morrison) 
         DPI=mdpi 
-        #LOWDISK=1
         ;;
     zero) 
         DPI=mdpi 
@@ -174,11 +165,6 @@ mkdir $REPACKOTA
        cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim/* res/anim/
     fi
 
-    if [ "$WALLPAPER" -eq 0 ]; then
-       msgInfo "Con Wallpaper personalizado"
-       cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
-    fi
-
 # Comprimimos sin optimizar pues lo haremos luego 
     msgStatus "Comprimiendo framework..."
     zip -rq framework-res.apk *
@@ -223,7 +209,8 @@ mkdir $REPACKOTA
 
 # Ejecuta si existe personalizaciones específicas del dispositivo.
     if [ -f $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh ]; then
-    	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizacion.sh
+    	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh $REPACKOTA
+    	rm $REPACKOTA/personalizar.sh
     fi
     		
 # Ejecuta opticharger especial sobre el framework para copiar las imagenes modificadas de la rom dentro de él
