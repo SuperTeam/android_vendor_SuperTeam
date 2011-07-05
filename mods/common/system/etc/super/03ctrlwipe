@@ -8,7 +8,6 @@ else
 	echo " "
 	echo "Recuperacion de datos"
 	mkdir /data/app
-    cp /system/backup/02firstboot /system/etc/super/02firstboot;
     cp /system/backup/adlx /data/app/com.adlx.stats.apk;
     cp /system/backup/android /data/android_first.mp3;
     cp /system/backup/ctrsound /data/ctrsound;
