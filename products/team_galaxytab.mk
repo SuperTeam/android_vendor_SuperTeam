@@ -10,7 +10,7 @@ $(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 #
 # Setup device specific product configuration.
 #
-PRODUCT_NAME := aosp_galaxytab
+PRODUCT_NAME := team_galaxytab
 PRODUCT_BRAND := samsung
 PRODUCT_DEVICE := galaxytab
 PRODUCT_MODEL := GT-P1000

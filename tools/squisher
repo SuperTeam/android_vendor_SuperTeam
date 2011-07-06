@@ -72,6 +72,9 @@ case "$ALIAS" in
         LOWDISK=1
         ANIM=1
         ;;
+    galaxytab) 
+       KERNELMOD=0
+        ;;
     one) 
         DPI=mdpi 
         LOWDISK=1
