@@ -1,11 +1,5 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]
-then
-   echo >&2 "Usage: $0 <device>"
-   exit 1
-fi
-
 #Inicializamos las variables
 SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
@@ -18,15 +12,21 @@ CORES=$( cat /proc/cpuinfo | grep -c processor )
 
 . $( dirname $0 )/mensajes.sh
 
+if [ $# -lt 1 ]
+then
+   msgErr >&2 "Usage: $0 <device>"
+   exit 1
+fi
+
 option=0
 while [ $option -ne 4 ]
 do
     #inicializamos estados
-    echo "Elige una opción para compilar:"
-    echo "1: make"
-    echo "2: squisher"
-    echo "3: patch"
-    echo "4: salir"
+    msgInfo "Elige una opción para compilar:"
+    msgInfo "1: make"
+    msgInfo "2: squisher"
+    msgInfo "3: patch"
+    msgInfo "4: salir"
 
     read option
 
