@@ -8,9 +8,10 @@ ROMDIR=$TOPDIR/out/target/product/$DEVICE
 BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
+PUBLICDIR=$ROMDIR/last_public
 CORES=$( cat /proc/cpuinfo | grep -c processor )
 
-. $( dirname $0 )/mensajes.sh
+. $SCRIPTDIR/mensajes.sh
 
 if [ $# -lt 1 ]
 then
@@ -19,18 +20,19 @@ then
 fi
 
 option=0
-while [ $option -ne 4 ]
+while [ $option -ne 5 ]
 do
     #inicializamos estados
-    msgInfo "Elige una opción para compilar:"
-    msgInfo "1: make"
-    msgInfo "2: squisher"
-    msgInfo "3: patch"
-    msgInfo "4: salir"
+    echo "Elige una opción:"
+    echo "1: make"
+    echo "2: squisher"
+    echo "3: sincronizar"
+    echo "4: crear patch"
+    echo "5: salir"
 
     read option
 
-    if [ $option -eq 4 ]; then
+    if [ $option -eq 5 ]; then
     		exit 0
     fi
 	
@@ -64,7 +66,7 @@ do
     	
     	mkdir -p $BUILDDIR
     	for f in `ls $OUT/SuperOSR*.zip`; do
-               msgStatus "Descomprimiendo $f"
+            msgStatus "Descomprimiendo $f"
     	    unzip -qd $BUILDDIR/ $f
     	done  
 		
@@ -73,46 +75,28 @@ do
     		mv $BUILDDIR $RELEASEDIR
     	fi
 	
-        if [ ! -d $PATCHDIR ]; then
-            msgErr "No existe el directorio $PATCHDIR, se inicia una nueva versión del parche"
-            mkdir $PATCHDIR
-        fi
-    
-    	msgStatus "Calculando las diferencias con la anterior versión"
-    	exec diff -qr $BUILDDIR/system $RELEASEDIR/system | sort > $ROMDIR/diff.txt
+    	msgStatus "Calculando las diferencias con la anterior versión compilada"
+    	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
 		
         #borramos los ficheros que no están y copiamos los cambiados.
-    	adb remount
-		while read line; do
-		    if [[ "$line" =~ "$BUILDDIR" ]]; then
-		    	base=${line#*$BUILDDIR*}
-		        if [[ "$line" =~ "Only" ]]; then
-		            file=${base/: //}
-		        else
-		            file=${base%* and*}
-		        fi
-		        accion=copiar
-		    else
-		        base=${line#*$RELEASEDIR*}
-		        file=${base/: //}
-		        accion=borrar
-		    fi
-		    if [[ $accion == "copiar" ]]; then
-	            msgStatus "copiando $file"
-	            adb push $BUILDDIR$file $file
-		    	cp -r $BUILDDIR$file $RELEASEDIR$file
-		    	cd $BUILDDIR
-		    	cp --parents .$file $PATCHDIR
-		    	cd ..
-		    fi
-		    if [[ $accion == "borrar" ]]; then
-	            msgWarn "borrando $file"
-	            adb shell rm -r $file
-                rm -r $RELEASEDIR$file
-                rm -r $PATCHDIR$file
-		    fi 
-		done < $ROMDIR/diff.txt	
-		adb remount
+        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
+        #actualizamos el directorio de la última release
+        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
     fi
+    
+    if [ $option -eq 4 ]; then
+        if [ ! -d $PUBLICDIR ]; then
+        	msgWarn "No existe un directorio con la versión actualmente publicada. Se crea uno nuevo. La propia ROM es el parche."
+            cp -r $BUILDDIR $PUBLICDIR
+        else
+	    	if [ -d $PATCHDIR ]; then
+	            rm -r $PATCHDIR
+	        fi
+	        mkdir $PATCHDIR
+	        msgStatus "Calculando las diferencias con la anterior versión publicada"
+	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
+            $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
+	    fi        
+    fi    	
 done
 	
