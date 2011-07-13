@@ -32,8 +32,8 @@ PRODUCT_PACKAGES += FM
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=SuperOSR-ST@-Morrison-S-1-AW \
-    ro.stats.romversion=1 \
+    ro.modversion=SuperOSR-ST@-Morrison-S-1.0b2-AW \
+    ro.stats.romversion=1.0b2 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES := \
@@ -48,6 +48,7 @@ PRODUCT_LOCALES := \
     zh_CN \
     pt_PT \
     pt_BR \
+    ru_RU \
     mdpi
 
 PRODUCT_DEFAULT_LANGUAGE := en_US
