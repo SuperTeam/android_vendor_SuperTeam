@@ -34,7 +34,7 @@
     <!-- Name of wildcard profile. -->
     <string name="wildcardProfile">Otros</string>
     <!-- label for item that reboots the phone in phone options dialog -->
-    <string name="global_action_choose_profile">Escoje perfil</string>
+    <string name="global_action_choose_profile">Escoge perfil</string>
     <!-- Displayed on lock screen's extra left tab - phone 
     <string name="lockscreen_phone_label">Teléfono</string>
      Displayed on lock screen's extra right tab - messaging 
