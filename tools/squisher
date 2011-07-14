@@ -47,6 +47,7 @@ fi
 # Valores por defecto
 WANT_SQUASHFS=0
 DPI=hdpi
+EXTRA=0
 LOWDISK=0
 GALLERY=3D
 ANIM=0
@@ -72,8 +73,10 @@ case "$ALIAS" in
         LOWDISK=1
         ANIM=1
         ;;
-    galaxytab) 
+    galaxytab)
+       ANIM=0
        KERNELMOD=0
+       EXTRA=1
         ;;
     one) 
         DPI=mdpi 
@@ -162,6 +165,7 @@ mkdir $REPACKOTA
     msgStatus "Desempaquetando framework-res..."
     unzip -q ../framework-res.apk
     cp -rf $ANDROID_BUILD_TOP/$MODS/frame_$DPI/* res/drawable-$DPI/
+    cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
   
     if [ "$ANIM" -eq 0 ]; then
        msgStatus "Con animaciones especiales"
@@ -292,7 +296,15 @@ java -Xmx512m \
 $ECHO
 
 msgStatus "Limpiando el entorno..."
-rm -rf $REPACK
+if [ "$EXTRA" -eq 1 ]; then
+	cp $MOD_DPI/data/local/bootanimation.zip $REPACK/ota/system/media
+	cp -r $REPACK/ota/system/* $OUT/system
+	rm $OUT/system/etc/super/04superteam
+	rm $OUT/system/app/LatinIME.apk
+        rm -rf $REPACK
+    else
+        rm -rf $REPACK
+fi;
 
 # Crear md5 para el paquete firmado
 
@@ -301,6 +313,5 @@ cd `dirname $OUTFILE`
 $MD5 $img > $img.md5sum
 msgOK "Paquete creado: $OUTFILE"
 msgOK `cat $img.md5sum`
-
 
 exit 0

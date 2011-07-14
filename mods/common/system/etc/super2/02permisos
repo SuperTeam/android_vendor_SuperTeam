@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
-echo "Tiempo 110 segundos para Nexus S"
-sleep 110:
+echo "Tiempo 110 segundos"
+sleep 110
 rwsystem
 busybox sh /system/bin/fix_permissions;
 echo "Reorganizando"
