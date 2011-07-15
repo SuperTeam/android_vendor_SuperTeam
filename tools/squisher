@@ -47,7 +47,7 @@ fi
 # Valores por defecto
 WANT_SQUASHFS=0
 DPI=hdpi
-EXTRA=0
+EXTRATAB=0
 LOWDISK=0
 GALLERY=3D
 ANIM=0
@@ -76,7 +76,7 @@ case "$ALIAS" in
     galaxytab)
        ANIM=0
        KERNELMOD=0
-       EXTRA=1
+       EXTRATAB=1
         ;;
     one) 
         DPI=mdpi 
@@ -296,10 +296,11 @@ java -Xmx512m \
 $ECHO
 
 msgStatus "Limpiando el entorno..."
-if [ "$EXTRA" -eq 1 ]; then
+if [ "$EXTRATAB" -eq 1 ]; then
 	cp $MOD_DPI/data/local/bootanimation.zip $REPACK/ota/system/media
 	cp -r $REPACK/ota/system/* $OUT/system
 	rm $OUT/system/etc/super/04superteam
+	rm $OUT/system/app/Torch.apk
 	rm $OUT/system/app/LatinIME.apk
         rm -rf $REPACK
     else
