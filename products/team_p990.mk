@@ -29,7 +29,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.stats.romversion=1.0 \
     ro.config.play.bootsound=0
 
-PRODUCT_PACKAGES += Launcher2 DSPManager Torch
+PRODUCT_PACKAGES += Launcher2 DSPManager Torch FM
     
 PRODUCT_LOCALES := \
     es_ES \
