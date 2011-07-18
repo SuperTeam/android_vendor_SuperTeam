@@ -1,10 +1,5 @@
 #!/tmp/busybox sh
 
-# Borrado de system
-/tmp/busybox umount -l /system
-/tmp/erase_image system
-/tmp/busybox mount -t yaffs2 /dev/block/mtdblock2 /system
-
 busybox rm -rf /data/media
 busybox rm -rf /cache/dalvik-cache
 busybox rm -rf /data/dalvik-cache

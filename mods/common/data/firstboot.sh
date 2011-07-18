@@ -47,12 +47,6 @@ else
     stop bootsound;
 fi;
 
-#repasamos los permisos de los ficheros
-if [ -e /system/bin/fix_permissions ];
-then
-    /system/bin/fix_permissions
-fi    
-
 echo "+++ Acabando"
 if [ -e /data/firstboot.sh ];
 then
