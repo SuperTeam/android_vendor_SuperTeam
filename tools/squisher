@@ -214,6 +214,16 @@ mkdir $REPACKOTA
     rm -rf $REPACKOTA/system/lib/libWnnJpnDic.so
     rm -rf $REPACKOTA/system/lib/libwnndict.so
 
+#Modificadiones especiales para Galaxy Tab
+if [ "$EXTRATAB" -eq 1 ]; then
+msgStatus "Modicaciones especiales para Galaxy Tab"
+    rm -rf $REPACKOTA/system/app/LatinIME.apk
+    rm -rf $REPACKOTA/system/app/Torch.apk
+    rm -rf $REPACKOTA/system/etc/super/04superteam
+    rm -rf $REPACKOTA/boot.img
+    cp $OUT/kernel $REPACKOTA/zImage
+fi;
+
 # Ejecuta si existe personalizaciones específicas del dispositivo.
     if [ -f $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh ]; then
     	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh $REPACKOTA
@@ -269,7 +279,7 @@ $ECHO $DELETE_BINS | xargs rm -f
 rm -rf $REPACKOTA/system/lib/modules/*/kernel/drivers/net
 
 # No se necesita recovery (en caso de existir)
-rm -r $REPACKOTA/recovery
+rm -rf $REPACKOTA/recovery
 
 # Strip modulos
 if [ "$KERNELMOD" -eq 1 ];  then
@@ -295,17 +305,18 @@ java -Xmx512m \
   $REPACK/update.zip $OUTFILE
 $ECHO
 
-msgStatus "Limpiando el entorno..."
 if [ "$EXTRATAB" -eq 1 ]; then
-	cp $MOD_DPI/data/local/bootanimation.zip $REPACK/ota/system/media
-	cp -r $REPACK/ota/system/* $OUT/system
-	rm $OUT/system/etc/super/04superteam
-	rm $OUT/system/app/Torch.apk
-	rm $OUT/system/app/LatinIME.apk
+       #cp $MOD_DPI/system/media/bootanimation.zip $REPACK/ota/system/media
+       cp -r $REPACK/ota/system/* $OUT/system
+       rm -f $OUT/system/etc/super/04superteam
+       rm -f $OUT/system/app/Torch.apk
+       rm -f $OUT/system/app/LatinIME.apk
         rm -rf $REPACK
     else
         rm -rf $REPACK
 fi;
+
+msgStatus "Limpiando el entorno..."
 
 # Crear md5 para el paquete firmado
 
