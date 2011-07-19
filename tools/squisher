@@ -168,7 +168,7 @@ mkdir $REPACKOTA
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
   
     if [ "$ANIM" -eq 0 ]; then
-       msgStatus "Con animaciones especiales"
+       msgOK "Con animaciones especiales"
        cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim/* res/anim/
     fi
 
@@ -194,7 +194,7 @@ mkdir $REPACKOTA
     fi
   
 # Renombrado Gallery dependiendo del dispositivo que sea
-    msgStatus "Activado Gallery $GALLERY"
+    msgOK "Activado Gallery $GALLERY"
     if [ "$GALLERY" = 2D ]; then
         mv $REPACKOTA/system/app/Gallery3D.apk $REPACKOTA/system/app/Gallery3D.app
         cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.apk
@@ -216,12 +216,13 @@ mkdir $REPACKOTA
 
 #Modificadiones especiales para Galaxy Tab
 if [ "$EXTRATAB" -eq 1 ]; then
-msgStatus "Modicaciones especiales para Galaxy Tab"
+msgOK "Modicaciones especiales para Galaxy Tab"
     rm -rf $REPACKOTA/system/app/LatinIME.apk
     rm -rf $REPACKOTA/system/app/Torch.apk
     rm -rf $REPACKOTA/system/etc/super/04superteam
     rm -rf $REPACKOTA/boot.img
     cp $OUT/kernel $REPACKOTA/zImage
+    cp $ANDROID_BUILD_TOP/device/samsung/galaxytab/Kernel_instalacion.zip $OUT/Kernel_instalacion.zip
 fi;
 
 # Ejecuta si existe personalizaciones específicas del dispositivo.
@@ -306,17 +307,18 @@ java -Xmx512m \
 $ECHO
 
 if [ "$EXTRATAB" -eq 1 ]; then
+msgStatus "Prepacion de los archivos rfs"
        #cp $MOD_DPI/system/media/bootanimation.zip $REPACK/ota/system/media
        cp -r $REPACK/ota/system/* $OUT/system
        rm -f $OUT/system/etc/super/04superteam
        rm -f $OUT/system/app/Torch.apk
        rm -f $OUT/system/app/LatinIME.apk
-        rm -rf $REPACK
+msgStatus "Limpiando el entorno de Galaxy Tab..."
+       rm -rf $REPACK
     else
-        rm -rf $REPACK
-fi;
-
 msgStatus "Limpiando el entorno..."
+       rm -rf $REPACK
+fi;
 
 # Crear md5 para el paquete firmado
 
