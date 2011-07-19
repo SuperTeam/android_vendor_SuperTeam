@@ -47,6 +47,7 @@ fi
 # Valores por defecto
 WANT_SQUASHFS=0
 DPI=hdpi
+EXTRAS2=0
 EXTRATAB=0
 LOWDISK=0
 GALLERY=3D
@@ -73,10 +74,15 @@ case "$ALIAS" in
         LOWDISK=1
         ANIM=1
         ;;
+    galaxys2)
+       ANIM=0
+       EXTRAS2=1
+       KERNELMOD=0
+        ;;
     galaxytab)
        ANIM=0
-       KERNELMOD=0
        EXTRATAB=1
+       KERNELMOD=0
         ;;
     one) 
         DPI=mdpi 
@@ -223,6 +229,14 @@ msgOK "Modicaciones especiales para Galaxy Tab"
     rm -rf $REPACKOTA/boot.img
     cp $OUT/kernel $REPACKOTA/zImage
     cp $ANDROID_BUILD_TOP/device/samsung/galaxytab/Kernel_instalacion.zip $OUT/Kernel_instalacion.zip
+fi;
+
+#Modificadiones especiales para Galaxy S2
+if [ "$EXTRAS2" -eq 1 ]; then
+msgOK "Modicaciones especiales para Galaxy S2"
+    rm -rf $REPACKOTA/system/app/LatinIME.apk
+    rm -rf $REPACKOTA/system/app/Torch.apk
+    rm -rf $REPACKOTA/system/etc/super/04superteam
 fi;
 
 # Ejecuta si existe personalizaciones específicas del dispositivo.
