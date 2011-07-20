@@ -4,6 +4,8 @@
 #como si fuera una ROM recién instalada
 echo " "
 echo "Recuperacion de datos personalizada"
+cp /system/backup/configsup.cf /data/configsup.cf;
+cp /system/backup/sup.config /data/sup.config;
 cp /system/backup/gokeyboard /data/app/com.jb.gokeyboard-1.apk;
 cp /system/backup/gokeyboardes /data/app/com.jb.gokeyboard.langpack.es-1.apk;
 cp /system/backup/flash /data/app/com.adobe.flashplayer-1.apk;

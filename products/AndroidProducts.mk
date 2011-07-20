@@ -1,6 +1,7 @@
 PRODUCT_MAKEFILES := \
         $(LOCAL_DIR)/team_crespo.mk \
         $(LOCAL_DIR)/team_dream_sapphire.mk \
+        $(LOCAL_DIR)/team_galaxys2.mk \
         $(LOCAL_DIR)/team_galaxysmtd.mk \
         $(LOCAL_DIR)/team_galaxytab.mk \
         $(LOCAL_DIR)/team_hero.mk \
