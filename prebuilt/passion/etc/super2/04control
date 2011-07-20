@@ -1,0 +1,46 @@
+#!/system/bin/sh
+#
+sleep 1
+# Lee en la configuracion 
+#
+if [ -e /data/configsup.cf ];
+then
+	# read it in
+	. /data/configsup.cf;
+
+	# read in the config
+	lee_config;
+	
+	escribe_config;
+fi;
+#
+# SetCPU Clocking
+#
+echo "$MAX_CPU" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq;
+echo "$MIN_CPU" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+# Priorizador
+#
+if [ "$TURBO" = "YES" ];
+then
+echo "+++ Turbo 2 Activado"
+#	/system/bin/prior &
+	else
+echo "***** Turbo 2 Desactivado";
+fi;
+
+# Super@tmel
+#
+if [ "$SUPERATMEL" = "YES" ];
+then
+echo "+++ Gracias a todos por elegir esta rom, espero que la disfruteis, y agradecimientos a todo el foro de Movilzona"
+echo "***** Con SupSetup"
+fi;
+
+if [ -e /data/ctrsound ];
+then
+echo "Primera instalacion";
+rm /data/ctrsound;
+else
+sleep 60
+stop bootsound;
+fi;
