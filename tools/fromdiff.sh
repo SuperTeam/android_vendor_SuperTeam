@@ -72,7 +72,7 @@ while read line; do
     	then
     		mkdir -p $FINALDIR
     	fi
-    	
+
         if $isDIR
         then
         	if [ -d $file ]

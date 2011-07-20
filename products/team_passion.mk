@@ -35,10 +35,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.emc.mode=2
 
 PRODUCT_PACKAGES += \
+   ADWLauncher \
    DSPManager \
    hcitool \
    FM \
-   Launcher2 \
    Torch
 
 #
