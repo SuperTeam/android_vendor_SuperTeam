@@ -36,6 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-Optimus2x-1.1 \
     ro.stats.romversion=1.1 \
+    ro.data.on=0 \
     ro.config.play.bootsound=0
 
 PRODUCT_PACKAGES += Launcher2 DSPManager Torch Quake
