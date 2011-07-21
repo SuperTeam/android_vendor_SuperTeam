@@ -38,8 +38,9 @@ PRODUCT_PACKAGES += Gallery
 
 # Enable Compcache by default on D/S
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.data.on=0 \
 	ro.modversion=SuperOSR-ST@-DS-1-AW \
-  ro.stats.romversion=1 \
+	ro.stats.romversion=1 \
 	ro.compcache.default=18 \
 	ro.config.alarm_alert=Beeps.mp3 \
 	ro.config.ringtone=Theway.mp3 \

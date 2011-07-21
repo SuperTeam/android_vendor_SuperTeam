@@ -52,6 +52,7 @@ PRODUCT_PACKAGES += \
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-GalaxyTab-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0

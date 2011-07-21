@@ -40,13 +40,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.emc.mode=2
 
 # Add additional mounts
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.additionalmounts=/mnt/emmc
+#PRODUCT_PROPERTY_OVERRIDES += \
+ #   ro.additionalmounts=/mnt/emmc
 
 #
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-Galaxy-S-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
