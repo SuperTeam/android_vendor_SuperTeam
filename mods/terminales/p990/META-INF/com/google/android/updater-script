@@ -149,6 +149,15 @@ ui_print("Verificando particion");
 package_extract_file("system/bin/verify_cache_partition_size.sh", "/tmp/verify_cache_partition_size.sh");
 set_perm(0, 0, 0777, "/tmp/verify_cache_partition_size.sh");
 run_program("/tmp/verify_cache_partition_size.sh");
+
+mount("ext3", "EMMC", "/dev/block/mmcblk0p8", "/data");
+delete_recursive("/data/dalvik-cache");
+package_extract_dir("data", "/data");
+set_perm_recursive(1000, 1000, 0771, 0644, "/data/app");
+set_perm(0, 0, 06755, "/data/firstboot.sh");
+unmount("/data");
+
+
 show_progress(0.200000, 10);
 package_extract_file("boot.img", "/dev/block/mmcblk0p5");
 show_progress(0.100000, 0);

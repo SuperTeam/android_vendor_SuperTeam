@@ -7,6 +7,14 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 # Include GSM stuff
 $(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
+$(call inherit-product vendor/SuperTeam/products/bcm_fm_radio.mk)
+
+# Build kernel
+PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=vendor/SuperTeam/kernels/zImage
+PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=kernel/tegra
+PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=superteam_p990_defconfig
+PRODUCT_SPECIFIC_DEFINES += TARGET_NO_BUILD_WIFI=true
+
 
 #
 # Setup device specific product configuration.
@@ -26,11 +34,11 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/p990
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-Optimus2x-1.0 \
-    ro.stats.romversion=1.0 \
+    ro.modversion=SuperOSR-ST@-Optimus2x-1.1 \
+    ro.stats.romversion=1.1 \
     ro.config.play.bootsound=0
 
-PRODUCT_PACKAGES += Launcher2 DSPManager Torch FM
+PRODUCT_PACKAGES += Launcher2 DSPManager Torch Quake
     
 PRODUCT_LOCALES := \
     es_ES \
@@ -40,5 +48,9 @@ PRODUCT_LOCALES := \
     hdpi
 
 PRODUCT_DEFAULT_LANGUAGE := es_ES
-TARGET_BUILD_TYPE=release
-
+TARGET_BUILD_TYPE := release
+# FM Radio
+BOARD_HAVE_FM_RADIO := true
+TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
+BOARD_USE_BROADCOM_FM_VOLUME_HACK := true
