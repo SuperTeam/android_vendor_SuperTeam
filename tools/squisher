@@ -210,15 +210,11 @@ mkdir $REPACKOTA
   
 # Modificaciones de SuperTeam
     rm -rf $REPACKOTA/system/app/RomManager.apk
-    rm -rf $REPACKOTA/system/app/OpenWnn.apk
-    rm -rf $REPACKOTA/system/app/PinyinIME.apk
     rm -rf $REPACKOTA/system/app/Protips.apk 
     rm -rf $REPACKOTA/system/app/Provision.apk
     rm -rf $REPACKOTA/system/app/QuickSearchBox.apk
     rm -rf $REPACKOTA/system/app/SpareParts.apk
     rm -rf $REPACKOTA/system/app/SpeechRecorder.apk
-    rm -rf $REPACKOTA/system/lib/libWnnJpnDic.so
-    rm -rf $REPACKOTA/system/lib/libwnndict.so
 
 #Modificadiones especiales para Galaxy Tab
 if [ "$EXTRATAB" -eq 1 ]; then
