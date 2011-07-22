@@ -5,4 +5,4 @@
 echo " "
 echo "Recuperacion de datos personalizada"
 cp /system/backup/flash /data/app/com.adobe.flashplayer-1.apk;
-sleep 2;
+cp /system/backup/configsup.cf /data/configsup.cf;

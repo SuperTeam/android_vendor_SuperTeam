@@ -79,9 +79,16 @@ do
     	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
 		
         #borramos los ficheros que no están y copiamos los cambiados.
-        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
         #actualizamos el directorio de la última release
         $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
+        #actualizamos el dispositivo
+		msgOK "¿Actualizar el dispositivo? (s/N): "
+    	read sync
+
+	    if [ $sync == "s" ]; 
+	    then
+	        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
+	    fi
     fi
     
     if [ $option -eq 4 ]; then
