@@ -103,6 +103,12 @@ do
 	        msgStatus "Calculando las diferencias con la anterior versión publicada"
 	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
             $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
+            cd $PATCHDIR
+            msgStatus "Comprimiendo parche"
+            zip -qr ../update.zip .
+            cd $TOPDIR
+	        $SCRIPTDIR/firmar.sh $ROMDIR/update.zip $OUT/update.zip
+	        msgOK "Fichero $OUT/update.zip creado correctamente"
 	    fi        
     fi    	
 done

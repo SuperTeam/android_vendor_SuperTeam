@@ -9,7 +9,6 @@ export VENDOR=vendor/SuperTeam
 MODS=$VENDOR/mods
 OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$LOGNAME.zip
 
-MD5=md5sum
 OPTICHARGER=$ANDROID_BUILD_TOP/$VENDOR/tools/opticharger2
 OPTICHARGER_FRAMEWORK=$ANDROID_BUILD_TOP/$VENDOR/tools/opticharger_framework
 QUIET=-q
@@ -302,40 +301,23 @@ fi
 MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build.prop`
 : ${MODVERSION:=test}
 OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
-
-# Empaquetar y firmar
-msgStatus "Comprimiendo..."
 cd $REPACKOTA
+msgStatus "Comprimiendo ROM"
 zip $QUIET -r $REPACK/update.zip . 
-
-msgStatus "Firmando la ROM..."
-SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
-java -Xmx512m \
-  -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
-  -w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
-  $REPACK/update.zip $OUTFILE
-$ECHO
+firmar.sh $REPACK/update.zip $OUTFILE
 
 if [ "$EXTRATAB" -eq 1 ]; then
-msgStatus "Prepacion de los archivos rfs"
-       #cp $MOD_DPI/system/media/bootanimation.zip $REPACK/ota/system/media
-       cp -r $REPACK/ota/system/* $OUT/system
-       rm -f $OUT/system/etc/super/04superteam
-       rm -f $OUT/system/app/Torch.apk
-       rm -f $OUT/system/app/LatinIME.apk
-msgStatus "Limpiando el entorno de Galaxy Tab..."
-       rm -rf $REPACK
-    else
-msgStatus "Limpiando el entorno..."
-       rm -rf $REPACK
+    msgStatus "Preparación de los archivos rfs"
+    #cp $MOD_DPI/system/media/bootanimation.zip $REPACK/ota/system/media
+    cp -r $REPACK/ota/system/* $OUT/system
+    rm -f $OUT/system/etc/super/04superteam
+    rm -f $OUT/system/app/Torch.apk
+    rm -f $OUT/system/app/LatinIME.apk
+    msgStatus "Limpiando el entorno de Galaxy Tab..."
+    rm -rf $REPACK
+else
+    msgStatus "Limpiando el entorno..."
+    rm -rf $REPACK
 fi;
-
-# Crear md5 para el paquete firmado
-
-img=`basename $OUTFILE`
-cd `dirname $OUTFILE`
-$MD5 $img > $img.md5sum
-msgOK "Paquete creado: $OUTFILE"
-msgOK `cat $img.md5sum`
 
 exit 0
