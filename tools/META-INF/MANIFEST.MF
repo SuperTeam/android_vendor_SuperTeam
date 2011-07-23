@@ -1,0 +1,129 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (Android SignApk)
+
+Name: system/framework/framework.jar
+SHA1-Digest: 5l8O58FfH4+cg8sFITAmESPQ1Lo=
+
+Name: system/app/Music.apk
+SHA1-Digest: DCfnfQK1G7RZxzY7iFnRe8GvVWc=
+
+Name: system/app/DownloadProviderUi.apk
+SHA1-Digest: Nqlo9IqMUJhFWu7hjVUhh+9ET2E=
+
+Name: system/etc/super/12zram_compcache
+SHA1-Digest: GzgjnO+KAsAaYQlfS9OS5ub1E6o=
+
+Name: system/app/Phone.apk
+SHA1-Digest: D/tHcHcK1dTNleUObnv+8VpcZ7s=
+
+Name: system/bin/servicemanager
+SHA1-Digest: 5zObVQCcoRJG1bJBElUvV6WS2zQ=
+
+Name: system/app/Calculator.apk
+SHA1-Digest: lqk+BHC8FjX0MrwUoj+LcguA7Lo=
+
+Name: system/app/AccountAndSyncSettings.apk
+SHA1-Digest: DftE2vzn3s6ux8f1jCZGXw4ZUtw=
+
+Name: system/bin/netd
+SHA1-Digest: buMJUSnN3Ff6zytzCsnlab8zZMI=
+
+Name: system/lib/libpixelflinger.so
+SHA1-Digest: v7bqdb+w4hiByqyRU4CEQiVb+9M=
+
+Name: system/app/Parts.apk
+SHA1-Digest: JYs5gjKmPABqHWgHGLhJvJ01NaA=
+
+Name: system/app/Camera.apk
+SHA1-Digest: EVYG0CuNfyrL0+gz3N08cCaIbbs=
+
+Name: META-INF/com/google/android/updater-script
+SHA1-Digest: I8dwoQ25WFxZc6nKmoxsEJm+3hI=
+
+Name: system/app/Contacts.apk
+SHA1-Digest: YbFufp1mCU79OjSGw/ZriGCAjeY=
+
+Name: system/lib/libhardware_legacy.so
+SHA1-Digest: 9pEtfyikrLLIJ8iGraKZnwf1Ssc=
+
+Name: system/app/DownloadProvider.apk
+SHA1-Digest: T4QvkMZozTJ9UyiqX3fxDNeGW8s=
+
+Name: system/app/Mms.apk
+SHA1-Digest: NJHtFs45vJeSPWs4aP2jH9YHw4E=
+
+Name: system/build.prop
+SHA1-Digest: 0Fkh7c+1Bws+rhlxzJge3UDaR9Q=
+
+Name: system/etc/apns-conf.xml
+SHA1-Digest: J1DjDaSwMltbgQoNSSeFg/cTU2c=
+
+Name: system/xbin/xbin.sqf
+SHA1-Digest: Xc1trClNjN2ei9Cqa/Tz7wCGhn0=
+
+Name: system/app/Browser.apk
+SHA1-Digest: IxEmL/lB0WSNgVgJ4Pb1NM78x0A=
+
+Name: system/framework/services.jar
+SHA1-Digest: CfcCqJTyFQ9ZXYIZAhJhH4Mq0Aw=
+
+Name: system/app/VoiceDialer.apk
+SHA1-Digest: nc3qFqCrL8F2ABBKN4kaxRC3YPI=
+
+Name: system/app/SystemUI.apk
+SHA1-Digest: rJ2RE5K833w/611Zq5e7Sr5ZM50=
+
+Name: system/framework/android.policy.jar
+SHA1-Digest: pq66Q6if//KTIWR0qLr8poW9grI=
+
+Name: system/lib/libandroid_runtime.so
+SHA1-Digest: 86oUgm4/SWgOL0V1nHjZdhtHIKU=
+
+Name: system/framework/framework-res.apk
+SHA1-Digest: R0K30pEpwNcCatvTTdBVgdxBx7g=
+
+Name: system/app/TelephonyProvider.apk
+SHA1-Digest: ps0BA2y7p+FngxTWLy9wrHDapNw=
+
+Name: system/etc/hosts
+SHA1-Digest: B5UPhBf26XqgNdSMgHjcm4dsf4Q=
+
+Name: system/app/ContactsProvider.apk
+SHA1-Digest: o9jvS0i8skFkLvn8nKgOGwJXt9w=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest: J+IeaxPjqRy2M8HPEjbyV+XFX7Q=
+
+Name: system/app/WdtSet.apk
+SHA1-Digest: r8sq1h7r4IR+DhS8QiMgYNePLNY=
+
+Name: system/app/Email.apk
+SHA1-Digest: 0haF11xnr3Y3jK5U1Oh5ojcUSX8=
+
+Name: system/etc/init.local.rc
+SHA1-Digest: fZqU27mUhURW1vhfqDfjZhnNM+4=
+
+Name: system/lib/libwebcore.so
+SHA1-Digest: i3OEbeJewWSJES7kHVQBhHgXLhs=
+
+Name: system/app/DrmProvider.apk
+SHA1-Digest: EOAkO4zxkl2pYeyY/28s7jUf9pk=
+
+Name: system/app/SoundRecorder.apk
+SHA1-Digest: 7uVumNgvxRI7KRL1Cecu2CUrsFc=
+
+Name: system/app/CalendarProvider.apk
+SHA1-Digest: Drv+VDHTPeJKaWFP2KKbatoerNA=
+
+Name: system/app/DeskClock.apk
+SHA1-Digest: JU4P8ZzyrPFpCSh2VxOzszw7WBk=
+
+Name: system/app/Settings.apk
+SHA1-Digest: Ika34PQEIpHAy9N+bTqJItFLvzk=
+
+Name: system/app/Superuser.apk
+SHA1-Digest: kDzjtvmk88pPBq40BRxOib1WqhU=
+
+Name: system/app/Calendar.apk
+SHA1-Digest: mkhS7MRmaQZZ/2sGttdt+Zuvzsc=
+

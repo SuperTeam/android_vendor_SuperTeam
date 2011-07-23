@@ -104,6 +104,7 @@ do
 	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
             $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
             cd $PATCHDIR
+            cp -r $SCRIPTDIR/META-INF .
             msgStatus "Comprimiendo parche"
             zip -qr ../update.zip .
             cd $TOPDIR
