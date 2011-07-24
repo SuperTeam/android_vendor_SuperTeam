@@ -18,13 +18,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.wifi-watchlist=GoogleGuest \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
-    ro.com.android.dataroaming=false \
-    ro.stats.devname=SuperTe@m \
-    ro.stats.romname=SuperOSR
+    ro.com.android.dataroaming=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rommanager.developerid=supermvl \
-    ro.sup.superteam
+    ro.sup.superteam \
+    ro.stats.devname=SuperTe@m \
+    ro.stats.romname=SuperOSR
+    
+# Default ringtone
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.ringtone=Theway.mp3 \
+    ro.config.notification_sound=Bubbles.ogg
 
 # Specific product packages
 PRODUCT_PACKAGES += \
@@ -34,7 +39,6 @@ PRODUCT_PACKAGES += \
    Parts \
    Stk \
    Wallpapers
-
 
 # Activa Voip
 PRODUCT_COPY_FILES += \
