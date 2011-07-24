@@ -1,4 +1,6 @@
 #!/bin/bash
 
-# No queremos ejecutar este script al incio de la ROM.
-rm $1/system/bin/fix_permissions
+# Eliminamos algunos apk's innecesarios
+rm $1/system/app/Torch.apk
+rm $1/system/app/LatinIME.apk
+rm $1/system/etc/super/04superteam
