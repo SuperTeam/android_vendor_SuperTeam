@@ -4,8 +4,6 @@ $(call inherit-product, device/geeksphone/zero/zero.mk)
 # Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-# Include GSM stuff
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 #Activa el ADWLauncher
 PRODUCT_PACKAGES += \

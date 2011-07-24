@@ -4,10 +4,9 @@ $(call inherit-product, device/lge/p990/p990.mk)
 # Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-# Include GSM stuff
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 # Build kernel
+TARGET_PREBUILT_KERNEL := vendor/SuperTeam/kernels/p990/kernel
 PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=vendor/SuperTeam/kernels/p990/kernel
 PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=kernel/tegra
 PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=superteam_p990_defconfig
@@ -36,31 +35,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
     ro.config.play.bootsound=0
 
-PRODUCT_PACKAGES += Launcher2 DSPManager Torch Quake FM hcitool OpenWnn PinyinIME VoiceDialer libWnnEngDic libWnnJpnDic libwnndict
+#PRODUCT_PACKAGES += Launcher2 DSPManager Torch Quake FM hcitool OpenWnn PinyinIME VoiceDialer libWnnEngDic libWnnJpnDic libwnndict
 
-    
-PRODUCT_LOCALES := \
-    ca_ES \
-    de_DE \
-    en_GB \
-    en_US \
-    es_ES \
-    eu_ES \
-    fr_FR \
-    he_IL \
-    it_IT \
-    ko_KR \
-    nl_NL \
-    pl_PL \
-    pt_BR \
-    pt_PT \
-    ru_RU \
-    zh_CN \
-    ja_JP \
-    hdpi
-
-PRODUCT_DEFAULT_LANGUAGE := es_ES
-TARGET_BUILD_TYPE := release
+#TARGET_BUILD_TYPE := release
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
 TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
