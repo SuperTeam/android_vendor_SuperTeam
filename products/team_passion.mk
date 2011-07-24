@@ -4,8 +4,6 @@ $(call inherit-product, device/htc/passion/full_passion.mk)
 # Inherit some common stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-# Include GSM stuff
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 # Broadcom FM
 $(call inherit-product, vendor/SuperTeam/products/bcm_fm_radio.mk)

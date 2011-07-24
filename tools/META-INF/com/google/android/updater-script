@@ -1,0 +1,5 @@
+ui_print("Instalando parche 6.4.3 para SuperAosp.");
+mount("yaffs2", "MTD", "system", "/system");
+package_extract_dir("system", "/system");
+unmount("/system");
+ui_print("Parche instalado. Gracias.");
