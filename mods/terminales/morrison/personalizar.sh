@@ -5,4 +5,4 @@ cd $1
 #rm $1/system/bin/fix_permissions
 
 cd system
-sed -ie "s/ro.product.device=morrison/ro.product.device=morr/" build.prop
+sed -i -e "s/ro.product.device=morrison/ro.product.device=morr/" build.prop

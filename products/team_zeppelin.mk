@@ -32,7 +32,7 @@ PRODUCT_PACKAGES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-Zeppelin-S-1.0b1-AW \
+    ro.modversion=SuperOSR-zeppelin-1.0b1 \
     ro.stats.romversion=1.0b1 \
     ro.config.play.bootsound=0
 
@@ -50,7 +50,7 @@ PRODUCT_LOCALES := \
     pt_BR \
     ko_KR \
     ru_RU \
-    hdpi
+    mdpi
 
 PRODUCT_DEFAULT_LANGUAGE := en_US
 

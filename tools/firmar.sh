@@ -10,7 +10,7 @@ SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
 
 msgStatus "Firmando el fichero $1"
 	
-java -Xmx512m \
+java -Xmx1000m \
   -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
   -w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
   $1 $2

@@ -46,7 +46,7 @@ fi
 # Valores por defecto
 WANT_SQUASHFS=0
 DPI=hdpi
-EXTRAS2=0
+#EXTRAS2=0
 EXTRATAB=0
 LOWDISK=0
 GALLERY=3D
@@ -75,7 +75,6 @@ case "$ALIAS" in
         ;;
     galaxys2)
        ANIM=0
-       EXTRAS2=1
        KERNELMOD=0
         ;;
     galaxytab)
@@ -226,14 +225,6 @@ msgOK "Modicaciones especiales para Galaxy Tab"
     cp $ANDROID_BUILD_TOP/device/samsung/galaxytab/Kernel_instalacion.zip $OUT/Kernel_instalacion.zip
 fi;
 
-#Modificadiones especiales para Galaxy S2
-if [ "$EXTRAS2" -eq 1 ]; then
-msgOK "Modicaciones especiales para Galaxy S2"
-    rm -rf $REPACKOTA/system/app/LatinIME.apk
-    rm -rf $REPACKOTA/system/app/Torch.apk
-    rm -rf $REPACKOTA/system/etc/super/04superteam
-fi;
-
 # Ejecuta si existe personalizaciones específicas del dispositivo.
     if [ -f $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh ]; then
     	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh $REPACKOTA
@@ -304,6 +295,7 @@ OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
 cd $REPACKOTA
 msgStatus "Comprimiendo ROM"
 zip $QUIET -r $REPACK/update.zip . 
+
 firmar.sh $REPACK/update.zip $OUTFILE
 if [ "$?" -ne 0 ]; then
     msgErr "Error al obtener el fichero firmado $OUTFILE"
