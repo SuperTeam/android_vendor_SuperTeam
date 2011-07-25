@@ -14,6 +14,10 @@ java -Xmx512m \
   -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
   -w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
   $1 $2
+if [ "$?" -ne 0 ]; then
+    msgErr "Error al firmar el fichero $1"
+    exit 1
+fi
 
 # Crear md5 para el paquete firmado
 

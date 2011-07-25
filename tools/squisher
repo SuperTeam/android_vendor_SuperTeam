@@ -305,6 +305,10 @@ cd $REPACKOTA
 msgStatus "Comprimiendo ROM"
 zip $QUIET -r $REPACK/update.zip . 
 firmar.sh $REPACK/update.zip $OUTFILE
+if [ "$?" -ne 0 ]; then
+    msgErr "Error al obtener el fichero firmado $OUTFILE"
+    exit 1
+fi
 
 if [ "$EXTRATAB" -eq 1 ]; then
     msgStatus "Preparación de los archivos rfs"
@@ -314,10 +318,9 @@ if [ "$EXTRATAB" -eq 1 ]; then
     rm -f $OUT/system/app/Torch.apk
     rm -f $OUT/system/app/LatinIME.apk
     msgStatus "Limpiando el entorno de Galaxy Tab..."
-    rm -rf $REPACK
 else
     msgStatus "Limpiando el entorno..."
-    rm -rf $REPACK
 fi;
+rm -rf $REPACK
 
 exit 0
