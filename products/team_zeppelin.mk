@@ -50,7 +50,7 @@ PRODUCT_LOCALES := \
     pt_BR \
     ko_KR \
     ru_RU \
-    hdpi
+    mdpi
 
 PRODUCT_DEFAULT_LANGUAGE := en_US
 
