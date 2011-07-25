@@ -6,14 +6,11 @@ then
     echo "Existe en data, no ha habido Wipe";
 else
 	echo " "
-	echo "Recuperacion de datos"
-	mkdir /data/app
-
+	echo "Recuperacion de datos"    
     cp /system/backup/adlx /data/app/com.adlx.stats.apk;
     cp /system/backup/android /data/android_first.mp3;
     cp /system/backup/ctrsound /data/ctrsound;
     cp /system/backup/SupSetup /data/app/org.jros.SupSetupV20.apk;
-	sleep 2;
 	if [ -e /system/bin/ctrlwipe.sh ];
 	then
 		/system/bin/ctrlwipe.sh

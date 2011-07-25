@@ -79,9 +79,16 @@ do
     	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
 		
         #borramos los ficheros que no están y copiamos los cambiados.
-        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
         #actualizamos el directorio de la última release
         $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
+        #actualizamos el dispositivo
+		msgOK "¿Actualizar el dispositivo? (s/N): "
+    	read sync
+
+	    if [ $sync == "s" ]; 
+	    then
+	        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
+	    fi
     fi
     
     if [ $option -eq 4 ]; then
@@ -96,6 +103,13 @@ do
 	        msgStatus "Calculando las diferencias con la anterior versión publicada"
 	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
             $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
+            cd $PATCHDIR
+            cp -r $SCRIPTDIR/META-INF .
+            msgStatus "Comprimiendo parche"
+            zip -qr ../update.zip .
+            cd $TOPDIR
+	        $SCRIPTDIR/firmar.sh $ROMDIR/update.zip $OUT/update.zip
+	        msgOK "Fichero $OUT/update.zip creado correctamente"
 	    fi        
     fi    	
 done

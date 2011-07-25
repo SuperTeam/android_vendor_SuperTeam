@@ -2,7 +2,6 @@ $(call inherit-product, device/htc/hero/full_hero.mk)
 
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 PRODUCT_NAME := team_hero
 PRODUCT_BRAND := HTC

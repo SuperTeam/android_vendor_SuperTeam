@@ -7,8 +7,6 @@ $(call inherit-product, vendor/SuperTeam/products/common.mk)
 # Añadimos los temas
 $(call inherit-product, vendor/SuperTeam/products/themes_small.mk)
 
-# Include GSM stuff
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 #
 # Setup device specific product configuration.

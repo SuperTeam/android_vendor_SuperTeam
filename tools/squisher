@@ -9,7 +9,6 @@ export VENDOR=vendor/SuperTeam
 MODS=$VENDOR/mods
 OTAPACKAGE=$OUT/$TARGET_PRODUCT-ota-$TARGET_BUILD_VARIANT.$LOGNAME.zip
 
-MD5=md5sum
 OPTICHARGER=$ANDROID_BUILD_TOP/$VENDOR/tools/opticharger2
 OPTICHARGER_FRAMEWORK=$ANDROID_BUILD_TOP/$VENDOR/tools/opticharger_framework
 QUIET=-q
@@ -47,7 +46,7 @@ fi
 # Valores por defecto
 WANT_SQUASHFS=0
 DPI=hdpi
-EXTRAS2=0
+#EXTRAS2=0
 EXTRATAB=0
 LOWDISK=0
 GALLERY=3D
@@ -76,7 +75,6 @@ case "$ALIAS" in
         ;;
     galaxys2)
        ANIM=0
-       EXTRAS2=1
        KERNELMOD=0
         ;;
     galaxytab)
@@ -210,15 +208,11 @@ mkdir $REPACKOTA
   
 # Modificaciones de SuperTeam
     rm -rf $REPACKOTA/system/app/RomManager.apk
-    rm -rf $REPACKOTA/system/app/OpenWnn.apk
-    rm -rf $REPACKOTA/system/app/PinyinIME.apk
     rm -rf $REPACKOTA/system/app/Protips.apk 
     rm -rf $REPACKOTA/system/app/Provision.apk
     rm -rf $REPACKOTA/system/app/QuickSearchBox.apk
     rm -rf $REPACKOTA/system/app/SpareParts.apk
     rm -rf $REPACKOTA/system/app/SpeechRecorder.apk
-    rm -rf $REPACKOTA/system/lib/libWnnJpnDic.so
-    rm -rf $REPACKOTA/system/lib/libwnndict.so
 
 #Modificadiones especiales para Galaxy Tab
 if [ "$EXTRATAB" -eq 1 ]; then
@@ -229,14 +223,6 @@ msgOK "Modicaciones especiales para Galaxy Tab"
     rm -rf $REPACKOTA/boot.img
     cp $OUT/kernel $REPACKOTA/zImage
     cp $ANDROID_BUILD_TOP/device/samsung/galaxytab/Kernel_instalacion.zip $OUT/Kernel_instalacion.zip
-fi;
-
-#Modificadiones especiales para Galaxy S2
-if [ "$EXTRAS2" -eq 1 ]; then
-msgOK "Modicaciones especiales para Galaxy S2"
-    rm -rf $REPACKOTA/system/app/LatinIME.apk
-    rm -rf $REPACKOTA/system/app/Torch.apk
-    rm -rf $REPACKOTA/system/etc/super/04superteam
 fi;
 
 # Ejecuta si existe personalizaciones específicas del dispositivo.
@@ -306,40 +292,24 @@ fi
 MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build.prop`
 : ${MODVERSION:=test}
 OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
-
-# Empaquetar y firmar
-msgStatus "Comprimiendo..."
 cd $REPACKOTA
+msgStatus "Comprimiendo ROM"
 zip $QUIET -r $REPACK/update.zip . 
 
-msgStatus "Firmando la ROM..."
-SECURITYDIR=$ANDROID_BUILD_TOP/build/target/product/security
-java -Xmx512m \
-  -jar $ANDROID_BUILD_TOP/out/host/$OUT_TARGET_HOST/framework/signapk.jar \
-  -w $SECURITYDIR/testkey.x509.pem $SECURITYDIR/testkey.pk8 \
-  $REPACK/update.zip $OUTFILE
-$ECHO
+firmar.sh $REPACK/update.zip $OUTFILE
 
 if [ "$EXTRATAB" -eq 1 ]; then
-msgStatus "Prepacion de los archivos rfs"
-       #cp $MOD_DPI/system/media/bootanimation.zip $REPACK/ota/system/media
-       cp -r $REPACK/ota/system/* $OUT/system
-       rm -f $OUT/system/etc/super/04superteam
-       rm -f $OUT/system/app/Torch.apk
-       rm -f $OUT/system/app/LatinIME.apk
-msgStatus "Limpiando el entorno de Galaxy Tab..."
-       rm -rf $REPACK
-    else
-msgStatus "Limpiando el entorno..."
-       rm -rf $REPACK
+    msgStatus "Preparación de los archivos rfs"
+    #cp $MOD_DPI/system/media/bootanimation.zip $REPACK/ota/system/media
+    cp -r $REPACK/ota/system/* $OUT/system
+    rm -f $OUT/system/etc/super/04superteam
+    rm -f $OUT/system/app/Torch.apk
+    rm -f $OUT/system/app/LatinIME.apk
+    msgStatus "Limpiando el entorno de Galaxy Tab..."
+    rm -rf $REPACK
+else
+    msgStatus "Limpiando el entorno..."
+    rm -rf $REPACK
 fi;
-
-# Crear md5 para el paquete firmado
-
-img=`basename $OUTFILE`
-cd `dirname $OUTFILE`
-$MD5 $img > $img.md5sum
-msgOK "Paquete creado: $OUTFILE"
-msgOK `cat $img.md5sum`
 
 exit 0

@@ -6,7 +6,6 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 $(call inherit-product vendor/SuperTeam/products/bcm_fm_radio.mk)
 
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 #
 # Setup device specific product configuration.

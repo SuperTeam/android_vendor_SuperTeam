@@ -1,6 +1,5 @@
 $(call inherit-product, device/lge/p970/p970.mk)
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 PRODUCT_NAME := team_p970
