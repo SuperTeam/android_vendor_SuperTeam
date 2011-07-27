@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Copyright (C) 2011 SuperTeam.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 #Inicializamos las variables
 SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
@@ -20,46 +35,49 @@ then
 fi
 
 option=0
-while [ $option -ne 5 ]
+while [ $option -ne 99 ]
 do
     #inicializamos estados
     echo "Elige una opción:"
-    echo "1: make"
-    echo "2: squisher"
-    echo "3: sincronizar"
-    echo "4: crear patch"
-    echo "5: salir"
+    echo " 1: make"
+    echo " 2: squisher"
+    echo " 3: sincronizar"
+    echo " 4: crear parche"
+    echo " 5: make + squisher + sincronizar"
+    echo " 6: limpiar build"
+    echo "99: salir"
 
     read option
 
-    if [ $option -eq 5 ]; then
-    		exit 0
-    fi
-	
     if [ "$OUT" = "" ]; then
     	. build/envsetup.sh
     	lunch team_$DEVICE-eng
+        if [ "$?" -ne 0 ]; then
+            continue
+        fi
     fi
 	
-    if [ $option -eq 1 ]; then
+    if [ $option -eq 1 ] || [ $option -eq 5 ]; then
         make -j${CORES} showcommands otapackage
         if [ "$?" -eq 0 ]; then
             msgOK "Compilación correcta"
         else
             msgErr "Error en compilación"
+            continue
         fi
     fi
 
-    if [ $option -eq 2 ]; then
+    if [ $option -eq 2 ] || [ $option -eq 5 ]; then
     	$SCRIPTDIR/squisher
         if [ "$?" -eq 0 ]; then
             msgOK "Personalización correcta"
         else
             msgErr "Error al ejecutar squisher"
+            continue
         fi
     fi
     
-    if [ $option -eq 3 ]; then
+    if [ $option -eq 3 ] || [ $option -eq 5 ]; then
     	if [ -d $BUILDDIR ]; then
     		rm -r $BUILDDIR
     	fi
@@ -77,16 +95,21 @@ do
 	
     	msgStatus "Calculando las diferencias con la anterior versión compilada"
     	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
-		
-        #borramos los ficheros que no están y copiamos los cambiados.
+        cat $ROMDIR/diff.txt
+        
         #actualizamos el directorio de la última release
-        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
+		msgOK "¿Actualizar el directorio? (s/N): "
+    	read sync
+
+	    if [ $sync == "s" ]; then
+	        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
+	    fi
+	    
         #actualizamos el dispositivo
 		msgOK "¿Actualizar el dispositivo? (s/N): "
     	read sync
 
-	    if [ $sync == "s" ]; 
-	    then
+	    if [ $sync == "s" ]; then
 	        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
 	    fi
     fi
@@ -109,8 +132,18 @@ do
             zip -qr ../update.zip .
             cd $TOPDIR
 	        $SCRIPTDIR/firmar.sh $ROMDIR/update.zip $OUT/update.zip
-	        msgOK "Fichero $OUT/update.zip creado correctamente"
+	        if [ "$?" -eq 0 ]; then
+		        msgOK "Fichero $OUT/update.zip creado correctamente"
+	        else
+	            msgErr "Error al firmar el fichero Fichero $OUT/update.zip"
+	            continue
+	        fi
 	    fi        
     fi    	
+    
+    if [ $option -eq 6 ]; then
+    	make clean
+    fi
+    
 done
 	
