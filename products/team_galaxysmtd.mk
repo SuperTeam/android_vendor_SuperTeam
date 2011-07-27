@@ -11,7 +11,7 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 PRODUCT_NAME := team_galaxysmtd
 PRODUCT_BRAND := samsung
 PRODUCT_DEVICE := galaxysmtd
-PRODUCT_MODEL := GT-I9000
+PRODUCT_MODEL := Galaxy S
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=soju BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=google/soju/crespo:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="soju-user 2.3.4 GRJ22 121341 release-keys"
 
