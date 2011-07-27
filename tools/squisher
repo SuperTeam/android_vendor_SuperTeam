@@ -214,17 +214,6 @@ mkdir $REPACKOTA
     rm -rf $REPACKOTA/system/app/SpareParts.apk
     rm -rf $REPACKOTA/system/app/SpeechRecorder.apk
 
-#Modificadiones especiales para Galaxy Tab
-if [ "$EXTRATAB" -eq 1 ]; then
-msgOK "Modicaciones especiales para Galaxy Tab"
-    rm -rf $REPACKOTA/system/app/LatinIME.apk
-    rm -rf $REPACKOTA/system/app/Torch.apk
-    rm -rf $REPACKOTA/system/etc/super/04superteam
-    rm -rf $REPACKOTA/boot.img
-    cp $OUT/kernel $REPACKOTA/zImage
-    cp $ANDROID_BUILD_TOP/device/samsung/galaxytab/Kernel_instalacion.zip $OUT/Kernel_instalacion.zip
-fi;
-
 # Ejecuta si existe personalizaciones específicas del dispositivo.
     if [ -f $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh ]; then
     	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh $REPACKOTA
