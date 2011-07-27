@@ -8,22 +8,22 @@ CPU0DIR=$CPUDIR/cpu0/cpufreq
 # Set CPU Clocking
 #
 
-if [ "$MAX_CPU" -neq "" ];
+if [ "$MAX_CPU" -ne "" ];
 then
     echo "$MAX_CPU" > $CPU0DIR/scaling_max_freq;
 fi
 
-if [ "$MIN_CPU" -neq "" ];
+if [ "$MIN_CPU" -ne "" ];
 then
     echo "$MIN_CPU" > $CPU0DIR/scaling_min_freq;
 fi
 
-if [ "$GOVERNOR" -neq "" ];
+if [ "$GOVERNOR" -ne "" ];
 then
     echo "$GOVERNOR" > $CPU0DIR/scaling_governor;
 fi
 
-if [ "$GOVERNOR" -eq "ondemand" && "$SAMPLING_RATE" -neq "" ];
+if [ "$GOVERNOR" -eq "ondemand" && "$SAMPLING_RATE" -ne "" ];
 then
     echo "$SAMPLING_RATE" > $CPUDIR/cpufreq/ondemand/sampling_rate;
 fi
@@ -31,7 +31,7 @@ fi
 #
 # Set VM swappiness
 #
-if [ "$SWAPPINESS" -neq "" ];
+if [ "$SWAPPINESS" -ne "" ];
 then
     echo $SWAPPINESS > /proc/sys/vm/swappiness;
 fi

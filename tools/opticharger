@@ -106,7 +106,12 @@ then
     cp $BASE/$1 $BASE/$1.old
 
     [ $QUIET ] || msgStatus "Repacking apk.."
-    aapt p -0 res/raw -0 res/raw-en -F $NAME .
+    if [ $NAME == "PinyinIME.apk" ];
+    then
+        aapt p -0 .dat -0 res/raw -0 res/raw-en -F $NAME .
+    else
+        aapt p -0 res/raw -0 res/raw-en -F $NAME .
+    fi
     
     [ $QUIET ] || msgStatus "Resigning with cert: `$ECHO $CERT`"
 

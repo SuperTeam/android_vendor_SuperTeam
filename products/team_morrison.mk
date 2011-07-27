@@ -6,7 +6,6 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 $(call inherit-product vendor/SuperTeam/products/bcm_fm_radio.mk)
 
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 #
 # Setup device specific product configuration.
@@ -17,7 +16,7 @@ PRODUCT_DEVICE := morrison
 PRODUCT_MODEL := MB200
 PRODUCT_MANUFACTURER := Motorola
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=morrison BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GRJ22 BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=morrison BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys"
 
 # Extra overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/morrison
@@ -32,7 +31,8 @@ PRODUCT_PACKAGES += FM
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=SuperOSR-ST@-Morrison-S-1.0b2-AW \
+    ro.data.on=0 \
+    ro.modversion=SuperOSR-morrison-1.0b2 \
     ro.stats.romversion=1.0b2 \
     ro.config.play.bootsound=0
 

@@ -2,7 +2,6 @@ $(call inherit-product, device/htc/hero/full_hero.mk)
 
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 PRODUCT_NAME := team_hero
 PRODUCT_BRAND := HTC
@@ -26,6 +25,7 @@ PRODUCT_PACKAGES += \
     Gallery
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-Hero-1-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0

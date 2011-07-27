@@ -7,8 +7,6 @@ $(call inherit-product, vendor/SuperTeam/products/common.mk)
 # Añadimos los temas
 $(call inherit-product, vendor/SuperTeam/products/themes_small.mk)
 
-# Include GSM stuff
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 #
 # Setup device specific product configuration.
@@ -18,7 +16,7 @@ PRODUCT_BRAND := google
 PRODUCT_DEVICE := dream_sapphire
 PRODUCT_MODEL := Dream/Sapphire
 PRODUCT_MANUFACTURER := HTC
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=FRG83 BUILD_DISPLAY_ID=GRJ22 BUILD_FINGERPRINT=tmobile/opal/sapphire/sapphire:2.2.1/FRG83/60505:user/release-keys PRIVATE_BUILD_DESC="opal-user 2.2.1 FRG83 60505 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=FRG83 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=tmobile/opal/sapphire/sapphire:2.2.1/FRG83/60505:user/release-keys PRIVATE_BUILD_DESC="opal-user 2.2.1 FRG83 60505 release-keys"
 
 
 # Extra Dream/Sapphire overlay
@@ -38,8 +36,9 @@ PRODUCT_PACKAGES += Gallery
 
 # Enable Compcache by default on D/S
 PRODUCT_PROPERTY_OVERRIDES += \
+	ro.data.on=0 \
 	ro.modversion=SuperOSR-ST@-DS-1-AW \
-  ro.stats.romversion=1 \
+	ro.stats.romversion=1 \
 	ro.compcache.default=18 \
 	ro.config.alarm_alert=Beeps.mp3 \
 	ro.config.ringtone=Theway.mp3 \
