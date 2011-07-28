@@ -171,7 +171,6 @@ delete_recursive("/data/dalvik-cache");
 package_extract_dir("data", "/data");
 set_perm_recursive(1000, 1000, 0771, 0644, "/data/app");
 set_perm(0, 0, 06755, "/data/firstboot.sh");
-set_perm(0, 0, 06755, "/data/installlangpack");
 set_perm(0, 0, 06755, "/data/configsup.cf");
 set_perm(0, 0, 06755, "/data/sup.config");
 unmount("/data");
