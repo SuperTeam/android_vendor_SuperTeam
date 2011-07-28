@@ -96,6 +96,10 @@ case "$ALIAS" in
     legend) 
         DPI=mdpi 
         ;;
+    passion) 
+        ANIM=1
+        LOWDISK=1
+        ;;
     z71) 
         DPI=mdpi
         GALLERY=2D
