@@ -112,8 +112,7 @@ case "$ALIAS" in
         DPI=mdpi 
         ;;
     zero) 
-        DPI=mdpi 
-        LOWDISK=1
+        DPI=mdpi
         ;;
 esac
 
