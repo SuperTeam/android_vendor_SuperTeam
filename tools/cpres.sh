@@ -23,6 +23,6 @@ for f in $FILES; do
   echo >> $FULL_PATH_FILE.tmp
   cd $TOPDIR/$3
   tail -n 1 $f >> $FULL_PATH_FILE.tmp
-  echo $FULL_PATH_FILE.tmp
+  cat $FULL_PATH_FILE.tmp
   mv -i $FULL_PATH_FILE.tmp $FULL_PATH_FILE
 done;
