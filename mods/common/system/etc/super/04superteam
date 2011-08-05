@@ -39,6 +39,7 @@ fi
 #
 # Load modules kernel
 #
+MOULES="ipv6"
 
 VER=`uname -r`
 if [ -d /system/lib/modules/$VER ];
