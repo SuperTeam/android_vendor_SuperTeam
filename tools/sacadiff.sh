@@ -30,7 +30,7 @@ exec diff -qr $1 $2 | sort > $3
 
 if [ "$?" -eq 0 ]; 
 then
-	msgStatus "Diferencias obtenidas en el fichero $3"
+	msgOK "Diferencias obtenidas en el fichero $3"
 	exit 0
 else
     msgErr "No se ha podido obtener las diferencias correctamente"

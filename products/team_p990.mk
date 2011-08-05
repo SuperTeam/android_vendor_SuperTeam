@@ -35,7 +35,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
     ro.config.play.bootsound=0
 
-#PRODUCT_PACKAGES += Launcher2 DSPManager Torch Quake FM hcitool OpenWnn PinyinIME VoiceDialer libWnnEngDic libWnnJpnDic libwnndict
+PRODUCT_PACKAGES += DSPManager Torch FM 
 
 #TARGET_BUILD_TYPE := release
 # FM Radio

@@ -67,6 +67,9 @@ case "$ALIAS" in
     crespo)
        KERNELMOD=0
        ;;
+    p990)
+        ANIM=1
+	;;
     dream_sapphire) 
         WANT_SQUASHFS=1
         DPI=mdpi
@@ -112,8 +115,7 @@ case "$ALIAS" in
         DPI=mdpi 
         ;;
     zero) 
-        DPI=mdpi 
-        LOWDISK=1
+        DPI=mdpi
         ;;
 esac
 
