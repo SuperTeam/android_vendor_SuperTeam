@@ -15,6 +15,12 @@ PRODUCT_MODEL := Nexus S
 PRODUCT_MANUFACTURER := Samsung
 PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=soju BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=google/soju/crespo:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="soju-user 2.3.4 GRJ22 121341 release-keys" BUILD_NUMBER=121341
 
+# Build kernel
+#Based in Kernel Netarchy cfs
+PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=
+PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=/media/COMPILER/mydroid/SuperTeam/kernel/samsung/Nexus-S
+PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=netarchy-nexus-cfs_defconfig
+
 # Extra Crespo overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/crespo
 
