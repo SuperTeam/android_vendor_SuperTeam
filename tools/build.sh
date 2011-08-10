@@ -25,8 +25,6 @@ RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
 PUBLICDIR=$ROMDIR/last_public
 CORES=$( cat /proc/cpuinfo | grep -c processor )
-LOWDEVICES=dream_sapphire
-REPOLOWRES="packages/apps/Settings frameworks/base"
 
 . $SCRIPTDIR/mensajes.sh
 
@@ -35,6 +33,8 @@ then
    msgErr >&2 "Usage: $0 <device>"
    exit 1
 fi
+
+$SCRIPTDIR/preparasource.sh $1
 
 option=0
 while [ $option -ne 99 ]
@@ -60,19 +60,6 @@ do
     fi
 	
     if [ $option -eq 1 ] || [ $option -eq 5 ]; then
-    	msgErr $REPOLOWRES
-    	for d in $REPOLOWRES; do
-    		cd $d;
-    		msgErr $d
-	    	if [[ "$LOWDEVICES" =~ "$DEVICE" ]]; then
-	    		msgErr "lowres"
-	    		git checkout lowres
-	    	else
-	    		msgErr "gingerbread"
-	    		git checkout gingerbread
-	    	fi
-	    	cd $TOPDIR
-    	done
         make -j${CORES} showcommands otapackage
         if [ "$?" -eq 0 ]; then
             msgOK "Compilación correcta"
