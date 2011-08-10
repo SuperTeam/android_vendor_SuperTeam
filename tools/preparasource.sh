@@ -20,7 +20,9 @@ SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
 DEVICE=$1
 LOWDEVICES=dream_sapphire
-REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts development packages/apps/Calendar"
+REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts"
+#Estos directorios están en lowres pero deberían pasar enteros a gingerbread
+REPOLOWRES=$REPOLOWRES" development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Calculator apps/Camera apps/QuickSearchBox apps/Phone apps/DeskClock apps/VoiceDialer apps/Mms apps/Calendar apps/Email apps/Contacts apps/Gallery3D apps/Gallery apps/Music apps/Browser apps/Tag"
 
 . $SCRIPTDIR/mensajes.sh
 
