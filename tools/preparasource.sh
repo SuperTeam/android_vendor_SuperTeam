@@ -22,7 +22,7 @@ DEVICE=$1
 LOWDEVICES=dream_sapphire
 REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts"
 #Estos directorios están en lowres pero deberían pasar enteros a gingerbread
-REPOLOWRES=$REPOLOWRES" development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Calculator apps/Camera apps/QuickSearchBox apps/Phone apps/DeskClock apps/VoiceDialer apps/Mms apps/Calendar apps/Email apps/Contacts apps/Gallery3D apps/Gallery apps/Music apps/Browser apps/Tag"
+REPOLOWRES=$REPOLOWRES" development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Calculator apps/Camera apps/QuickSearchBox apps/Phone apps/DeskClock apps/VoiceDialer apps/Mms apps/Calendar apps/Email apps/Contacts apps/Gallery3D apps/Gallery apps/Music apps/Browser apps/Tag vendor/tmobile/providers/ThemeManager"
 
 . $SCRIPTDIR/mensajes.sh
 
