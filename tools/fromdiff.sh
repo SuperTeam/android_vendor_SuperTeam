@@ -83,6 +83,10 @@ while read line; do
             fi
         else
             adb push $file .${file#*$BUILDMASK*}
+			if [[ "$file" =~ "/bin/" ]]
+			then
+				adb shell chmod 755 .${file#*$BUILDMASK*}
+			fi
         fi
     fi
 

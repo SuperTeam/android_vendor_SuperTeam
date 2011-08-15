@@ -175,6 +175,7 @@ mkdir $REPACKOTA
     msgStatus "Desempaquetando framework-res..."
     unzip -q ../framework-res.apk
     cp -rf $ANDROID_BUILD_TOP/$MODS/frame_$DPI/* res/drawable-$DPI/
+    cp -rf $ANDROID_BUILD_TOP/$MODS/frame_nodpi/* res/drawable-$DPI/
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
   
     if [ "$ANIM" -eq 0 ]; then
@@ -212,14 +213,6 @@ mkdir $REPACKOTA
   
     cd $REPACKOTA/system/framework
   
-# Modificaciones de SuperTeam
-    rm -rf $REPACKOTA/system/app/RomManager.apk
-    rm -rf $REPACKOTA/system/app/Protips.apk 
-    rm -rf $REPACKOTA/system/app/Provision.apk
-    rm -rf $REPACKOTA/system/app/QuickSearchBox.apk
-    rm -rf $REPACKOTA/system/app/SpareParts.apk
-    rm -rf $REPACKOTA/system/app/SpeechRecorder.apk
-
 # Ejecuta si existe personalizaciones específicas del dispositivo.
     if [ -f $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh ]; then
     	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh $REPACKOTA
