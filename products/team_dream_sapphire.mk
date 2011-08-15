@@ -23,13 +23,11 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=FRG83 BUILD_DISPLAY_ID=GRJ90 BUILD_FING
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/dream_sapphire
 
 # Build kernel
-#PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=
-#PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=kernel-magic
-#PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=aosp_msm_defconfig
-
-#Activa el ADWLauncher
-PRODUCT_PACKAGES += \
-   ADWLauncher
+TARGET_PREBUILT_KERNEL=vendor/htc/dream_sapphire/kernel
+PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=vendor/htc/dream_sapphire/kernel
+PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=linux-2.6.39.3
+PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=podxboq_2708_defconfig
+PRODUCT_SPECIFIC_DEFINES += TARGET_NO_BUILD_WIFI=true
 
 # Include apps
 PRODUCT_PACKAGES += Gallery
@@ -37,8 +35,8 @@ PRODUCT_PACKAGES += Gallery
 # Enable Compcache by default on D/S
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.data.on=0 \
-	ro.modversion=SuperOSR-ST@-DS-1-AW \
-	ro.stats.romversion=1 \
+	ro.modversion=SuperOSR-ST@-dream_sapphire-1.0.0 \
+	ro.stats.romversion=1.0.0 \
 	ro.compcache.default=18 \
 	ro.config.alarm_alert=Beeps.mp3 \
 	ro.config.ringtone=Theway.mp3 \
@@ -50,22 +48,7 @@ WITH_DS_HTCACOUSTIC_HACK := true
 
 #Añadimos permisos extra
 PRODUCT_COPY_FILES +=  \
-  frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml  
-
-PRODUCT_LOCALES := \
-    es_ES \
-    ca_ES \
-    en_US \
-    de_DE \
-    eu_ES \
-    fr_FR \
-    it_IT \
-    pt_PT \
-    ru_RU \
-    pl_PL \
-    nl_NL \
-    mdpi
-
-PRODUCT_DEFAULT_LANGUAGE := es_ES
+  frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+  $(TARGET_PREBUILT_KERNEL):kernel
 
 TARGET_BUILD_TYPE=release
