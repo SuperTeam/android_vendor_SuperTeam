@@ -23,6 +23,7 @@ lee_config() {
 	then
 		. /data/sup.config;
 	else
+echo "***** Sin configuración, se establece por defecto!";
 		escribe_config;
 	fi;
 }
