@@ -21,9 +21,12 @@ TOPDIR=`pwd`
 DEVICE=$1
 LOWDEVICES=dream_sapphire
 REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts"
-#Estos directorios están en lowres pero deberían pasar enteros a gingerbread
-REPOLOWRES=$REPOLOWRES" development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Calculator apps/Camera apps/QuickSearchBox apps/Phone apps/DeskClock apps/VoiceDialer apps/Mms apps/Calendar apps/Email apps/Contacts apps/Gallery3D apps/Gallery apps/Music apps/Browser apps/Tag vendor/tmobile/providers/ThemeManager"
 
+#No se puede subir el cambio al no ser nuestros repos
+#development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Camera apps/QuickSearchBox apps/DeskClock apps/VoiceDialer apps/Email apps/Gallery apps/Music apps/Tag"
+
+#pendientes de subir el repo y no hacerlo por no tener conexión a internet
+#vendor/tmobile/providers/ThemeManager vendor/htc device/samsung/crespo device/lge/spire-common device/lge/p990 vendor/lge/p990 device/lge/star-common
 . $SCRIPTDIR/mensajes.sh
 
 if [ $# -lt 1 ]

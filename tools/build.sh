@@ -60,7 +60,7 @@ do
     fi
 	
     if [ $option -eq 1 ] || [ $option -eq 5 ]; then
-        make -j${CORES} showcommands otapackage
+        make -j${CORES} otapackage
         if [ "$?" -eq 0 ]; then
             msgOK "Compilación correcta"
         else
