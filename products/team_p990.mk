@@ -6,7 +6,7 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 
 # Build kernel
-TARGET_PREBUILT_KERNEL := vendor/SuperTeam/kernels/p990/kernel
+TARGET_PREBUILT_KERNEL := vendor/lge/p990/kernel
 PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=vendor/SuperTeam/kernels/p990/kernel
 PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=kernel/tegra
 PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=superteam_p990_defconfig
@@ -35,10 +35,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
     ro.config.play.bootsound=0
 
-PRODUCT_PACKAGES += DSPManager Torch FM 
+PRODUCT_PACKAGES += DSPManager Torch 
 
 #TARGET_BUILD_TYPE := release
-# FM Radio
-BOARD_HAVE_FM_RADIO := true
-TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
