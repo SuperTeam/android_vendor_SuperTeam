@@ -4,8 +4,9 @@ $(call inherit-product, device/geeksphone/zero/zero.mk)
 # Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
+# Broadcom FM
+#$(call inherit-product, vendor/SuperTeam/products/bcm_fm_radio.mk)
 
-#Activa el ADWLauncher
 PRODUCT_PACKAGES += \
    DSPManager \
    Launcher2 \
@@ -22,9 +23,8 @@ PRODUCT_MANUFACTURER := Geeksphone
 PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=geeksphone_zero BUILD_ID=FRG83 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=qcom/msm7627_ffa/msm7627_ffa/7x27:2.2.1/FRG83/eng.SIMCOM.20110314.124514:user/test-keys PRIVATE_BUILD_DESC="msm7627_ffa-user 2.2.1 FRG83 eng.SIMCOM.20110314.124514 test-keys"
 
 # Build kernel
-PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=
-PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=/media/COMPILER/mydroid/Kernels/Geeksphone/Zero
-PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=aosp_defconfig
+TARGET_PREBUILT_KERNEL := device/geeksphone/zero/kernel
+PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=device/geeksphone/zero/kernel
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/zero
 
@@ -38,8 +38,11 @@ PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.dexopt-data-only=1
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-ZERO-1-AW \
-    ro.stats.romversion=1 \
+    ro.modversion=SuperOSR-ST@-ZERO-1.01-AW \
+    ro.stats.romversion=1.01 \
     ro.config.play.bootsound=0
 
-PRODUCT_LOCALES := es_ES ca_ES en_US de_DE eu_ES fr_FR it_IT pt_PT ru_RU mdpi
+PRODUCT_LOCALES +:= \
+    mdpi
+
+PRODUCT_DEFAULT_LANGUAGE := es_ES
