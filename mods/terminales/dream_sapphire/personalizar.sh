@@ -6,13 +6,12 @@ rm HtcCopyright.apk
 rm HtcEmailPolicy.apk
 rm HtcSettings.apk
 rm LatinImeTutorial.apk
-rm SetupWizard.apk
 rm Development.*
+mv Gallery.apk Gallery.app
+rm BooksPhone.apk
 
 cd ../media
 mv bootanimation.zip ../../data/local/
 cd audio/ringtones
 rm Theway.mp3
 
-# Por falta de espacio movemos aplicaciones
-mv BooksPhone.apk $1/data/app/com.google.android.booksPhone.apk
