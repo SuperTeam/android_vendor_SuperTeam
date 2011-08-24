@@ -22,8 +22,8 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/boston
 
 PRODUCT_PACKAGES += \
    DSPManager \
-   Gallery3D \
-   Launcher2
+   Launcher2 \
+   Torch
 
 #
 # Set ro.modversion
