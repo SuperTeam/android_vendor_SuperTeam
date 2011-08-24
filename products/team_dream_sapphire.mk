@@ -51,4 +51,4 @@ PRODUCT_COPY_FILES +=  \
   frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
   $(TARGET_PREBUILT_KERNEL):kernel
 
-#TARGET_BUILD_TYPE=release
+TARGET_BUILD_TYPE=release
