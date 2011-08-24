@@ -34,6 +34,8 @@ then
    exit 1
 fi
 
+$SCRIPTDIR/preparasource.sh $1
+
 option=0
 while [ $option -ne 99 ]
 do
@@ -58,7 +60,7 @@ do
     fi
 	
     if [ $option -eq 1 ] || [ $option -eq 5 ]; then
-        make -j${CORES} showcommands otapackage
+        make -j${CORES} otapackage
         if [ "$?" -eq 0 ]; then
             msgOK "Compilación correcta"
         else
@@ -91,26 +93,27 @@ do
     	if [ ! -d $RELEASEDIR ]; then
     		msgErr "No existe el directorio $RELEASEDIR, se mueve la versión build y se obvia la gestión de cambios"
     		mv $BUILDDIR $RELEASEDIR
-    	fi
+    	else
 	
-    	msgStatus "Calculando las diferencias con la anterior versión compilada"
-    	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
-        cat $ROMDIR/diff.txt
-        
-        #actualizamos el directorio de la última release
-		msgOK "¿Actualizar el directorio? (s/N): "
-    	read sync
-
-	    if [ $sync == "s" ]; then
-	        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
-	    fi
-	    
-        #actualizamos el dispositivo
-		msgOK "¿Actualizar el dispositivo? (s/N): "
-    	read sync
-
-	    if [ $sync == "s" ]; then
-	        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
+	    	msgStatus "Calculando las diferencias con la anterior versión compilada"
+	    	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
+	        cat $ROMDIR/diff.txt
+	        
+	        #actualizamos el directorio de la última release
+			msgOK "¿Actualizar el directorio? (s/N): "
+	    	read sync
+	
+		    if [ $sync == "s" ]; then
+		        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
+		    fi
+		    
+	        #actualizamos el dispositivo
+			msgOK "¿Actualizar el dispositivo? (s/N): "
+	    	read sync
+	
+		    if [ $sync == "s" ]; then
+		        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
+		    fi
 	    fi
     fi
     

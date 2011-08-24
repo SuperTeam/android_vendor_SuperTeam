@@ -4,4 +4,6 @@ Resolved Bugs:
 
 New Features:
 ==============
+22/08/2011 Variable proximity sensor delay (ro.prox.delay on build.prop)
+03/08/2011 Move rotation options to system menu.
 11/05/2011 New option: Show/Hide carrier in loockscreen.

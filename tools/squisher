@@ -103,10 +103,8 @@ case "$ALIAS" in
         ANIM=1
         LOWDISK=1
         ;;
-    z71) 
+    boston)
         DPI=mdpi
-        GALLERY=2D
-        KERNELMOD=1
         ;;
     zeppelin)
         DPI=mdpi
