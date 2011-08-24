@@ -4,15 +4,6 @@ $(call inherit-product, device/lge/p990/p990.mk)
 # Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-
-# Build kernel
-TARGET_PREBUILT_KERNEL := vendor/lge/p990/kernel
-PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=vendor/SuperTeam/kernels/p990/kernel
-PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=kernel/tegra
-PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=superteam_p990_defconfig
-PRODUCT_SPECIFIC_DEFINES += TARGET_NO_BUILD_WIFI=true
-
-
 #
 # Setup device specific product configuration.
 #
