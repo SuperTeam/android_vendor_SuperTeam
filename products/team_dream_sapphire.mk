@@ -22,13 +22,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=FRG83 BUILD_DISPLAY_ID=GRJ90 BUILD_FING
 # Extra Dream/Sapphire overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/dream_sapphire
 
-# Build kernel
-#TARGET_PREBUILT_KERNEL=vendor/htc/dream_sapphire/kernel
-#PRODUCT_SPECIFIC_DEFINES += TARGET_PREBUILT_KERNEL=vendor/htc/dream_sapphire/kernel
-PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_DIR=linux-2.6.39.3
-PRODUCT_SPECIFIC_DEFINES += TARGET_KERNEL_CONFIG=podxboq_2708_defconfig
-PRODUCT_SPECIFIC_DEFINES += TARGET_NO_BUILD_WIFI=true
-
 # Include apps
 PRODUCT_PACKAGES += Gallery
 
@@ -51,4 +44,4 @@ PRODUCT_COPY_FILES +=  \
   frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
   $(TARGET_PREBUILT_KERNEL):kernel
 
-#TARGET_BUILD_TYPE=release
+TARGET_BUILD_TYPE=release
