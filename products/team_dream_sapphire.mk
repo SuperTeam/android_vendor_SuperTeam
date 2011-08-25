@@ -41,7 +41,6 @@ WITH_DS_HTCACOUSTIC_HACK := true
 
 #Añadimos permisos extra
 PRODUCT_COPY_FILES +=  \
-  frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-  $(TARGET_PREBUILT_KERNEL):kernel
+  frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml 
 
 TARGET_BUILD_TYPE=release
