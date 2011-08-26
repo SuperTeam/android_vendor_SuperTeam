@@ -34,8 +34,8 @@ PRODUCT_PROPERTY_OVERRIDES += dalvik.vm.dexopt-data-only=1
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-ZERO-1.01-AW \
-    ro.stats.romversion=1.01 \
+    ro.modversion=SuperOSR-ST@-ZERO-2-AW \
+    ro.stats.romversion=2 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES +:= \
