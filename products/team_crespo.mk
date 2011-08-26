@@ -41,7 +41,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-Nexus-S-1-AW \
+    ro.modversion=SuperOSR-ST@-Nexus-S-2-AW \
     ro.stats.romversion=1 \
     ro.config.play.bootsound=0
 
