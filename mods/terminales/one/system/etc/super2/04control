@@ -1,0 +1,38 @@
+#!/system/bin/sh
+#
+sleep 1
+echo "Leyendo configuracion"
+# Lee en la configuracion 
+#
+if [ -e /data/configsup.cf ];
+then
+	# read it in
+	. /data/configsup.cf;
+
+	# read in the config
+	lee_config;
+	
+	escribe_config;
+fi;
+#
+# SetCPU Clocking
+#
+echo "Activando velocidades por defecto"
+echo "$MAX_CPU" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq;
+echo "$MIN_CPU" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+
+echo "Acelerando SDCARD"
+#Para velocidad de escritura
+if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ]
+  then
+    /system/xbin/echo "2048" > /sys/devices/virtual/bdi/179:0/read_ahead_kb;
+fi;
+
+if [ -e /data/ctrsound ];
+then
+echo "Primera instalacion";
+rm /data/ctrsound;
+else
+sleep 60
+stop bootsound;
+fi;
