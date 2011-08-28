@@ -24,5 +24,5 @@ for f in $FILES; do
   cd $TOPDIR/$3
   tail -n 1 $f >> $FULL_PATH_FILE.tmp
   cat $FULL_PATH_FILE.tmp
-  mv -i $FULL_PATH_FILE.tmp $FULL_PATH_FILE
+  mv $FULL_PATH_FILE.tmp $FULL_PATH_FILE
 done;
