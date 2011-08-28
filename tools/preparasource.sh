@@ -26,7 +26,7 @@ REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts"
 #system/media packages/apps/Nfc development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Camera apps/QuickSearchBox apps/DeskClock apps/VoiceDialer apps/Email apps/Gallery apps/Music apps/Tag"
 
 #pendientes de subir el repo y no hacerlo por no tener conexión a internet
-# vendor/tmobile/providers/ThemeManager vendor/htc device/samsung/crespo device/lge/spire-common device/lge/p990 vendor/lge/p990 device/lge/star-common
+# vendor/htc
 . $SCRIPTDIR/mensajes.sh
 
 if [ $# -lt 1 ]
