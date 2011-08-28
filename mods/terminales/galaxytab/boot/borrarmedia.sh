@@ -16,4 +16,4 @@ if [ -d "/sdcard/DCIM/.thumbnails" ]; then
     busybox rm -r "/sdcard/DCIM/.thumbnails"
 fi
 
-busybox find /sdcard/ -type d -name ".thumbnails" -exec rm -rf {} \;
+#busybox find /sdcard/ -type d -name ".thumbnails" -exec rm -rf {} \;
