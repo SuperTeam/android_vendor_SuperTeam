@@ -4,5 +4,7 @@
 #como si fuera una ROM recién instalada
 echo " "
 echo "Recuperacion de datos personalizada"
-cp /system/backup/tether /data/app/android.tether.apk;
+cp /system/backup/tether /data/app/net.szym.barnacle-1.apk;
+cp /system/backup/sup.config /data/sup.config;
+cp /system/backup/configsup.cf /data/configsup.cf;
 sleep 1;
