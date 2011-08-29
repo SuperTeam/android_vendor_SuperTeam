@@ -54,7 +54,6 @@ package_extract_file("busybox", "/tmp/busybox");
 set_perm(0, 0, 0777, "/tmp/busybox");
 ui_print("Preparando particiones ");
 run_program("/tmp/busybox", "umount", "/system");
-run_program("/tmp/busybox", "umount", "/data");
 run_program("/tmp/busybox", "umount", "/cache");
 package_extract_file("flash_image", "/tmp/flash_image");
 set_perm(0, 0, 0777, "/tmp/flash_image");
@@ -195,6 +194,7 @@ package_extract_file("system/bin/verify_cache_partition_size.sh", "/tmp/verify_c
 set_perm(0, 0, 0777, "/tmp/verify_cache_partition_size.sh");
 run_program("/tmp/verify_cache_partition_size.sh");
 show_progress(0.200000, 10);
+assert(run_program("/tmp/erase_image", "boot"));
 assert(package_extract_file("boot.img", "/tmp/boot.img"),
        run_program("/tmp/bml_over_mtd.sh", "boot", "72", "reservoir", "2004", "/tmp/boot.img"),
        delete("/tmp/boot.img"));
@@ -203,7 +203,8 @@ show_progress(0.100000, 0);
 unmount("/system");
 run_program("/tmp/busybox", "mount", "/cache");
 delete_recursive("/cache");
-run_program("/tmp/busybox", "mount", "/data");
+run_program("/tmp/busybox", "umount", "/cache");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p2", "/data");
 ui_print(" ");
 ui_print("Instalando aplicaciones extras ");
 delete_recursive("/data/dalvik-cache");
