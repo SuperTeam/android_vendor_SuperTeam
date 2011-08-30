@@ -77,7 +77,9 @@ case "$ALIAS" in
         ANIM=1
         ;;
     galaxys2)
-       ANIM=0
+       KERNELMOD=0
+        ;;
+    galaxysmtd)
        KERNELMOD=0
         ;;
     galaxytab)
@@ -175,6 +177,7 @@ mkdir $REPACKOTA
     cp -rf $ANDROID_BUILD_TOP/$MODS/frame_$DPI/* res/drawable-$DPI/
     cp -rf $ANDROID_BUILD_TOP/$MODS/frame_nodpi/* res/drawable-$DPI/
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
+    cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable-$DPI/
   
     if [ "$ANIM" -eq 0 ]; then
        msgOK "Con animaciones especiales"
