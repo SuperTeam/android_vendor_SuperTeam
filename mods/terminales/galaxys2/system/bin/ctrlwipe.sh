@@ -6,8 +6,6 @@ echo " "
 echo "Recuperacion de datos personalizada"
 cp /system/backup/configsup.cf /data/configsup.cf;
 cp /system/backup/sup.config /data/sup.config;
-cp /system/backup/gokeyboard /data/app/com.jb.gokeyboard-1.apk;
-cp /system/backup/gokeyboardes /data/app/com.jb.gokeyboard.langpack.es-1.apk;
 cp /system/backup/flash /data/app/com.adobe.flashplayer-1.apk;
 cp /system/backup/light /data/app/com.devuni.flashlight-1.apk;
 cp /system/backup/googleplus /data/app/com.google.android.apps.plus-1.apk;
