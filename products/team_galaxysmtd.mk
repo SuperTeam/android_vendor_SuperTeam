@@ -38,15 +38,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.emc.mode=2
 
 # Add additional mounts
-#PRODUCT_PROPERTY_OVERRIDES += \
- #   ro.additionalmounts=/mnt/emmc
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.additionalmounts=/mnt/emmc \
+    ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
 
 #
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-Galaxy-S-2.0.0-AW \
+    ro.modversion=SuperOSR-ST@-Galaxy-S-2.0.1-AW \
     ro.stats.romversion=2.0.0 \
     ro.config.play.bootsound=0
 
