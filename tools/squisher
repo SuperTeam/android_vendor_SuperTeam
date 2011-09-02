@@ -52,6 +52,7 @@ LOWDISK=0
 GALLERY=3D
 ANIM=0
 KERNELMOD=0
+WALL_LOW=0
 ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
@@ -91,6 +92,7 @@ case "$ALIAS" in
         DPI=mdpi 
         LOWDISK=1
         ANIM=1
+	WALL_LOW=1
         ;;
     hero) 
         DPI=mdpi
@@ -179,6 +181,13 @@ mkdir $REPACKOTA
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable-$DPI/
   
+    if [ "$WALL_LOW" -eq 1 ]; then
+       msgOK "Con Wallpaper mas pequeño"
+    cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper-low/* res/drawable/
+    cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper-low/* res/drawable-$DPI/
+
+    fi
+
     if [ "$ANIM" -eq 0 ]; then
        msgOK "Con animaciones especiales"
        cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim/* res/anim/
