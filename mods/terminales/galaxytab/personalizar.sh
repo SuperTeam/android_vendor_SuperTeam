@@ -1,6 +1,8 @@
 #!/bin/bash
-
-# Eliminamos algunos apk's innecesarios y cambio de kernel
+. mensajes.sh
+msgStatus "Personalizacion exclusiva"
+msgStatus " "
+# Eliminamos algunos archivos innecesarios
 rm -rf $OUT/repack.d/ota/system/app/LatinIME.apk
 rm -rf $OUT/repack.d/ota/system/app/Torch.apk
 rm -rf $OUT/repack.d/ota/system/etc/super/04superteam
