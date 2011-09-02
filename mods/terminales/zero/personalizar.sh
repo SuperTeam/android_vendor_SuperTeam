@@ -1,4 +1,7 @@
 #!/bin/bash
+. mensajes.sh
+msgStatus "Personalizacion exclusiva"
+msgStatus " "
+rm -rf $OUT/repack.d/ota/system/app/BooksPhone.apk
+rm -rf $OUT/repack.d/ota/system/etc/super/04superteam
 
-# No queremos ejecutar este script al incio de la ROM.
-rm $1/system/bin/fix_permissions
