@@ -43,14 +43,15 @@ PRODUCT_PACKAGES += \
 #PRODUCT_SPECIFIC_DEFINES += TARGETARCH=arm
 
 # Add additional mounts
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    ro.removablemounts=/mnt/emmc
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.additionalmounts=/mnt/emmc \
+ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
 
 #
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-GalaxyTab-2.0.0-AW \
-    ro.stats.romversion=2.0.0 \
+    ro.modversion=SuperOSR-ST@-GalaxyTab-2.0.2-AW \
+    ro.stats.romversion=2.0.2 \
     ro.config.play.bootsound=0
