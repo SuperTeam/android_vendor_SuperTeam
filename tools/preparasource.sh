@@ -20,10 +20,14 @@ SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
 DEVICE=$1
 LOWDEVICES=dream_sapphire
-REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts"
+REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts packages/apps/Phone"
 
 #No se puede subir el cambio al no ser nuestros repos
-#system/media packages/apps/Nfc development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider packages/providers/CalendarProvider	packages/providers/ContactsProvider packages/apps/Camera apps/QuickSearchBox apps/DeskClock apps/VoiceDialer apps/Email apps/Gallery apps/Music apps/Tag"
+#system/media packages/apps/Nfc development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider
+#packages/providers/CalendarProvider packages/providers/ContactsProvider packages/apps/Camera apps/QuickSearchBox
+#apps/DeskClock apps/VoiceDialer apps/Email apps/Gallery apps/Music apps/Tag
+#packages/wallpapers/Basic packages/wallpapers/LivePicker packages/wallpapers/MagicSmoke packages/wallpapers/MusicVisualization
+#device/sample
 
 #pendientes de subir el repo y no hacerlo por no tener conexión a internet
 # vendor/htc
