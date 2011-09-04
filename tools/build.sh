@@ -81,41 +81,13 @@ do
     fi
     
     if [ $option -eq 3 ] || [ $option -eq 5 ]; then
-    	if [ -d $BUILDDIR ]; then
-    		rm -r $BUILDDIR
-    	fi
-    	
-    	mkdir -p $BUILDDIR
-    	for f in `ls $OUT/SuperOSR*.zip`; do
-            msgStatus "Descomprimiendo $f"
-    	    unzip -qd $BUILDDIR/ $f
-    	done  
-		
-    	if [ ! -d $RELEASEDIR ]; then
-    		msgErr "No existe el directorio $RELEASEDIR, se mueve la versión build y se obvia la gestión de cambios"
-    		mv $BUILDDIR $RELEASEDIR
-    	else
-	
-	    	msgStatus "Calculando las diferencias con la anterior versión compilada"
-	    	$SCRIPTDIR/sacadiff.sh $BUILDDIR/system $RELEASEDIR/system $ROMDIR/diff.txt
-	        cat $ROMDIR/diff.txt
-	        
-	        #actualizamos el directorio de la última release
-			msgOK "¿Actualizar el directorio? (s/N): "
-	    	read sync
-	
-		    if [ $sync == "s" ]; then
-		        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
-		    fi
-		    
-	        #actualizamos el dispositivo
-			msgOK "¿Actualizar el dispositivo? (s/N): "
-	    	read sync
-	
-		    if [ $sync == "s" ]; then
-		        $SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
-		    fi
-	    fi
+    	$SCRIPTDIR/sincronizar.sh $ROMDIR
+        if [ "$?" -eq 0 ]; then
+            msgOK "Sincronización correcta"
+        else
+            msgErr "Error al sincronizar"
+            continue
+        fi
     fi
     
     if [ $option -eq 4 ]; then
