@@ -47,6 +47,7 @@ do
     echo " 4: crear parche"
     echo " 5: make + squisher + sincronizar"
     echo " 6: limpiar build"
+    echo " 7: Reiniciar dispositivo"
     echo "99: salir"
 
     read option
@@ -146,6 +147,10 @@ do
     
     if [ $option -eq 6 ]; then
     	make clean
+    fi
+    
+    if [ $option -eq 7 ]; then
+    	adb reboot	
     fi
     
 done
