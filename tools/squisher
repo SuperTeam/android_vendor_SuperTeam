@@ -62,31 +62,34 @@ case "$ALIAS" in
         KERNELMOD=1
         ;;
     buzz)
-       GALLERY=2D
-       KERNELMOD=1
+	GALLERY=2D
+	KERNELMOD=1
        ;;
     crespo)
-       KERNELMOD=0
+        ANIM=1
+	KERNELMOD=0
        ;;
     p990)
         ANIM=1
 	;;
     dream_sapphire) 
+        ANIM=1
         WANT_SQUASHFS=1
         DPI=mdpi
         LOWDISK=1
-        ANIM=1
         ;;
     galaxys2)
-       KERNELMOD=0
+        ANIM=1
+        KERNELMOD=0
         ;;
     galaxysmtd)
-       KERNELMOD=0
+        ANIM=1
+	KERNELMOD=0
         ;;
     galaxytab)
-       ANIM=0
-       EXTRATAB=1
-       KERNELMOD=0
+	ANIM=1
+	EXTRATAB=1
+	KERNELMOD=0
         ;;
     one) 
         DPI=mdpi 
@@ -117,6 +120,7 @@ case "$ALIAS" in
         DPI=mdpi 
         ;;
     zero) 
+        ANIM=1
         DPI=mdpi
         ;;
 esac
