@@ -33,15 +33,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Add additional mounts
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.additionalmounts=/mnt/sdcard/external_sd
+    ro.additionalmounts=/mnt/sdcard/External_SD
+
+#ro.additionalmounts=/mnt/sdcard/external_sd
 
 #
 # Set ro.modversion
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-GalaxyS2-S-2.0.2-AW \
-    ro.stats.romversion=2.0.2 \
+    ro.modversion=SuperOSR-ST@-GalaxyS2-S-2.0.4-AW \
+    ro.stats.romversion=2.0.4 \
     ro.config.play.bootsound=0
 
 #PRODUCT_LOCALES := \
