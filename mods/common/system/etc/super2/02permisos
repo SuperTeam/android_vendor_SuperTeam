@@ -1,4 +1,12 @@
 #!/system/bin/sh
+echo "Control de log";
+if [ -e /system/bin/clearlog ];
+	then
+echo "Ejecutando limpieza de log"
+    	busybox sh /system/bin/clearlog &
+else
+echo "No hay log que borrar"
+fi;
 
 echo "Tiempo 110 segundos"
 sleep 110
