@@ -4,6 +4,9 @@
 if [ -e /data/configsup.cf ];
 then
     echo "Existe en data, no ha habido Wipe";
+    echo " ";
+    echo "Control de logs";   
+    busybox sh /system/bin/clearlog;
 else
 	echo " "
 	echo "Recuperacion de datos"    
