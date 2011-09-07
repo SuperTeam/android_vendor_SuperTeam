@@ -32,8 +32,8 @@ PRODUCT_PACKAGES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-zeppelin-1.0b1 \
-    ro.stats.romversion=1.0b1 \
+    ro.modversion=SuperOSR-zeppelin-2.0.0 \
+    ro.stats.romversion=2.0.0 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES := \

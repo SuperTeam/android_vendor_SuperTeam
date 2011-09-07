@@ -32,8 +32,8 @@ PRODUCT_PACKAGES += FM
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-morrison-1.0b2 \
-    ro.stats.romversion=1.0b2 \
+    ro.modversion=SuperOSR-morrison-2.0.0 \
+    ro.stats.romversion=2.0.0 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES := \
