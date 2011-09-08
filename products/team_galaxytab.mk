@@ -52,6 +52,6 @@ ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-GalaxyTab-2.0.2-AW \
-    ro.stats.romversion=2.0.2 \
+    ro.modversion=SuperOSR-ST@-GalaxyTab-2.0.4-AW \
+    ro.stats.romversion=2.0.4 \
     ro.config.play.bootsound=0
