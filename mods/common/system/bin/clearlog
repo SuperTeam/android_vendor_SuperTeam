@@ -1,7 +1,7 @@
 #! /system/bin/sh
 #
 echo "Preparacion para borrar logs"; 
-sleep 240:
+sleep 240;
 echo " "; 
 echo "Borrado de logs"; 
 busybox rm -f /sdcard/c*.log /sdcard/b*.log
