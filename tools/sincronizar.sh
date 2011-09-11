@@ -22,6 +22,7 @@ BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
 PUBLICDIR=$ROMDIR/last_public
+DEVICE=$2
 
 . $SCRIPTDIR/mensajes.sh
 

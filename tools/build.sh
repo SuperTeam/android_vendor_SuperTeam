@@ -81,7 +81,7 @@ do
     fi
     
     if [ $option -eq 3 ] || [ $option -eq 5 ]; then
-    	$SCRIPTDIR/sincronizar.sh $ROMDIR
+    	$SCRIPTDIR/sincronizar.sh $ROMDIR $DEVICE
         if [ "$?" -eq 0 ]; then
             msgOK "Sincronización correcta"
         else
