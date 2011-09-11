@@ -10,6 +10,6 @@ add_lunch_combo team_zero-eng
 add_lunch_combo team_morrison-eng
 add_lunch_combo team_p990-eng
 add_lunch_combo team_boston-eng
-#add_lunch_combo team_p970-eng
+add_lunch_combo team_p970-eng
 PATH=$PATH:$PWD/vendor/SuperTeam/tools ; export PATH
 VENDOR=$PWD/vendor/SuperTeam
