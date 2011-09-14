@@ -15,5 +15,8 @@ else
 	then
 		/system/bin/ctrlwipe.sh
 	fi;
+    # to avoid bootloop, at this point we create /data/configsup.cf 
+    # if it doesn't exist
+    touch /data/configsup.cf
     reboot;
 fi;
