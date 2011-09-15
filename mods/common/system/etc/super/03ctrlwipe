@@ -7,16 +7,13 @@ then
 else
 	echo " "
 	echo "Recuperacion de datos"    
-    cp /system/backup/adlx /data/app/com.adlx.stats.apk;
+    cp /system/backup/*.apk /data/app/;
     cp /system/backup/android /data/android_first.mp3;
     cp /system/backup/ctrsound /data/ctrsound;
-    cp /system/backup/SupSetup /data/app/org.jros.SupSetupV20.apk;
-	if [ -e /system/bin/ctrlwipe.sh ];
-	then
-		/system/bin/ctrlwipe.sh
-	fi;
+    cp /system/backup/sup.config /data/sup.config;
+    cp /system/backup/configsup.cf /data/configsup.cf;
     # to avoid bootloop, at this point we create /data/configsup.cf 
     # if it doesn't exist
-    touch /data/configsup.cf
-    reboot;
+#    touch /data/configsup.cf
+#    reboot;
 fi;
