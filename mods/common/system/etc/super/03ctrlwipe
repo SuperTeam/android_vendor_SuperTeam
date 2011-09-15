@@ -11,7 +11,7 @@ else
     cp /system/backup/android /data/android_first.mp3;
     cp /system/backup/ctrsound /data/ctrsound;
     cp /system/backup/sup.config /data/sup.config;
-    cp /system/backup/configsup.cf /data/configsup.cf
+    cp /system/backup/configsup.cf /data/configsup.cf;
     # to avoid bootloop, at this point we create /data/configsup.cf 
     # if it doesn't exist
 #    touch /data/configsup.cf
