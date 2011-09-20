@@ -1,0 +1,1 @@
+make -C kernel/tegra O=/home/podxboq/src/SuperTeam/Aurora/out/target/product/p990/obj/kernel ARCH=arm INSTALL_MOD_STRIP=1 CROSS_COMPILE=/home/podxboq/src/SuperTeam/Aurora/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi- zImage modules
