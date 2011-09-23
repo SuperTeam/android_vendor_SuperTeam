@@ -48,6 +48,7 @@ do
     echo " 5: make + squisher + sincronizar"
     echo " 6: limpiar build"
     echo " 7: Reiniciar dispositivo"
+    echo " 8: Compilar kernel"
     echo "99: salir"
 
     read option
@@ -109,8 +110,12 @@ do
     	make clean
     fi
     
-    if [ $option -eq 7 ]; then
+        if [ $option -eq 7 ]; then
     	adb reboot	
+    fi
+    
+    if [ $option -eq 8 ]; then
+    	$SCRIPTDIR/kernel.sh $DEVICE
     fi
     
 done
