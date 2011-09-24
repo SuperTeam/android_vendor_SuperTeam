@@ -23,10 +23,6 @@ KERNELDIR=`grep ST_KERNEL_DIR $DEFFILE | cut -d "=" -f 2`
 KERNELCFG=`grep ST_KERNEL_CFG $DEFFILE | cut -d "=" -f 2`
 KERNELIMG=`grep ST_KERNEL_IMG $DEFFILE | cut -d "=" -f 2`
 
-if [ -f $KERNELCFG.last ]; then
-	KERNELCFG=$KERNELCFG.last
-fi
-
 cp -f $KERNELCFG $OUT/obj/kernel/.config
 
 make menuconfig -C $KERNELDIR O=$OUT/obj/kernel \
@@ -34,5 +30,5 @@ make menuconfig -C $KERNELDIR O=$OUT/obj/kernel \
      CROSS_COMPILE=$TOPDIR/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi- \
      zImage modules
 
-cp -f $OUT/obj/kernel/.config $KERNELCFG.last
-cp -f $OUT/obj/kernel/arch/arm/boot/zImage $KERNELIMG.last
+cp -fv $OUT/obj/kernel/.config $KERNELCFG
+cp -fv $OUT/obj/kernel/arch/arm/boot/zImage $KERNELIMG
