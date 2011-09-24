@@ -1,11 +1,11 @@
 # Inherit device configuration for vivo.
 $(call inherit-product, device/htc/pyramid/pyramid.mk)
 
-# Inherit some common cyanogenmod stuff.
-$(call inherit-product, vendor/cyanogen/products/common_full.mk)
+# Inherit some common stuff.
+$(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 # Include GSM stuff
-$(call inherit-product, vendor/cyanogen/products/gsm.mk)
+$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
 
 #
 # Setup device specific product configuration.
