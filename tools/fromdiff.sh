@@ -26,6 +26,20 @@ PATCHMASK=last_patch
 SCRIPTDIR=`dirname $0`
 . $SCRIPTDIR/mensajes.sh
 
+mLANG=`echo $LANG | cut -f 2 -d "=" | cut -f 1 -d "."`
+
+if [ $mLANG = "es_ES" ]; then
+	mONLY="Sólo"
+	mONLYIN="Sólo en "
+	mAND=" y"
+	mFILES="Archivos "
+else
+	mONLY="Only"
+	mONLYIN="Only in "
+	mAND=" and"
+	mFILES="Files"
+fi
+
 if [ $# -lt 3 ]
 then
    msgErr >&2 "Usage: $0 <file> <dir|device> <release|patch>"
@@ -66,28 +80,26 @@ fi
 
 while read line; do
     if [[ "$line" =~ "$BUILDMASK" ]]; then
-		if [[ "$line" =~ "Only" ]]; then
-            base=${line#*Only in *}
+		if [[ "$line" =~ "$mONLY" ]]; then
+            base=${line#*$mONLYIN*}
             file=${base/: //}
 		else
-            base=${line%* and*}
-            file=${base#*Files *}
+            base=${line%*mAND*}
+            file=${base#*mFILES*}
 		fi
         accion=copiar
     else
-        base=${line#*Only in *}
+        base=${line#*$mONLYIN*}
         file=${base/: //}
         accion=borrar
     fi
     
     if [[ $accion == "copiar" ]]; then
     	FINALDIR=${file/build/$3}
-    	if [ ! -d $file ]
-    	then
+    	if [ ! -d $file ]; then
     	   FINALDIR=${FINALDIR%*/*}
     	fi
-    	if [ ! -d $FINALDIR ]
-    	then
+    	if [ ! -d $FINALDIR ]; then
     		mkdir -p $FINALDIR
     	fi
 
