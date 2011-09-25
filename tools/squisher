@@ -61,10 +61,6 @@ case "$ALIAS" in
         LOWDISK=1
         KERNELMOD=1
         ;;
-    buzz)
-	GALLERY=2D
-	KERNELMOD=1
-       ;;
     crespo)
         ANIM=1
 	KERNELMOD=0
@@ -72,7 +68,7 @@ case "$ALIAS" in
     p990)
         ANIM=1
 	;;
-    dream_sapphire) 
+    dream_sapphire)
         ANIM=1
         WANT_SQUASHFS=1
         DPI=mdpi
@@ -91,24 +87,21 @@ case "$ALIAS" in
 	EXTRATAB=1
 	KERNELMOD=0
         ;;
-    one) 
-        DPI=mdpi 
+    one)
+        DPI=mdpi
         LOWDISK=1
         ANIM=1
 	WALL_LOW=1
         ;;
-    hero) 
+    legend)
         DPI=mdpi
-        GALLERY=2D
-        ANIM=1
-        KERNELMOD=1
         ;;
-    legend) 
-        DPI=mdpi 
-        ;;
-    passion) 
+    passion)
         ANIM=1
         LOWDISK=1
+        ;;
+    pyramid)
+        ANIM=1
         ;;
     boston)
         DPI=mdpi
@@ -116,10 +109,10 @@ case "$ALIAS" in
     zeppelin)
         DPI=mdpi
         ;;
-    morrison) 
-        DPI=mdpi 
+    morrison)
+        DPI=mdpi
         ;;
-    zero) 
+    zero)
         ANIM=1
         DPI=mdpi
         ;;
@@ -170,7 +163,7 @@ mkdir $REPACKOTA
     cd $REPACKOTA
     msgStatus "Desempaquetando $OTAPACKAGE..."
     unzip $QUIET $OTAPACKAGE
-  
+
 # Copiado de archivos comunes
     cp -rf $ANDROID_BUILD_TOP/$MODS/common/* $REPACKOTA/
 # Copiado de archivos base mdpi o hdpi
@@ -184,7 +177,7 @@ mkdir $REPACKOTA
     cp -rf $ANDROID_BUILD_TOP/$MODS/frame_nodpi/* res/drawable-$DPI/
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable/
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper_$DPI/* res/drawable-$DPI/
-  
+
     if [ "$WALL_LOW" -eq 1 ]; then
        msgOK "Con Wallpaper mas pequeño"
     cp -rf $ANDROID_BUILD_TOP/$MODS/wallpaper-low/* res/drawable/
@@ -197,16 +190,16 @@ mkdir $REPACKOTA
        cp -rf $ANDROID_BUILD_TOP/$MODS/frame_anim/* res/anim/
     fi
 
-# Comprimimos sin optimizar pues lo haremos luego 
+# Comprimimos sin optimizar pues lo haremos luego
     msgStatus "Comprimiendo framework..."
     zip -rq framework-res.apk *
     mv -f framework-res.apk ../framework-res.apk
     cd ..
     rm -rf opticharge
-  
+
 # Copiado de archivos especificos del dispositivo
     cp -r $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/* $REPACKOTA/
-  
+
 # Para los que necesitan espacio
     if [ "$LOWDISK" -eq 1 ]; then
         msgInfo "Dispositivo con espacio al límite"
@@ -217,22 +210,22 @@ mkdir $REPACKOTA
         mv  $REPACKOTA/system/app/Street.apk $REPACKOTA/data/app/com.google.android.street.apk
         mv  $REPACKOTA/system/app/YouTube.apk $REPACKOTA/data/app/com.google.android.youtube.apk
     fi
-  
+
 # Renombrado Gallery dependiendo del dispositivo que sea
     msgOK "Activado Gallery $GALLERY"
     if [ "$GALLERY" = 2D ]; then
         mv $REPACKOTA/system/app/Gallery3D.apk $REPACKOTA/system/app/Gallery3D.app
         cp $OUT/system/app/Gallery.apk $REPACKOTA/system/app/Gallery.apk
     fi
-  
+
     cd $REPACKOTA/system/framework
-  
+
 # Ejecuta si existe personalizaciones específicas del dispositivo.
     if [ -f $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh ]; then
     	$ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/personalizar.sh $REPACKOTA
     	rm $REPACKOTA/personalizar.sh
     fi
-    		
+
 # Ejecuta opticharger especial sobre el framework para copiar las imagenes modificadas de la rom dentro de él
     $OPTICHARGER framework-res.apk
 
@@ -296,7 +289,7 @@ MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build
 OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
 cd $REPACKOTA
 msgStatus "Comprimiendo ROM"
-zip $QUIET -r $REPACK/update.zip . 
+zip $QUIET -r $REPACK/update.zip .
 
 firmar.sh $REPACK/update.zip $OUTFILE
 if [ "$?" -ne 0 ]; then
