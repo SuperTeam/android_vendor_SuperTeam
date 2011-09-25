@@ -48,5 +48,8 @@ PRODUCT_LOCALES := \
 
 # PRODUCT_DEFAULT_LANGUAGE := en_US
 
+# Asian IME stuff
+PRODUCT_PACKAGES += OpenWnn PinyinIME libWnnEngDic libWnnJpnDic libwnndict
+
 # Add the FM app
 # PRODUCT_PACKAGES += FM
