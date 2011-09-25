@@ -44,8 +44,8 @@ set_perm(0, 0, 0777, "/tmp/borrarmedia.sh");
 run_program("/tmp/borrarmedia.sh");
 ui_print(" ");
 ui_print("Formateando system ...");
-format("ext4", "EMMC", "/dev/block/mmcblk0p9");
-mount("ext4", "EMMC", "/dev/block/mmcblk0p9", "/system");
+format("ext4", "EMMC", "/dev/block/mmcblk0p22");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p22", "/system");
 ui_print(" ");
 ui_print("Instalando sistema...");
 package_extract_dir("system", "/system");
@@ -159,17 +159,7 @@ run_program("/tmp/verify_cache_partition_size.sh");
 show_progress(0.200000, 10);
 ui_print(" ");
 ui_print("Instalando Kernel");
-assert(package_extract_file("boot.img", "/tmp/boot.img"),
-       write_raw_image("/tmp/boot.img", "/dev/block/mmcblk0p5"),
-       delete("/tmp/boot.img"));
-ui_print(" ");
-ui_print("Instalando Modem (KG3)");
-package_extract_file("flash_image", "/tmp/flash_image");
-set_perm(0, 0, 0777, "/tmp/flash_image"); 
-assert(package_extract_file("modem.bin", "/tmp/modem.bin"),
-run_program("/tmp/flash_image", "/dev/block/mmcblk0p8", "/tmp/modem.bin"),
-delete("/tmp/modem.bin"));
-delete("/tmp/flash_image"); 
+assert(package_extract_file("boot.img", "/dev/block/mmcblk0p20"),
 ui_print(" ");
 ui_print("Instalando aplicaciones extras ");
 mount("ext4", "EMMC", "/dev/block/mmcblk0p10", "/data");
