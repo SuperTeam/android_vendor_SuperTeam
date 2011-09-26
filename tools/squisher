@@ -117,7 +117,7 @@ case "$ALIAS" in
     boston)
         DPI=mdpi
         ;;
-    zeppelin)
+    zeppelin|zeppelin_cn)
         DPI=mdpi
         ;;
     morrison) 
@@ -299,8 +299,15 @@ MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build
 : ${MODVERSION:=test}
 OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
 cd $REPACKOTA
-msgStatus "Comprimiendo ROM"
-zip $QUIET -r $REPACK/update.zip . 
+
+if which 7za &>/dev/null
+then
+   msgStatus "Comprimiendo ROM usando 7za"
+   7za a -tzip -mx9 -mmt $REPACK/update.zip .
+else
+   msgStatus "Comprimiendo ROM usando zip"
+   zip $QUIET -r -9 $REPACK/update.zip . 
+fi
 
 firmar.sh $REPACK/update.zip $OUTFILE
 if [ "$?" -ne 0 ]; then

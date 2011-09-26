@@ -7,6 +7,7 @@ add_lunch_combo team_galaxytab-eng
 add_lunch_combo team_one-eng
 add_lunch_combo team_passion-eng
 add_lunch_combo team_zeppelin-eng
+add_lunch_combo team_zeppelin_cn-eng
 add_lunch_combo team_zero-eng
 add_lunch_combo team_morrison-eng
 add_lunch_combo team_p990-eng

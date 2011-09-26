@@ -12,7 +12,6 @@ $(call inherit-product, vendor/SuperTeam/products/bcm_fm_radio.mk)
 # Setup device specific product configuration.
 #
 PRODUCT_NAME := team_bravo
-PRODUCT_NAME := superteam_bravo 
 PRODUCT_BRAND := htc_wwe
 PRODUCT_DEVICE := bravo
 PRODUCT_MODEL := HTC Desire
