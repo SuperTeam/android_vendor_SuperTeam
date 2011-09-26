@@ -45,11 +45,8 @@ PRODUCT_LOCALES := \
     eu_ES \
     fr_FR \
     it_IT \
-    zh_CN \
     pt_PT \
     pt_BR \
-    ko_KR \
-    ru_RU \
     mdpi
 
 PRODUCT_DEFAULT_LANGUAGE := en_US
