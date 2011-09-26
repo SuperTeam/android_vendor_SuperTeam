@@ -117,10 +117,12 @@ case "$ALIAS" in
     boston)
         DPI=mdpi
         ;;
-    zeppelin|zeppelin_cn)
+    zeppelin*)
+	ANIM=1
         DPI=mdpi
         ;;
     morrison) 
+	ANIM=1
         DPI=mdpi 
         ;;
     zero) 
