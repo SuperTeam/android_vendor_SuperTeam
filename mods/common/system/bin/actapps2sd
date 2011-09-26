@@ -5,6 +5,18 @@
 # Date: June 21, 2010
 # Based on the Darktremor A2SD version 2.6R2 code
 
+# Byscando Particiones
+for MMC_NUM in `seq 0 9`;
+do
+    MMC_TYPE=`cat /sys/block/mmcblk$MMC_NUM/device/type`
+    if [ "$MMC_TYPE" = "SD" ];
+    then
+        # 2nd partition of sdcard should be the sd-ext if exist
+        SD_EXT_PART=/dev/block/mmcblk${MMC_NUM}p2
+        break
+    fi
+done
+
 echo "Control de Apps2SD"
 if [ -e /system/bin/desap ];
 then
@@ -15,7 +27,7 @@ echo "Activando retorno"
 	chmod 4755 /system/bin/desapp2sd;
 	chmod 4755 /system/bin/arranque;
 	busybox rm  /system/bin/desap;
-        /system/bin/e2fsck -y /dev/block/mmcblk0p2;
+        /system/bin/e2fsck -y $SD_EXT_PART;
 echo "Fin del Control"
 echo "Reiniciando en 5 segundos"
 sleep 5
@@ -113,20 +125,20 @@ busybox echo "[ ] Remontando /system para leer-escribir";
 busybox mount -o remount,rw /system;
 
 busybox echo "[ ] Checkeando particion externa";
-if [ -e /dev/block/mmcblk0p2 ];
+if [ -e $SD_EXT_PART ];
   then
-    export a2sdmount=`busybox grep -q -e /dev/block/mmcblk0p2 /proc/mounts;busybox echo $?;`;
+    export a2sdmount=`busybox grep -q -e $SD_EXT_PART /proc/mounts;busybox echo $?;`;
     if [ $a2sdmount == 1 ];    
       then
         busybox echo "[!] Particion externa existe pero no esta montada.";
         if [ $a2sdfs != -1 ];
           then
             busybox echo "[ ] Checkeando particion Externa...";
-            /system/bin/e2fsck -y /dev/block/mmcblk0p2;
+            /system/bin/e2fsck -y $SD_EXT_PART;
             /system/bin/toolbox setprop cm.e2fsck.errors $?;
         fi;
         busybox echo "[ ] Montando particion externa";
-        busybox mount -o noatime,nodiratime -t auto /dev/block/mmcblk0p2 /system/sd;
+        busybox mount -o noatime,nodiratime -t auto $SD_EXT_PART /system/sd;
         if [ $? != 0 ];
           then
             busybox echo "[X] Fallo al montar la particion externa.";
@@ -162,10 +174,10 @@ if [ -e /dev/block/mmcblk0p2 ];
     fi;
   else
     busybox echo "[X] No existe particion externa";
-    busybox echo "    /dev/block/mmcblk0p2.";
+    busybox echo "    $SD_EXT_PART.";
     busybox echo "";
     busybox echo "    Requerida particion ext2, ext3, o ext4";
-    busybox echo "    no existe en /dev/block/mmcblk0p2.";
+    busybox echo "    no existe en $SD_EXT_PART.";
     busybox echo "";
     busybox echo "    Reiniciar el telefono en recovery y crear";
     busybox echo "    una particion ext2, ext3 o ext4."; 

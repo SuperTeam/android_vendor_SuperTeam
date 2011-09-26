@@ -3,18 +3,27 @@
 # Super@tmel
 #
 
-DEV2=/dev/block/mmcblk0p3
-
+# Byscando Particiones
+for MMC_NUM in `seq 0 9`;
+do
+    MMC_TYPE=`cat /sys/block/mmcblk$MMC_NUM/device/type`
+    if [ "$MMC_TYPE" = "SD" ];
+    then
+        # 3nd partition of sdcard should be the swap if exist
+        SWAP_PART=/dev/block/mmcblk${MMC_NUM}p3
+        break
+    fi
+done
 case "$1" in
    start)
 	echo "+++ Creando Sdcard Swap"
-      busybox mkswap $DEV2;
+      busybox mkswap $SWAP_PART;
 	echo "+++ Activando Linux-Swap"
-		busybox swapon $DEV2;
+		busybox swapon $SWAP_PART;
    ;;
 
    stop)
-      swapoff $DEV2 >/dev/null 2>&1
+      swapoff $SWAP_PART >/dev/null 2>&1
    ;;
    *)
       exit 1
