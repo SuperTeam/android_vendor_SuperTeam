@@ -57,6 +57,10 @@ ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
 case "$ALIAS" in
+    ace)
+	ANIM=1
+        KERNELMOD=1
+        ;;
     bravo)
         LOWDISK=1
         KERNELMOD=1

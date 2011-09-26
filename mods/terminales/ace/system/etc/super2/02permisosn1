@@ -1,0 +1,23 @@
+#!/system/bin/sh
+
+echo "Control de log";
+if [ -e /system/bin/clearlog ];
+	then
+echo "Ejecutando limpieza de log"
+    	busybox sh /system/bin/clearlog &
+else
+echo "No hay log que borrar"
+fi;
+
+echo "Tiempo 140 segundos Nexus One primer inicio"
+echo 3 > /sys/class/leds/green/blink;
+sleep 140
+rwsystem
+#echo 1024 > /sys/block/mmcblk0/bdi/read_ahead_kb
+busybox sh /system/bin/fix_permissions;
+echo "Reorganizando"
+rwsystem;
+busybox rm /system/etc/super2/02permisosn1;
+rosystem;
+echo 0 > /sys/class/leds/green/blink;
+exit;
