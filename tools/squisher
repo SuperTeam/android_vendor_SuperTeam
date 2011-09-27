@@ -101,11 +101,8 @@ case "$ALIAS" in
         ANIM=1
 	WALL_LOW=1
         ;;
-    hero) 
-        DPI=mdpi
-        GALLERY=2D
+    pyramid)
         ANIM=1
-        KERNELMOD=1
         ;;
     legend) 
         DPI=mdpi 
