@@ -23,11 +23,6 @@ then
     echo "$GOVERNOR" > $CPU0DIR/scaling_governor;
 fi
 
-if [ "$GOVERNOR" -eq "ondemand" && "$SAMPLING_RATE" -ne "" ];
-then
-    echo "$SAMPLING_RATE" > $CPUDIR/cpufreq/ondemand/sampling_rate;
-fi
-
 #
 # Set VM swappiness
 #
