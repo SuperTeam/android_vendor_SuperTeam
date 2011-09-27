@@ -101,11 +101,8 @@ case "$ALIAS" in
         ANIM=1
 	WALL_LOW=1
         ;;
-    hero) 
-        DPI=mdpi
-        GALLERY=2D
+    pyramid)
         ANIM=1
-        KERNELMOD=1
         ;;
     legend) 
         DPI=mdpi 
@@ -117,10 +114,12 @@ case "$ALIAS" in
     boston)
         DPI=mdpi
         ;;
-    zeppelin|zeppelin_cn)
+    zeppelin*)
+	ANIM=1
         DPI=mdpi
         ;;
     morrison) 
+	ANIM=1
         DPI=mdpi 
         ;;
     zero) 

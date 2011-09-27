@@ -4,6 +4,9 @@ $(call inherit-product, device/htc/pyramid/pyramid.mk)
 # Inherit some common stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
+# GSM stuff.
+$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
+
 #
 # Setup device specific product configuration.
 #
