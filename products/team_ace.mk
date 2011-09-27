@@ -24,6 +24,7 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/ace
 PRODUCT_PACKAGES += \
     Launcher2 \
     DSPManager \
+    Stk \
     Torch
 
 # Add AicBootFix for ace battery fix
