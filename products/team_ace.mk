@@ -4,9 +4,6 @@ $(call inherit-product, device/htc/ace/full_ace.mk)
 # Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
-# Include GSM stuff
-$(call inherit-product, vendor/SuperTeam/products/gsm.mk)
-
 #
 # Setup device specific product configuration.
 #
