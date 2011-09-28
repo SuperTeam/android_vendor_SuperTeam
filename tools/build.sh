@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) 2011 SuperTeam.
+# Copyright (C) 2011 SuperTeam Development Group.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -103,6 +103,7 @@ do
 	        msgStatus "Calculando las diferencias con la anterior versión publicada"
 	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
             $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
+            $SCRIPTDIR/updater.sh $DEVICE
 	    fi        
     fi    	
     
