@@ -1,7 +1,6 @@
 # Inherit device configuration for ace.
 $(call inherit-product, device/htc/ace/full_ace.mk)
 
-# Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 #
@@ -35,6 +34,6 @@ $(call inherit-product, vendor/SuperTeam/products/bcm_fm_radio.mk)
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-DesireHD-S-2.0.6-AW \
-    ro.stats.romversion=2.0.6 \
+    ro.modversion=SuperOSR-ST@-DesireHD-S-2.0.8-AW \
+    ro.stats.romversion=2.0.8 \
     ro.config.play.bootsound=0

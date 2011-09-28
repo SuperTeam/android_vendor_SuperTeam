@@ -1,9 +1,7 @@
 # Inherit device configuration for GalaxyTab.
 $(call inherit-product, device/samsung/galaxytab/full_galaxytab.mk)
 
-# Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
-
 
 #
 # Setup device specific product configuration.
@@ -51,6 +49,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-GalaxyTab-2.0.6-AW \
-    ro.stats.romversion=2.0.6 \
+    ro.modversion=SuperOSR-ST@-GalaxyTab-2.0.8-AW \
+    ro.stats.romversion=2.0.8 \
     ro.config.play.bootsound=0

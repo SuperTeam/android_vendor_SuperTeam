@@ -1,7 +1,6 @@
 # Inherit AOSP device configuration for crespo.
 $(call inherit-product, device/samsung/crespo/full_crespo.mk)
 
-# Inherit some common cyanogenmod stuff.
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 
@@ -41,20 +40,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-Nexus-S-2.0.6-AW \
-    ro.stats.romversion=2.0.6 \
+    ro.modversion=SuperOSR-ST@-Nexus-S-2.0.8-AW \
+    ro.stats.romversion=2.0.8 \
     ro.config.play.bootsound=0
-
-#PRODUCT_LOCALES := \
-#    es_ES \
-#    ca_ES \
-#    en_US \
-#    de_DE \
-#    eu_ES \
-#    fr_FR \
-#    it_IT \
-#    pt_PT \
-#    ru_RU \
-#    hdpi
-
-#PRODUCT_DEFAULT_LANGUAGE := es_ES
