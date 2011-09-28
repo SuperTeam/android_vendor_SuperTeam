@@ -62,8 +62,7 @@ case "$ALIAS" in
         KERNELMOD=1
         ;;
     bravo)
-        LOWDISK=1
-        KERNELMOD=1
+        ANIM=1
         ;;
     buzz)
 	GALLERY=2D
