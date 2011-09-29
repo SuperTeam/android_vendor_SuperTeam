@@ -84,8 +84,8 @@ while read line; do
             base=${line#*$mONLYIN*}
             file=${base/: //}
 		else
-            base=${line%*mAND*}
-            file=${base#*mFILES*}
+            base=${line%*$mAND*}
+            file=${base#*$mFILES*}
 		fi
         accion=copiar
     else
