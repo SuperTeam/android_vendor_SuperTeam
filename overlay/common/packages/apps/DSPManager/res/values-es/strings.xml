@@ -6,7 +6,6 @@
     <string name="headset_title">Auriculares</string>
     <string name="speaker_title">Teléfono</string>
     <string name="bluetooth_title">Bluetooth</string>
-    <string name="dsp_settings">Ajustes DSP</string>
     <string name="pref_dsp_title">Rango dinámico de compresión</string>
     <string name="pref_dsp_summary_on">Compresión activada</string>
     <string name="pref_dsp_summary_off">Compresión desactivada</string>
