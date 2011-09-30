@@ -7,7 +7,10 @@ mv -f $OUT/repack.d/ota/system/app/BatCircular.apk $OUT/repack.d/ota/data/app/Ba
 mv -f $OUT/repack.d/ota/system/app/BatCircular2.apk $OUT/repack.d/ota/data/app/BatCircular2.apk
 mv -f $OUT/repack.d/ota/system/app/BatNelo.apk $OUT/repack.d/ota/data/app/BatNelo.apk
 mv -f $OUT/repack.d/ota/system/app/BatNumerada.apk $OUT/repack.d/ota/data/app/BatNumerada.apk
+rm -rf $OUT/repack.d/ota/system/app/Cyanbread.apk
+rm -rf $OUT/repack.d/ota/system/app/Androidian.apk
 rm -rf $OUT/repack.d/ota/system/app/BooksPhone.apk
+rm -rf $OUT/repack.d/ota/system/app/GlobalTime.apk
 mv -f $OUT/repack.d/ota/system/app/Vending.apk $OUT/repack.d/ota/data/app/Vending.apk
 mv -f $OUT/repack.d/ota/system/app/Wallpapers.apk $OUT/repack.d/ota/data/app/Wallpapers.apk
 rm -rf $OUT/repack.d/ota/system/backup
