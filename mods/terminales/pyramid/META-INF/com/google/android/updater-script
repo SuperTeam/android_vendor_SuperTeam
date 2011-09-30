@@ -159,7 +159,7 @@ run_program("/tmp/verify_cache_partition_size.sh");
 show_progress(0.200000, 10);
 ui_print(" ");
 ui_print("Instalando Kernel");
-assert(package_extract_file("boot.img", "/dev/block/mmcblk0p20");
+assert(package_extract_file("boot.img", "/dev/block/mmcblk0p20"));
 ui_print(" ");
 ui_print("Instalando aplicaciones extras ");
 mount("ext4", "EMMC", "/dev/block/mmcblk0p23", "/data");

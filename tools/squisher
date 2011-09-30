@@ -293,9 +293,10 @@ if [ "$KERNELMOD" -eq 1 ];  then
 fi
 
 # Determinar como se llamará el paquete firmado
-MODVERSION=`sed -n -e'/ro\.modversion/s/^.*SuperOSR-//p' $REPACKOTA/system/build.prop`
+MODVERSION=$( grep -e '^ro\.modversion=' $REPACKOTA/system/build.prop | tail -1 | sed -n -e's/^.*SuperOSR-//p'  )
 : ${MODVERSION:=test}
 OUTFILE=$OUT/SuperOSR-$MODVERSION.zip
+
 cd $REPACKOTA
 
 if which 7za &>/dev/null
