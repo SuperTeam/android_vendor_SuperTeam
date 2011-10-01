@@ -33,7 +33,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.emc.mode=2
 
 PRODUCT_PACKAGES += \
-   ADWLauncher \
+   Launcher2 \
    DSPManager \
    hcitool \
    FM \
@@ -44,20 +44,20 @@ PRODUCT_PACKAGES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-Nexus-2.0.2-AW \
-    ro.stats.romversion=2.0.2 \
+    ro.modversion=SuperOSR-ST@-Nexus-2.1.0-AW \
+    ro.stats.romversion=2.1.0 \
     ro.config.play.bootsound=0
 
-PRODUCT_LOCALES := \
-    es_ES \
-    ca_ES \
-    en_US \
-    de_DE \
-    eu_ES \
-    fr_FR \
-    it_IT \
-    pt_PT \
-    ru_RU \
-    hdpi
+#PRODUCT_LOCALES := \
+#    es_ES \
+#    ca_ES \
+#    en_US \
+#    de_DE \
+#    eu_ES \
+#    fr_FR \
+#    it_IT \
+#    pt_PT \
+#    ru_RU \
+#    hdpi
 
-PRODUCT_DEFAULT_LANGUAGE := es_ES
+#PRODUCT_DEFAULT_LANGUAGE := es_ES
