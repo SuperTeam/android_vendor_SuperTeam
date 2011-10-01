@@ -39,6 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-GalaxyS2-S-2.0.8-AW \
-    ro.stats.romversion=2.0.8 \
+    ro.modversion=SuperOSR-ST@-GalaxyS2-S-2.1-AW \
+    ro.stats.romversion=2.1 \
     ro.config.play.bootsound=0
