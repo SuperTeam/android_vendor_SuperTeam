@@ -17,3 +17,5 @@ else
 #    touch /data/configsup.cf
 #    reboot;
 fi;
+
+exit 0
