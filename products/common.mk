@@ -3,17 +3,17 @@ PRODUCT_NAME := OSR
 PRODUCT_BRAND := OSR
 PRODUCT_DEVICE := generic
 
-PRODUCT_LOCALES += \
-    es_ES \
-    ca_ES \
-    en_US \
-    en_GB \
-    de_DE \
-    eu_ES \
-    fr_FR \
-    it_IT \
-    pt_PT \
-    pt_BR
+#PRODUCT_LOCALES += \
+#    es_ES \
+#    ca_ES \
+#    en_US \
+#    en_GB \
+#    de_DE \
+#    eu_ES \
+#    fr_FR \
+#    it_IT \
+#    pt_PT \
+#    pt_BR
     
 ONLY_KEYBOARD_QWERTY := true
 
