@@ -213,11 +213,11 @@ mkdir $REPACKOTA
     if [ "$LOWDISK" -eq 1 ]; then
         msgInfo "Dispositivo con espacio al límite"
         msgStatus "Pasando archivos de system a data para conseguir espacio"
-        mv  $REPACKOTA/system/app/Gmail.apk $REPACKOTA/data/app/com.google.android.gm.apk
-        mv  $REPACKOTA/system/app/Maps.apk $REPACKOTA/data/app/com.android.apps.maps.apk
-        mv  $REPACKOTA/system/app/VoiceSearch.apk $REPACKOTA/data/app/com.google.android.voiceSearch.apk
-        mv  $REPACKOTA/system/app/Street.apk $REPACKOTA/data/app/com.google.android.street.apk
-        mv  $REPACKOTA/system/app/YouTube.apk $REPACKOTA/data/app/com.google.android.youtube.apk
+        mv  $REPACKOTA/system/app/Gmail.apk $REPACKOTA/data/app/com.google.android.gm-1.apk
+        mv  $REPACKOTA/system/app/Maps.apk $REPACKOTA/data/app/com.android.apps.maps-1.apk
+        mv  $REPACKOTA/system/app/VoiceSearch.apk $REPACKOTA/data/app/com.google.android.voiceSearch-1.apk
+        mv  $REPACKOTA/system/app/Street.apk $REPACKOTA/data/app/com.google.android.street-1.apk
+        mv  $REPACKOTA/system/app/YouTube.apk $REPACKOTA/data/app/com.google.android.youtube-1.apk
     fi
   
 # Renombrado Gallery dependiendo del dispositivo que sea
