@@ -3,6 +3,20 @@ PRODUCT_NAME := OSR
 PRODUCT_BRAND := OSR
 PRODUCT_DEVICE := generic
 
+PRODUCT_LOCALES += \
+    es_ES \
+    ca_ES \
+    en_US \
+    en_GB \
+    de_DE \
+    eu_ES \
+    fr_FR \
+    it_IT \
+    pt_PT \
+    pt_BR
+    
+ONLY_KEYBOARD_QWERTY := true
+
 # Used by BusyBox
 KERNEL_MODULES_DIR:=/system/lib/modules
 
@@ -38,7 +52,8 @@ PRODUCT_PACKAGES += \
    openvpn \
    Parts \
    Stk \
-   Wallpapers
+   Wallpapers \
+   libWnnEngDic 
 
 # Activa Voip
 PRODUCT_COPY_FILES += \
