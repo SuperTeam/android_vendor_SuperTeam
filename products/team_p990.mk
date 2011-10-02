@@ -23,3 +23,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.play.bootsound=0
 
 PRODUCT_PACKAGES += DSPManager Torch 
+VENDOR_INCLUDE_MUSICAPP := true
