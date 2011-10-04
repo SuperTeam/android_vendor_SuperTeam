@@ -53,6 +53,7 @@ GALLERY=3D
 ANIM=0
 KERNELMOD=0
 WALL_LOW=0
+APP_GOOGLE=0
 ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
@@ -60,9 +61,11 @@ case "$ALIAS" in
     ace)
 	ANIM=1
         KERNELMOD=1
+	APP_GOOGLE=1
         ;;
     bravo)
         ANIM=1
+	APP_GOOGLE=1
         ;;
     buzz)
 	GALLERY=2D
@@ -71,9 +74,15 @@ case "$ALIAS" in
     crespo)
         ANIM=1
 	KERNELMOD=0
+	APP_GOOGLE=1
        ;;
+    p970)
+        ANIM=1
+	APP_GOOGLE=1
+	;;
     p990)
         ANIM=1
+	APP_GOOGLE=1
 	;;
     dream_sapphire) 
         ANIM=1
@@ -84,15 +93,18 @@ case "$ALIAS" in
     galaxys2)
         ANIM=1
         KERNELMOD=0
+	APP_GOOGLE=1
         ;;
     galaxysmtd)
         ANIM=1
 	KERNELMOD=0
+	APP_GOOGLE=1
         ;;
     galaxytab)
 	ANIM=1
 	EXTRATAB=1
 	KERNELMOD=0
+	APP_GOOGLE=1
         ;;
     one) 
         DPI=mdpi 
@@ -102,6 +114,7 @@ case "$ALIAS" in
         ;;
     pyramid)
         ANIM=1
+	APP_GOOGLE=1
         ;;
     legend) 
         DPI=mdpi 
@@ -109,6 +122,7 @@ case "$ALIAS" in
     passion) 
         ANIM=1
         LOWDISK=1
+	APP_GOOGLE=1
         ;;
     boston)
         DPI=mdpi
@@ -175,8 +189,22 @@ mkdir $REPACKOTA
   
 # Copiado de archivos comunes
     cp -rf $ANDROID_BUILD_TOP/$MODS/common/* $REPACKOTA/
+
 # Copiado de archivos base mdpi o hdpi
     cp -rf $MOD_DPI/* $REPACKOTA/
+
+# Copiado de aplicaciones extras de Google a data/app
+
+    if [ "$APP_GOOGLE" -eq 1 ]; then
+       msgOK "Con Aplicaciones de Google extras y FlashPlayer en data/app"
+       msgWarn "FlashPlayer"
+       msgWarn "Google Docs"
+       msgWarn "Google Plus"
+    cp -rf $ANDROID_BUILD_TOP/$MODS/appgoogle/* $REPACKOTA/
+	else
+       msgOK "Sin Aplicaciones de Google extras y FlashPlayer en data/app"
+    fi
+
 # Extraemos el framework para modificarlo
     mkdir $REPACKOTA/system/framework/opticharge
     cd $REPACKOTA/system/framework/opticharge
