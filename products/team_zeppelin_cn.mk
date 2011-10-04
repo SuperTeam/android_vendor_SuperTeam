@@ -9,6 +9,8 @@ $(call inherit-product, vendor/SuperTeam/products/asian.mk)
 #
 PRODUCT_NAME := team_zeppelin_cn
 
-PRODUCT_PROPERTY_OVERRIDES += ro.modversion=SuperOSR-zeppelin_cn-2.0.1
+PRODUCT_PROPERTY_OVERRIDES += ro.modversion=SuperOSR-zeppelin_cn-2.1
 
 PRODUCT_LOCALES += mdpi
+
+PRODUCT_DEFAULT_LANGUAGE := en_US
