@@ -7,6 +7,10 @@ PRODUCT_LOCALES := \
     ru_RU
 
 # Asian IME stuff
-PRODUCT_PACKAGES += OpenWnn PinyinIME libWnnJpnDic libwnndict
+PRODUCT_PACKAGES := $(PRODUCT_PACKAGES) \
+    OpenWnn \
+    PinyinIME \
+    libWnnJpnDic \
+    libwnndict
 
-ONLY_KEYBOARD_QWERTY := false
+PRODUCT_NOLATIN_IME := true
