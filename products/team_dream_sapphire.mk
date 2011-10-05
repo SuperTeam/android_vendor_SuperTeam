@@ -17,18 +17,12 @@ PRODUCT_PACKAGES += Gallery
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.data.on=0 \
-	ro.modversion=SuperOSR-ST@-dream_sapphire-2.0.2 \
-	ro.stats.romversion=2.0.2 \
+	ro.modversion=SuperOSR-ST@-dream_sapphire-2.2.0 \
+	ro.stats.romversion=2.2.0 \
 	ro.compcache.default=18 \
 	ro.config.alarm_alert=Beeps.mp3 \
-	ro.config.ringtone=Theway.mp3 \
-	ro.config.notification_sound=Bubbles.ogg \
 	ro.product.multi_touch_enabled=true \
 	ro.setupwizard.mode=DISABLED
-  
-WITH_DS_HTCACOUSTIC_HACK := true
 
-PRODUCT_COPY_FILES +=  \
-  frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml 
-
-TARGET_BUILD_TYPE=release
+#include vendor/SuperTeam/products/asian.mk
+#PRODUCT_SUBDEVICE := $(PRODUCT_DEVICE)_cn
