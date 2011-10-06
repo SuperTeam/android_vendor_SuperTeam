@@ -40,7 +40,7 @@ then
 fi
 
 if [ ! -d out/target/product/$DEVICE ]; then
-	LASTDEVICEBUILD=`ls out/target/product`
+	LASTDEVICEBUILD=`ls out/target/product | head -n 1`
 	if [ -n "$LASTDEVICEBUILD" ]; then
 		mv out out.$LASTDEVICEBUILD
 	fi
