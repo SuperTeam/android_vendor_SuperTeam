@@ -22,6 +22,9 @@ DEFFILE=$DEVICEDIR/kernel.mk
 KERNELDIR=`grep ST_KERNEL_DIR $DEFFILE | cut -d "=" -f 2` 
 KERNELCFG=`grep ST_KERNEL_CFG $DEFFILE | cut -d "=" -f 2`
 KERNELIMG=`grep ST_KERNEL_IMG $DEFFILE | cut -d "=" -f 2`
+KERNELDIR=${KERNELDIR, 1}
+KERNELCFG=${KERNELCFG, 1}
+KERNELIMG=${KERNELIMG, 1}
 
 if [ ! -d $OUT/obj/kernel ]; then
 	mkdir -p $OUT/obj/kernel

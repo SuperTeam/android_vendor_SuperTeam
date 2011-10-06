@@ -6,12 +6,8 @@ rm HtcCopyright.apk
 rm HtcEmailPolicy.apk
 rm HtcSettings.apk
 rm LatinImeTutorial.apk
-rm Development.*
 mv Gallery.apk Gallery.app
 rm BooksPhone.apk
 
-cd ../media
-mv bootanimation.zip ../../data/local/
-cd audio/ringtones
-rm Theway.mp3
+rm ../media/audio/ringtones/Theway.mp3
 

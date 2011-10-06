@@ -31,16 +31,16 @@ ui_print(" ");
 ui_print(" ");
 ui_print(" ");
 ui_print(" ");
-ui_print("Instalando SuperOSR 1.0.0");
+ui_print("Instalando SuperOSR 2.2.0");
 ui_print(" ");
-ui_print("con gingerbread 2.3.5");
+ui_print("con gingerbread 2.3.7");
 ui_print(" ");
 ui_print("Por SuperTe@m :)");
 ui_print(" ");
-show_progress(0.500000, 0);
+show_progress(0.100000, 0);
 format("yaffs2", "MTD", "system");
 mount("yaffs2", "MTD", "system", "/system");
-package_extract_dir("recovery", "/system");
+show_progress(0.100000, 10);
 package_extract_dir("system", "/system");
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
         "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
@@ -139,32 +139,15 @@ set_perm(0, 0, 06755, "/system/xbin/procmem");
 set_perm(0, 0, 06755, "/system/xbin/procrank");
 set_perm(0, 0, 06755, "/system/xbin/su");
 set_perm(0, 0, 06755, "/system/xbin/tcpdump");
-show_progress(0.100000, 10);
 show_progress(0.200000, 0);
-mount("vfat", "MTD", "/dev/block/mmcblk0p1", "/sdcard");
-ui_print("");
-ui_print("Limpiando thumbnails");
-package_extract_file("system/bin/thumbnails.sh", "/tmp/thumbnails.sh");
-set_perm(0, 0, 0777, "/tmp/thumbnails.sh");
-run_program("/tmp/thumbnails.sh");
-unmount("/sdcard");
 ui_print("");
 ui_print("Verificando particion");
 package_extract_file("system/bin/verify_cache_partition_size.sh", "/tmp/verify_cache_partition_size.sh");
 set_perm(0, 0, 0777, "/tmp/verify_cache_partition_size.sh");
 run_program("/tmp/verify_cache_partition_size.sh");
-show_progress(0.200000, 10);
 show_progress(0.300000, 0);
 ui_print("");
-ui_print("Instalando scripts y realizando limpieza");
-package_extract_dir("boot","/tmp/boot");
-set_perm(0,0, 0777, "/tmp/boot/borrarmedia.sh");
-ui_print("");
-ui_print("Limpiando archivos");
-run_program("/tmp/boot/borrarmedia.sh");
-show_progress(0.300000, 10);
-show_progress(0.400000, 0);
-ui_print("");
+ui_print("Realizando limpieza");
 mount("yaffs2", "MTD", "userdata", "/data");
 show_progress(0.400000, 10);
 delete_recursive("/data/dalvik-cache");
@@ -174,69 +157,15 @@ set_perm(0, 0, 06755, "/data/firstboot.sh");
 set_perm(0, 0, 06755, "/data/configsup.cf");
 set_perm(0, 0, 06755, "/data/sup.config");
 unmount("/data");
-show_progress(0.400000, 10);
 show_progress(0.500000, 0);
 ui_print("");
-ui_print("Instalando kernel COS-Stock-2.6.36.4_EzTerry_05092011");
+ui_print("Instalando kernel");
 set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
-
-#check the system information of the system we are installing on
-package_extract_file("checksys.sh","/tmp/checksys.sh");
-set_perm(0,0,755,"/tmp/checksys.sh");
-run_program("/tmp/checksys.sh");
-
-#determine if we need to patch a boot image
-if file_getprop("/tmp/nfo.prop","radioseries") == "3.22"
-then 
-    #EBI1 kernel needed
-    ui_print("Extracting EBI1 patch");
-    package_extract_file("kernel/ebi1-boot.img","/tmp/boot.img");
-    package_extract_file("kernel/ebi1-modules.sqf","/system/lib/modules/modules.sqf");
-else
-    #EBI0/2708 kernel needed
-    if file_getprop("/tmp/nfo.prop","smisize") == "64" &&
-       ( file_getprop("/tmp/nfo.prop","bootloader") == "1.33.0011" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.2011" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.3011" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.0013" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.2013" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.3013" ||
-         file_getprop("/tmp/nfo.prop","bootloader") == "1.33.0013d" ) &&
-       ( file_getprop("/tmp/nfo.prop","baseband") == "2.22.27.08" ||
-         file_getprop("/tmp/nfo.prop","baseband") == "2.22.28.25" )
-    then
-        #2708 kernel (unless the user has the fake Crios SPL 1.33.2013 ENG)
-        # if the fake version they will fail to boot since its really
-        # 1.33.2005...
-        if file_getprop("/tmp/nfo.prop","bootloader") == "1.33.2013"
-        then
-            ui_print("1.33.2013 detected, please ensure this is not Crios SPL 1.33.2013 ENG; as its really 1.33.2005");
-        endif;
-        ui_print("Extracting 2708+ patch");
-        package_extract_file("kernel/2708-boot.img","/tmp/boot.img");
-        package_extract_file("kernel/2708-modules.sqf","/system/lib/modules/modules.sqf");
-    else
-        #EBI0 kernel
-        ui_print("Extracting EBI0 patch");
-        package_extract_file("kernel/ebi0-boot.img","/tmp/boot.img");
-        package_extract_file("kernel/ebi0-modules.sqf","/system/lib/modules/modules.sqf");
-    endif;
-endif;
-show_progress(0.500000, 10);
+package_extract_file("boot.img","/tmp/boot.img");
 show_progress(0.600000, 0);
-if file_getprop("/tmp/nfo.prop","custommtd") == "CustomMTD"
-then
-    ui_print("Patching boot.img with CustomMTD");
-    package_extract_dir("AutoCMTD", "/tmp");
-    set_perm(0, 0, 0700, "/tmp/mkbootimg");
-    set_perm(0, 0, 0700, "/tmp/unpackbootimg");
-    set_perm(0, 0, 0700, "/tmp/repackboot.sh");
-    run_program("/tmp/repackboot.sh");
-endif;
 ui_print("Write boot.img");
 assert(write_raw_image("/tmp/boot.img","boot"));
-delete("/tmp/checksys.sh","/tmp/boot.img");
-#END INSTALL boot.img
+delete("/tmp/boot.img");
 
 #Ensure we sync.. I've seen files flashed at the end of a edify script like
 #this vanish
@@ -249,5 +178,3 @@ ui_print(" ");
 ui_print("Instalacion finalizada!!!!");
 ui_print(" ");
 ui_print("Gracias.");
-show_progress(0.050000, 10);
-ui_print(" ");

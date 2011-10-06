@@ -36,7 +36,7 @@ function write_mount (){
 }
 
 #Descomprimimos lo ficheros base para la instalación
-unzip $SCRIPTDIR/META-INF.zip -d $PATCHDIR
+unzip -o $SCRIPTDIR/META-INF.zip -d $PATCHDIR
 
 #Creamos el script del instalador
 if [ -f $SCRIPTFILE ]; then
@@ -57,8 +57,12 @@ if [ -f $PATCHDIR/boot.img ]; then
 fi
 echo "ui_print(\"Parche instalado. Gracias.\");" >> $SCRIPTFILE
 
+msgStatus "Ya puede modificar el contenido de $PATCHDIR. Confirme para continuar"
+	
+read var
+
 cd $PATCHDIR
-msgStatus "Comprimiendo parche"
+msgStatus "Comprimiendo parches"
 zip -qr ../update.zip .
 cd $TOPDIR
 $SCRIPTDIR/firmar.sh $ROMDIR/update.zip $OUT/update.zip
