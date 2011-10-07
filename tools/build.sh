@@ -18,7 +18,12 @@
 #Inicializamos las variables
 SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
-DEVICE=$1
+SUBDEVICE=`grep -G ^PRODUCT_SUBDEVICE $TOPDIR/vendor/SuperTeam/products/team_$1.mk`
+if [ -n $SUBDEVICE ]; then
+	DEVICE=$1
+else
+	DEVICE=$SUBDEVICE
+fi
 ROMDIR=$TOPDIR/roms/$DEVICE
 BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
@@ -33,8 +38,8 @@ then
    msgErr >&2 "Usage: $0 <device>"
    exit 1
 fi
-
-$SCRIPTDIR/preparasource.sh $1
+	
+$SCRIPTDIR/preparasource.sh $DEVICE
 
 option=0
 while [ $option -ne 99 ]
