@@ -25,4 +25,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.setupwizard.mode=DISABLED
 
 #include vendor/SuperTeam/products/asian.mk
-#PRODUCT_SUBDEVICE := $(PRODUCT_DEVICE)_cn
+
