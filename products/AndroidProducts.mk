@@ -5,6 +5,7 @@ PRODUCT_MAKEFILES := \
         $(LOCAL_DIR)/team_galaxysmtd.mk \
         $(LOCAL_DIR)/team_galaxytab.mk \
         $(LOCAL_DIR)/team_morrison.mk \
+        $(LOCAL_DIR)/team_morrison_cn.mk \
         $(LOCAL_DIR)/team_one.mk \
         $(LOCAL_DIR)/team_passion.mk \
         $(LOCAL_DIR)/team_zeppelin.mk \
