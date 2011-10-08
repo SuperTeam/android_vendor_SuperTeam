@@ -13,6 +13,8 @@ rm -rf $OUT/repack.d/ota/system/app/Cyanbread.apk
 rm -rf $OUT/repack.d/ota/system/app/Androidian.apk
 rm -rf $OUT/repack.d/ota/system/app/BooksPhone.apk
 rm -rf $OUT/repack.d/ota/system/app/GlobalTime.apk
+rm -rf $OUT/repack.d/ota/system/app/SpareParts.apk
+rm -rf $OUT/repack.d/ota/system/app/SpareParts2.apk
 rm -rf $OUT/repack.d/ota/system/backup
 rm -rf $OUT/repack.d/ota/system/etc/super/03ctrlwipe
 rm -rf $OUT/repack.d/ota/system/etc/super/04superteam
