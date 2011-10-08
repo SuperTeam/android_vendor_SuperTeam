@@ -6,6 +6,8 @@ msgStatus " "
 rm -rf $OUT/repack.d/ota/system/app/GlobalTime.apk
 rm -rf $OUT/repack.d/ota/system/app/LatinIME.apk
 rm -rf $OUT/repack.d/ota/system/app/Torch.apk
+rm -rf $OUT/repack.d/ota/system/app/SpareParts.apk
+rm -rf $OUT/repack.d/ota/system/app/SpareParts2.apk
 rm -rf $OUT/repack.d/ota/system/etc/super/04superteam
 rm -rf $OUT/repack.d/ota/boot.img
 cp $OUT/kernel $OUT/repack.d/ota/zImage
