@@ -24,15 +24,26 @@ DEVICEDIR=`find device -type d -name $1`
 
 . $SCRIPTDIR/mensajes.sh
 
-mBOOTDEV=`grep ST_BOOT_DEV $DEVICEDIR/updater.mk | cut -d "=" -f 2`
-mBOOTDEV=${mBOOTDEV:1}
+OSRVER=`grep ro.stats.romversion $SCRIPTDIR/../products/team_$1.mk | cut -f 2 -d "=" | cut -f 1 -d " "`
+AOSPVER=`grep "PLATFORM_VERSION :=" $TOPDIR/build/core/version_defaults.mk | cut -f 2 -d "="`
+AOSPVER=${AOSPVER:1}
 
 function write_mount (){
 	mFS=`grep ST_$1_FS $DEVICEDIR/updater.mk | cut -d "=" -f 2`
 	mBK=`grep ST_$1_BLOCK $DEVICEDIR/updater.mk | cut -d "=" -f 2`
 	mNM=`grep ST_$1_NAME $DEVICEDIR/updater.mk | cut -d "=" -f 2`
 	mDV=`grep ST_$1_DEV $DEVICEDIR/updater.mk | cut -d "=" -f 2`
-	echo "mount(\""${mFS:1}"\", \""${mBK:1}"\", \""${mDV:1}"\", \""${mNM:1}"\");" >> $SCRIPTFILE
+	mMT=`grep ST_$1_METHOD $DEVICEDIR/updater.mk | cut -d "=" -f 2`
+	if [ "$1" = "BOOT" ]; then
+		if [ "$mMT" = "raw" ]; then
+			echo "package_extract_file(\"boot.img\", \"/tmp/boot.img\");" >> $SCRIPTFILE
+			echo "write_raw_image(\"/tmp/boot.img\", \""${mDV:1}"\");" >> $SCRIPTFILE
+		else
+			echo "package_extract_file(\"boot.img\", \""${mDV:1}"\");" >> $SCRIPTFILE
+		fi
+	else
+		echo "mount(\""${mFS:1}"\", \""${mBK:1}"\", \""${mDV:1}"\", \""${mNM:1}"\");" >> $SCRIPTFILE
+	fi
 }
 
 #Descomprimimos lo ficheros base para la instalación
@@ -43,17 +54,16 @@ if [ -f $SCRIPTFILE ]; then
 	rm $SCRIPTFILE
 fi
 
-echo "ui_print(\"Instalando parche para SuperOSR.\");" >> $SCRIPTFILE
+echo "ui_print(\"Instalando parche para "$DEVICE"\");" >> $SCRIPTFILE
+echo "ui_print(\"SuperOSR "$OSRVER" con Android "$AOSPVER".\");" >> $SCRIPTFILE
 write_mount SYSTEM
 write_mount DATA
 echo "package_extract_dir(\"system\", \"/system\");" >> $SCRIPTFILE
 echo "package_extract_dir(\"data\", \"/data\");" >> $SCRIPTFILE
-echo "set_perm_recursive(1000, 1000, 0771, 0644, \"/data/app\");" >> $SCRIPTFILE
 echo "unmount(\"/system\");" >> $SCRIPTFILE
 echo "unmount(\"/data\");" >> $SCRIPTFILE
 if [ -f $PATCHDIR/boot.img ]; then
-	echo "assert(write_raw_image(\"boot.img\", \"boot\"));" >> $SCRIPTFILE
-	#echo "package_extract_file(\"boot.img\", \""$mBOOTDEV"\");" >> $SCRIPTFILE
+	write_mount BOOT
 fi
 echo "ui_print(\"Parche instalado. Gracias.\");" >> $SCRIPTFILE
 
@@ -62,14 +72,16 @@ msgStatus "Ya puede modificar el contenido de $PATCHDIR. Confirme para continuar
 read var
 
 cd $PATCHDIR
-msgStatus "Comprimiendo parches"
+msgStatus "Comprimiendo parche"
+rm ../update.zip
 zip -qr ../update.zip .
+UPDATEFILE=$OUT/SuperOSR-$1-$OSRVER.zip
 cd $TOPDIR
-$SCRIPTDIR/firmar.sh $ROMDIR/update.zip $OUT/update.zip
+$SCRIPTDIR/firmar.sh $ROMDIR/update.zip $UPDATEFILE
 if [ "$?" -eq 0 ]; then
-	msgOK "Fichero $OUT/update.zip creado correctamente"
+	msgOK "Fichero $UPDATEFILE creado correctamente"
 else
-    msgErr "Error al firmar el fichero Fichero $OUT/update.zip"
+    msgErr "Error al firmar el fichero $UPDATEFILE"
     exit -1
 fi
 	    
