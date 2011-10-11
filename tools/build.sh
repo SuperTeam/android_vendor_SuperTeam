@@ -24,7 +24,7 @@ if [ -n $SUBDEVICE ]; then
 else
 	DEVICE=$SUBDEVICE
 fi
-ROMDIR=$TOPDIR/roms/$DEVICE
+ROMDIR=$TOPDIR/../cache/roms/$DEVICE
 BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
