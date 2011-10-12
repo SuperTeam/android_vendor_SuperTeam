@@ -39,7 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_LOCALES := \
     en_US \
     zh_CN \
-    ja_JP \
     ko_KR \
     ru_RU \
     mdpi
@@ -50,6 +49,6 @@ PRODUCT_DEFAULT_LANGUAGE := en_US
 PRODUCT_PACKAGES += FM
 
 # Asian IME stuff
-PRODUCT_PACKAGES += OpenWnn PinyinIME libWnnEngDic libWnnJpnDic libwnndict
+PRODUCT_PACKAGES += PinyinIME
 
 PRODUCT_SUBDEVICE := $(PRODUCT_DEVICE)_cn
