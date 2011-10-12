@@ -131,7 +131,7 @@ case "$ALIAS" in
 	ANIM=1
         DPI=mdpi
         ;;
-    morrison) 
+    morrison*) 
 	ANIM=1
         DPI=mdpi 
         ;;
