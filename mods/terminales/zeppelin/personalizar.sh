@@ -10,8 +10,8 @@ ROOTDIR=$1
 cd $ROOTDIR/system
 echo "Some build.prop edits"
 sed -i -e "s/ro.product.device=zeppelin/ro.product.device=zepp/" build.prop
-sed -i -e "s/^ro.product.locale.language=.*/ro.product.locale.language=en/" system/build.prop
-sed -i -e "s/^ro.product.locale.region=.*/ro.product.locale.region=US/" system/build.prop
+sed -i -e "s/^ro.product.locale.language=.*/ro.product.locale.language=en/" build.prop
+sed -i -e "s/^ro.product.locale.region=.*/ro.product.locale.region=US/" build.prop
 
 echo "Removing some big files to make space"
 cd $ROOTDIR/system/app
