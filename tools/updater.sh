@@ -17,13 +17,14 @@
 SCRIPTDIR=`dirname $0`
 TOPDIR=`pwd`
 DEVICE=$1
-ROMDIR=$TOPDIR/roms/$DEVICE
+ROMDIR=$TOPDIR/../cache/roms/$DEVICE
 PATCHDIR=$ROMDIR/last_patch
 SCRIPTFILE=$PATCHDIR/META-INF/com/google/android/updater-script
 DEVICEDIR=`find device -type d -name $1`
 
 . $SCRIPTDIR/mensajes.sh
 
+OSRZIP=`grep ro.modversion $SCRIPTDIR/../products/team_$1.mk | cut -f 2 -d "=" | cut -f 1 -d " "`
 OSRVER=`grep ro.stats.romversion $SCRIPTDIR/../products/team_$1.mk | cut -f 2 -d "=" | cut -f 1 -d " "`
 AOSPVER=`grep "PLATFORM_VERSION :=" $TOPDIR/build/core/version_defaults.mk | cut -f 2 -d "="`
 AOSPVER=${AOSPVER:1}
@@ -46,14 +47,14 @@ function write_mount (){
 	fi
 }
 
-#Descomprimimos lo ficheros base para la instalación
-unzip -o $SCRIPTDIR/META-INF.zip -d $PATCHDIR
+#Descomprimimos lo ficheros base para el instalador
+if [ -d $PATCHDIR/META-INF ]; then
+	rm -r $PATCHDIR/META-INF
+fi
+unzip $OUT/$OSRZIP.zip META-INF/com/google/android/update-binary -d $PATCHDIR
+unzip $OUT/$OSRZIP.zip META-INF/CERT.RSA -d $PATCHDIR
 
 #Creamos el script del instalador
-if [ -f $SCRIPTFILE ]; then
-	rm $SCRIPTFILE
-fi
-
 echo "ui_print(\"Instalando parche para "$DEVICE"\");" >> $SCRIPTFILE
 echo "ui_print(\"SuperOSR "$OSRVER" con Android "$AOSPVER".\");" >> $SCRIPTFILE
 write_mount SYSTEM
