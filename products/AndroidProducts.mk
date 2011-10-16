@@ -16,4 +16,5 @@ PRODUCT_MAKEFILES := \
 	$(LOCAL_DIR)/team_zero.mk \
 	$(LOCAL_DIR)/team_boston.mk \
         $(LOCAL_DIR)/team_p970.mk \
+        $(LOCAL_DIR)/team_chacha.mk \
         $(LOCAL_DIR)/team_bravo.mk

@@ -140,6 +140,10 @@ case "$ALIAS" in
 	ANIM=1
         DPI=mdpi 
         ;;
+    chacha*) 
+	ANIM=1
+        DPI=mdpi 
+        ;;
     zero) 
         ANIM=1
         DPI=mdpi
