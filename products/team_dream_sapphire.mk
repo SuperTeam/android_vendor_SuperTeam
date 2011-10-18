@@ -23,6 +23,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.config.alarm_alert=Beeps.mp3 \
 	ro.product.multi_touch_enabled=true \
 	ro.setupwizard.mode=DISABLED
+	
+PRODUCT_LOCALES += pl_PL
 
 #include vendor/SuperTeam/products/asian.mk
 
