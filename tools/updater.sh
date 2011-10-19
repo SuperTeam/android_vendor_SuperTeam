@@ -36,7 +36,7 @@ function write_mount (){
 	mDV=`grep ST_$1_DEV $DEVICEDIR/updater.mk | cut -d "=" -f 2`
 	mMT=`grep ST_$1_METHOD $DEVICEDIR/updater.mk | cut -d "=" -f 2`
 	if [ "$1" = "BOOT" ]; then
-		if [ "$mMT" = "raw" ]; then
+		if [ "${mMT:1}" = "raw" ]; then
 			echo "package_extract_file(\"boot.img\", \"/tmp/boot.img\");" >> $SCRIPTFILE
 			echo "write_raw_image(\"/tmp/boot.img\", \""${mDV:1}"\");" >> $SCRIPTFILE
 		else
