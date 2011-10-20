@@ -33,9 +33,6 @@ PRODUCT_PACKAGES += \
    FM \
    Torch
 
-#
-# Set ro.modversion
-#
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-Desire-2.2.0 \
