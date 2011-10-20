@@ -41,7 +41,7 @@ PRODUCT_LOCALES := \
     es_ES \
     mdpi
 
-#PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/cyanogen/prelink-linux-arm-msm722x.map
+PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/htc/chacha/prelink-linux-arm-msm722x.map
 
 # Add the FM app
 PRODUCT_PACKAGES += \
