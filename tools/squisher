@@ -20,6 +20,8 @@ updater=$REPACKOTA/META-INF/com/google/android/updater-script
 
 CORES=$( cat /proc/cpuinfo | grep -c processor )
 
+CHANGE_FRAMEWORK=1
+
 . mensajes.sh
 
 # Verificación de entorno de desarrollo operativo
@@ -143,6 +145,7 @@ case "$ALIAS" in
     chacha*) 
 	ANIM=1
         DPI=mdpi 
+	CHANGE_FRAMEWORK=0
         ;;
     zero) 
         ANIM=1
@@ -214,6 +217,8 @@ mkdir $REPACKOTA
        msgOK "Sin Aplicaciones de Google extras y FlashPlayer en data/app"
     fi
 
+if [ $CHANGE_FRAMEWORK -eq 1 ]
+then
 # Extraemos el framework para modificarlo
     mkdir $REPACKOTA/system/framework/opticharge
     cd $REPACKOTA/system/framework/opticharge
@@ -242,6 +247,9 @@ mkdir $REPACKOTA
     mv -f framework-res.apk ../framework-res.apk
     cd ..
     rm -rf opticharge
+else
+    msgStatus "No se haran cambios del framework-res"
+fi
   
 # Copiado de archivos especificos del dispositivo
     cp -r $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/* $REPACKOTA/
