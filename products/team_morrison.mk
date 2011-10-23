@@ -37,9 +37,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES := \
+    en_US \
     es_ES \
     ca_ES \
-    en_US \
     en_GB \
     de_DE \
     eu_ES \
@@ -48,5 +48,3 @@ PRODUCT_LOCALES := \
     pt_PT \
     pt_BR \
     mdpi
-
-PRODUCT_DEFAULT_LANGUAGE := en_US

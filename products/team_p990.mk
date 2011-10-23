@@ -17,10 +17,12 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/p990
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=SuperOSR-ST@-Optimus2x-2.0.2 \
-    ro.stats.romversion=2.0.2 \
+    ro.modversion=SuperOSR-ST@-Optimus2x-2.2.2 \
+    ro.stats.romversion=2.2.2 \
     ro.data.on=0 \
     ro.config.play.bootsound=0
 
 PRODUCT_PACKAGES += DSPManager Torch 
 VENDOR_INCLUDE_MUSICAPP := true
+
+PRODUCT_LOCALES += da_DK

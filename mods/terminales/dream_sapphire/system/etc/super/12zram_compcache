@@ -5,12 +5,7 @@
 LOGINFO='log -p i -t zram '
 LOGWARN='log -p w -t zram '
 
-zsize=`getprop persist.zram.size unknown`
-
-if [[ -e /data/property/persist.zram.size ]]
-then
-    zsize=`cat  /data/property/persist.zram.size`
-fi
+zsize=`getprop persist.service.compcache unknown`
 
 if [ "$zsize" == "unknown" ]
 then
@@ -29,7 +24,7 @@ then
         $LOGINFO Compcache disabled by default on 32a device
     fi
 else
-    $LOGINFO "persist.zram.size set to $zsize Mb"
+    $LOGINFO "zram set to $zsize Mb"
 fi
 
 #now see if the kernel supports zswap
@@ -46,7 +41,7 @@ fi
 if [ "$zsize" == "0" ]
 then
     #comp cache is disabled
-    $LOGINFO "zsize is zero, compcache disabled"
+    $LOGINFO "zram size is zero, compcache disabled"
     exit 0
 fi
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) 2011 SuperTeam.
+# Copyright (C) 2011 The SuperTeam Development Group.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,15 +22,6 @@ DEVICE=$1
 LOWDEVICES=dream_sapphire
 REPOLOWRES="packages/apps/Settings frameworks/base packages/apps/Parts packages/apps/Phone"
 
-#No se puede subir el cambio al no ser nuestros repos
-#system/media packages/apps/Nfc development packages/apps/Calendar frameworks/ex packages/inputmethods/LatinIME packages/providers/DownloadProvider
-#packages/providers/CalendarProvider packages/providers/ContactsProvider packages/apps/Camera apps/QuickSearchBox
-#apps/DeskClock apps/VoiceDialer apps/Email apps/Gallery apps/Music apps/Tag
-#packages/wallpapers/Basic packages/wallpapers/LivePicker packages/wallpapers/MagicSmoke packages/wallpapers/MusicVisualization
-#device/sample
-
-#pendientes de subir el repo y no hacerlo por no tener conexión a internet
-# vendor/htc
 . $SCRIPTDIR/mensajes.sh
 
 if [ $# -lt 1 ]
@@ -42,10 +33,10 @@ fi
 if [ ! -d out/target/product/$DEVICE ]; then
 	LASTDEVICEBUILD=`ls out/target/product | head -n 1`
 	if [ -n "$LASTDEVICEBUILD" ]; then
-		mv out out.$LASTDEVICEBUILD
+		mv out ../cache/out.$LASTDEVICEBUILD
 	fi
-	if [ -d out.$DEVICE ]; then
-		mv out.$DEVICE out
+	if [ -d ../cache/out.$DEVICE ]; then
+		mv ../cache/out.$DEVICE out
 	else
 		mkdir out
 	fi

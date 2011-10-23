@@ -32,14 +32,13 @@ PRODUCT_PACKAGES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=1 \
-    ro.modversion=SuperOSR-zeppelin_cn-2.1 \
-    ro.stats.romversion=2.1 \
+    ro.modversion=SuperOSR-zeppelin_cn-2.1.1 \
+    ro.stats.romversion=2.1.1 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES := \
     en_US \
     zh_CN \
-    ja_JP \
     ko_KR \
     ru_RU \
     mdpi
@@ -50,6 +49,6 @@ PRODUCT_DEFAULT_LANGUAGE := en_US
 PRODUCT_PACKAGES += FM
 
 # Asian IME stuff
-PRODUCT_PACKAGES += OpenWnn PinyinIME libWnnEngDic libWnnJpnDic libwnndict
+PRODUCT_PACKAGES += PinyinIME
 
 PRODUCT_SUBDEVICE := $(PRODUCT_DEVICE)_cn

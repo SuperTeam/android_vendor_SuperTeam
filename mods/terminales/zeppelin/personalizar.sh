@@ -8,8 +8,10 @@ ROOTDIR=$1
 # rm $1/system/bin/fix_permissions
 
 cd $ROOTDIR/system
-echo "Fixing ro.product.device"
+echo "Some build.prop edits"
 sed -i -e "s/ro.product.device=zeppelin/ro.product.device=zepp/" build.prop
+sed -i -e "s/^ro.product.locale.language=.*/ro.product.locale.language=en/" build.prop
+sed -i -e "s/^ro.product.locale.region=.*/ro.product.locale.region=US/" build.prop
 
 echo "Removing some big files to make space"
 cd $ROOTDIR/system/app

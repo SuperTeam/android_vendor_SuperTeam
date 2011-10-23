@@ -31,7 +31,7 @@ if [ -d $BUILDDIR ]; then
 fi
     	
 mkdir -p $BUILDDIR
-for f in `ls $OUT/SuperOSR*.zip`; do
+for f in `ls $OUT/SuperOSR-ST*.zip`; do
 	msgStatus "Descomprimiendo $f"
     unzip -qd $BUILDDIR/ $f
 done  
