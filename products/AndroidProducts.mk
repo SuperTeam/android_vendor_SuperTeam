@@ -1,4 +1,5 @@
 PRODUCT_MAKEFILES := \
+	$(LOCAL_DIR)/team_ace.mk \
 	$(LOCAL_DIR)/team_crespo.mk \
 	$(LOCAL_DIR)/team_dream_sapphire.mk \
         $(LOCAL_DIR)/team_galaxys2.mk \
