@@ -59,6 +59,12 @@ echo "ui_print(\"Instalando parche para "$DEVICE"\");" >> $SCRIPTFILE
 echo "ui_print(\"SuperOSR "$OSRVER" con Android "$AOSPVER".\");" >> $SCRIPTFILE
 write_mount SYSTEM
 write_mount DATA
+#Por motivos de espacio, primero borramos lo que sobra.
+if [ -f $PATCHDIR/rm.sh ]; then
+	echo "package_extract_file(\"rm.sh\", \"/tmp/rm.sh\");" >> $SCRIPTFILE
+	echo "set_perm(0, 0, 06755, \"/tmp/rm.sh\");" >> $SCRIPTFILE
+	echo "run_program(\"/sbin/sh\");" >> $SCRIPTFILE
+fi
 echo "package_extract_dir(\"system\", \"/system\");" >> $SCRIPTFILE
 echo "package_extract_dir(\"data\", \"/data\");" >> $SCRIPTFILE
 echo "unmount(\"/system\");" >> $SCRIPTFILE

@@ -22,10 +22,20 @@ isDIR=false
 BUILDMASK=last_build
 RELEASEMASK=last_release
 PATCHMASK=last_patch
+PUBLICMASK=last_public
 
 SCRIPTDIR=`dirname $0`
 . $SCRIPTDIR/mensajes.sh
 
+if [ $# -lt 3 ]
+then
+   msgErr >&2 "Usage: $0 <file> <dir|device> <release|patch>"
+   exit 1
+fi
+
+DIFFFILE=$1
+DEST=$2
+ENV=$3
 mLANG=`echo $LANG | cut -f 2 -d "=" | cut -f 1 -d "."`
 
 if [ $mLANG = "es_ES" ]; then
@@ -40,31 +50,25 @@ else
 	mFILES="Files"
 fi
 
-if [ $# -lt 3 ]
+if [ ! -f $DIFFFILE ]
 then
-   msgErr >&2 "Usage: $0 <file> <dir|device> <release|patch>"
-   exit 1
-fi
-
-if [ ! -f $1 ]
-then
-    msgErr >&2 "El fichero $1 no existe"
+    msgErr >&2 "El fichero $DIFFFILE no existe"
     exit 1
 fi
 
 #comprobamos si el segundo parámetro es un directorio o el dispositivo
 #se diferencia en que el dispositivo no puede llevar el caracter /
-if [[ "$2" =~ "/" ]]; then
+if [[ "$DEST" =~ "/" ]]; then
 	isDIR=true
 fi
 
-if $isDIR && [ ! -d $2 ]
+if $isDIR && [ ! -d $DEST ]
 then
-    msgErr >&2 "El directorio $2 no existe"
+    msgErr >&2 "El directorio $DEST no existe"
     exit 1
 fi
 
-if [ "$3" == "release" ]
+if [ "$ENV" == "release" ]
 then
 	MASK=$RELEASEMASK
 else
@@ -95,7 +99,7 @@ while read line; do
     fi
     
     if [[ $accion == "copiar" ]]; then
-    	FINALDIR=${file/build/$3}
+    	FINALDIR=${file/build/$ENV}
     	if [ ! -d $file ]; then
     	   FINALDIR=${FINALDIR%*/*}
     	fi
@@ -107,9 +111,9 @@ while read line; do
         then
         	if [ -d $file ]
         	then
-                cp -rv $file/* ${file/build/$3}
+                cp -rv $file/* ${file/build/$ENV}
         	else
-                cp -v $file ${file/build/$3}
+                cp -v $file ${file/build/$ENV}
             fi
         else
             adb push $file .${file#*$BUILDMASK*}
@@ -121,15 +125,23 @@ while read line; do
     fi
 
     if [[ $accion == "borrar" ]]; then
-        msgWarn "borrando $file"
-        if $isDIR
-        then
-        	rm -r $file
-        else
-            adb shell rm -r .${file#*$MASK*}
-        fi
+    	if [[ $ENV == "patch" ]]; then
+    		if [ -d $file ]; then
+    			echo "rm -r ${file#*$PUBLICMASK*}" >> $DEST/rm.sh
+    		else
+    			echo "rm ${file#*$PUBLICMASK*}" >> $DEST/rm.sh
+    		fi
+    	else
+	        msgWarn "borrando $file"
+	        if $isDIR
+	        then
+	        	rm -r $file
+	        else
+	            adb shell rm -r .${file#*$MASK*}
+	        fi
+    	fi
     fi
-done < $1
+done < $DIFFFILE
 
 if ! $isDIR
 then
