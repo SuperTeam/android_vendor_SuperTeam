@@ -25,7 +25,7 @@ rm Development.*
 rm BooksPhone.apk
 
 # LatinIME FC's on the Chacha. Anyway useless with physical kbd
-rm LatinIME.apk
+#rm LatinIME.apk
 
 #cd $ROOTDIR/system/media
 #mkdir -p $ROOTDIR/data/local/
