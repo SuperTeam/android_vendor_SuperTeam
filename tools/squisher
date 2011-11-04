@@ -63,6 +63,11 @@ case "$ALIAS" in
         KERNELMOD=1
 	APP_GOOGLE=1
         ;;
+    anzu)
+	ANIM=1
+        KERNELMOD=1
+	APP_GOOGLE=1
+        ;;
     bravo)
         ANIM=1
 	APP_GOOGLE=1
