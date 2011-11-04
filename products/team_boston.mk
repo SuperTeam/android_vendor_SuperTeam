@@ -31,7 +31,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.stats.romversion=2 \
     ro.config.play.bootsound=0
 
-PRODUCT_LOCALES +:= \
+PRODUCT_LOCALES += \
     mdpi
 
 PRODUCT_DEFAULT_LANGUAGE := es_ES
