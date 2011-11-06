@@ -29,7 +29,19 @@ BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
 PUBLICDIR=$ROMDIR/last_public
-CORES=$( cat /proc/cpuinfo | grep -c processor )
+CONFIGFILE=$TOPDIR/.SuperOSR.conf
+
+#Buscamos valores personalizados para el build
+CORES=$( grep CORES $CONFIGFILE | cut -f 2 -d "=" )
+if [ -z "$CORES" ]; then
+	CORES=$( cat /proc/cpuinfo | grep -c processor )
+fi
+USE_CCACHE=$( grep USE_CCACHE $CONFIGFILE | cut -f 2 -d "=" )
+if [ -n "$USE_CCACHE" ] && [ "$USE_CCACHE" = "1" ]; then
+	export USE_CCACHE=1
+else
+	unset USE_CCACHE
+fi
 
 . $SCRIPTDIR/mensajes.sh
 
