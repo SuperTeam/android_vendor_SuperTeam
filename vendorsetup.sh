@@ -1,4 +1,5 @@
 add_lunch_combo team_ace-eng
+add_lunch_combo team_anzu-eng
 add_lunch_combo team_crespo-eng
 add_lunch_combo team_dream_sapphire-eng
 add_lunch_combo team_galaxys2-eng
