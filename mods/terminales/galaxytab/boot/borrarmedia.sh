@@ -3,6 +3,7 @@
 busybox rm -rf /data/media
 busybox rm -rf /cache/dalvik-cache
 busybox rm -rf /data/dalvik-cache
+busybox rm /data/misc/wifi/wpa_supplicant.conf
 
 #if [ -d "/sdcard/Android/data/com.cooliris.media" ]; then
 #    busybox rm -r "/sdcard/Android/data/com.cooliris.media"
