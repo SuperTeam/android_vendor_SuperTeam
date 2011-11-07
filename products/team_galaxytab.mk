@@ -19,8 +19,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.additionalmounts=/mnt/sdcard/External_SD \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-GalaxyTab-2.2.4 \
-    ro.stats.romversion=2.2.4 \
+    ro.modversion=SuperOSR-ST@-GalaxyTab-2.2.6 \
+    ro.stats.romversion=2.2.6 \
     ro.config.play.bootsound=0
 
 #include vendor/SuperTeam/products/asian.mk
