@@ -107,7 +107,7 @@ case "$ALIAS" in
         ;;
     galaxytab)
 	ANIM=1
-	EXTRATAB=1
+	EXTRATAB=0
 	KERNELMOD=0
 	APP_GOOGLE=1
         ;;
