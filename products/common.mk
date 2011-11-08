@@ -38,6 +38,8 @@ PRODUCT_PACKAGES += \
    openvpn \
    Parts \
    Stk \
+   screenshot \
+   CMScreenshot \
    Wallpapers \
    libWnnEngDic 
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Captura de pantalla</string>
+
+
+    <string name="toast_error">Error:</string>
+    <string name="toast_save_location">Captura de pantalla grabada en</string>
+
+</resources>
