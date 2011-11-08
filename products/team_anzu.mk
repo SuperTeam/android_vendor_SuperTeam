@@ -23,8 +23,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-XperiaArc-S-2.2.6 \
-    ro.stats.romversion=2.2.6 \
+    ro.modversion=SuperOSR-ST@-XperiaArc-S-2.2.8 \
+    ro.stats.romversion=2.2.8 \
     ro.config.play.bootsound=0
 
 PRODUCT_RELEASE_NAME := XperiaArc-LT15i

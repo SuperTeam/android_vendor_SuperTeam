@@ -27,8 +27,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.oem.nosim.ecclist=911,112,999,000,08,118,120,122,110,119,995 \
     ro.ril.emc.mode=2 \
     ro.data.on=0 \
-    ro.modversion=SuperOSR-ST@-NexusS-2.2.6 \
-    ro.stats.romversion=2.2.6 \
+    ro.modversion=SuperOSR-ST@-NexusS-2.2.8 \
+    ro.stats.romversion=2.2.8 \
     ro.config.play.bootsound=0
 
 #include vendor/SuperTeam/products/asian.mk
