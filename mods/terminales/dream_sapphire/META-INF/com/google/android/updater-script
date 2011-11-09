@@ -158,15 +158,9 @@ set_perm(0, 0, 06755, "/data/configsup.cf");
 set_perm(0, 0, 06755, "/data/sup.config");
 unmount("/data");
 show_progress(0.500000, 0);
-ui_print("");
-ui_print("Instalando kernel");
-set_perm_recursive(0, 0, 0755, 0644, "/system/lib/modules");
-package_extract_file("boot.img","/tmp/boot.img");
-show_progress(0.600000, 0);
-ui_print("Write boot.img");
-assert(write_raw_image("/tmp/boot.img","boot"));
-delete("/tmp/boot.img");
-
+package_extract_file("kernel/install_kernel","/tmp/install_kernel");
+set_perm(0, 0, 06755, "/tmp/install_kernel");
+run_program("/tmp/install_kernel");
 #Ensure we sync.. I've seen files flashed at the end of a edify script like
 #this vanish
 run_program("/sbin/sh","-c","sleep 2; sync");
