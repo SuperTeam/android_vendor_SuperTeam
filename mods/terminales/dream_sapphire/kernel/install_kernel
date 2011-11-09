@@ -1,0 +1,94 @@
+set_progress(1.000000);
+
+package_extract_file("nfo.prop","/tmp/update_nfo.prop");
+
+ui_print(file_getprop("/tmp/update_nfo.prop","nfo.kernel.title"));
+
+assert(getprop("ro.product.device") == "trout" || getprop("ro.build.product") == "trout" || getprop("ro.product.board") == "trout" ||
+       getprop("ro.product.device") == "sapphire" || getprop("ro.build.product") == "sapphire" || getprop("ro.product.board") == "sapphire");
+
+#Use the following shell script to load in info about the phone 
+#we are running on
+run_program("/sbin/sh","-c","(
+#
+# Find system information based on the kernel command line and populate 
+# update_nfo.prop
+
+baseband=`awk '{m=match($0,/androidboot.baseband=([0-9a-zA-Z\.]*)/) ; print(substr($0,RSTART+21,RLENGTH-21))}' < /proc/cmdline`
+bootloader=`awk '{m=match($0,/androidboot.bootloader=([0-9a-zA-Z\.]*)/) ; print(substr($0,RSTART+23,RLENGTH-23))}' < /proc/cmdline`
+radioseries=`echo $baseband | awk '{print(substr($0,0,4))}'`
+smisize=`awk '{m=match($0,/smisize=([0-9a-zA-Z\.]*)/) ; print(substr($0,RSTART+8,RLENGTH-8))}' < /proc/cmdline`
+board=`cat /proc/cpuinfo  | grep Hardware | awk '{print $3}'`
+
+#write out a prop file for the updater script to read
+echo \"baseband=$baseband\" >> /tmp/update_nfo.prop
+echo \"bootloader=$bootloader\" >> /tmp/update_nfo.prop
+echo \"radioseries=$radioseries\" >> /tmp/update_nfo.prop
+echo \"smisize=$smisize\" >> /tmp/update_nfo.prop
+echo \"sysboard=$board\" >> /tmp/update_nfo.prop
+)"
+);
+#END OF SHELL SCRIPT
+#Continue edify:
+
+#load in the mkbootimg and unpackbootimg tools
+package_extract_dir("kernel/bin","/tmp/work");
+set_perm(0,0, 0777, "/tmp/work/mkbootimg");
+set_perm(0,0, 0777, "/tmp/work/unpackbootimg");
+
+#now install kernel matching target board
+if file_getprop("/tmp/update_nfo.prop","radioseries") == "3.22"
+then
+    #EBI1 kernel needed
+    ui_print("Instalando EBI1 kernel");
+    package_extract_dir("kernel/mod-ebi1","/system/lib/modules");
+    package_extract_file("kernel/ebi1-zImage","/tmp/work/new-zImage");
+    run_program("/sbin/sh","-c",
+                "echo \"calc.base=19200000\">>/tmp/update_nfo.prop");
+else
+    #EBI0/2708 kernel needed
+    if file_getprop("/tmp/update_nfo.prop","smisize") == "64" &&
+       ( file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.0011" ||
+         file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.2011" ||
+         file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.3011" ||
+         file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.0013" ||
+         file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.2013" ||
+         file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.3013" ||
+         file_getprop("/tmp/update_nfo.prop","bootloader") == "1.33.0013d" ) &&
+       ( file_getprop("/tmp/update_nfo.prop","baseband") == "2.22.27.08" ||
+         file_getprop("/tmp/update_nfo.prop","baseband") == "2.22.28.25" )
+    then
+        #2708 kernel needed
+        ui_print("Instalando 2708 kernel");
+        package_extract_dir("kernel/mod-2708","/system/lib/modules");
+        package_extract_file("kernel/2708-zImage","/tmp/work/new-zImage");
+        run_program("/sbin/sh","-c",
+                    "echo \"calc.base=02000000\">>/tmp/update_nfo.prop");
+    else
+        #EBI0 kernel needed
+        ui_print("Instalando ebi0 kernel");
+        package_extract_dir("kernel/mod-ebi0","/system/lib/modules");
+        package_extract_file("kernel/ebi0-zImage","/tmp/work/new-zImage");
+        run_program("/sbin/sh","-c",
+                    "echo \"calc.base=10000000\">>/tmp/update_nfo.prop");
+    endif;
+endif;
+
+ui_print("Preparando nuevo kernel");
+run_program("/sbin/sh","-c","(
+dump_image boot /tmp/work/old_boot.img
+/tmp/work/unpackbootimg /tmp/work/old_boot.img /tmp/work
+echo \"calc.cmd=`cat /tmp/work/old_boot.img-cmdline`\" >> /tmp/update_nfo.prop
+)");
+
+ui_print("Instalando nuevo kernel");
+run_program("/tmp/work/mkbootimg","--kernel","/tmp/work/new-zImage",
+                "--ramdisk","/tmp/work/old_boot.img-ramdisk.gz",
+                "--cmdline",file_getprop("tmp/update_nfo.prop","calc.cmd"),
+                "--base",file_getprop("/tmp/update_nfo.prop","calc.base"),
+                "--output","/tmp/work/newboot.img");
+
+assert(write_raw_image("/tmp/work/newboot.img","boot"));
+delete_recursive("/tmp/work");
+ui_print(file_getprop("/tmp/update_nfo.prop","nfo.kernel.version"));
+ui_print("instalado :)");
