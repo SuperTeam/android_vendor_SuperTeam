@@ -30,6 +30,10 @@ then
    exit 1
 fi
 
+if [ ! -d ../cache ]; then
+	mkdir ../cache
+fi
+
 if [ ! -d out/target/product/$DEVICE ]; then
 	LASTDEVICEBUILD=`ls out/target/product | head -n 1`
 	if [ -n "$LASTDEVICEBUILD" ]; then
