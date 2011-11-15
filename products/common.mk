@@ -40,6 +40,7 @@ PRODUCT_PACKAGES += \
    Stk \
    screenshot \
    CMScreenshot \
+   Provision \
    Wallpapers \
    libWnnEngDic 
 
