@@ -39,6 +39,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_LOCALES := \
     en_US \
     es_ES \
+    en_GB \
+    de_DE \
+    fr_FR \
+    zh_CN \
     mdpi
 
 #PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/htc/chacha/prelink-linux-arm-msm722x.map
