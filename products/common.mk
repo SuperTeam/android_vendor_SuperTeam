@@ -2,7 +2,10 @@
 PRODUCT_NAME := OSR
 PRODUCT_BRAND := OSR
 PRODUCT_DEVICE := generic
-    
+
+#Skip test
+LIBCORE_SKIP_TESTS := true
+
 # Used by BusyBox
 KERNEL_MODULES_DIR:=/system/lib/modules
 
