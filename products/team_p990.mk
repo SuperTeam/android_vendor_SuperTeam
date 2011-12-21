@@ -17,8 +17,8 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/p990
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.modversion=SuperOSR-ST@-Optimus2x-2.2.2 \
-    ro.stats.romversion=2.2.2 \
+    ro.modversion=SuperOSR-ST@-Optimus2x-2.4.0 \
+    ro.stats.romversion=2.4.0 \
     ro.data.on=0 \
     ro.config.play.bootsound=0
 
