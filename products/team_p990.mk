@@ -2,6 +2,8 @@ $(call inherit-product, device/lge/p990/p990.mk)
 
 $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
+$(call inherit-product, vendor/SuperTeam/products/bcm_fm_radio.mk)
+
 PRODUCT_NAME := team_p990
 PRODUCT_BRAND := lge
 PRODUCT_DEVICE := p990
