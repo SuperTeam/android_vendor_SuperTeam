@@ -29,7 +29,7 @@ BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
 PUBLICDIR=$ROMDIR/last_public
-CONFIGFILE=$TOPDIR/.SuperOSR.conf
+CONFIGFILE=$HOME/.SuperOSR.conf
 
 #Buscamos valores personalizados para el build
 CORES=$( grep CORES $CONFIGFILE | cut -f 2 -d "=" )
