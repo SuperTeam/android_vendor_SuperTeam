@@ -47,14 +47,13 @@ fi
 
 if [ $# -lt 1 ]
 then
-   msgErr >&2 "Usage: $0 <device>"
-   exit 1
+	msgErr >&2 "Usage: $0 <device>"
+	exit 1
 fi
 	
 $SCRIPTDIR/preparasource.sh $DEVICE
 
-option=0
-while [ $option -ne 99 ]
+while true
 do
     #inicializamos estados
     echo "Elige una opción:"
@@ -69,6 +68,10 @@ do
     echo "99: salir"
 
     read option
+    
+    if [ $option -eq 99 ]; then
+        exit 0
+    fi
 
     if [ "$OUT" = "" ]; then
     	. build/envsetup.sh
@@ -77,64 +80,56 @@ do
             continue
         fi
     fi
-	
-    if [ $option -eq 1 ] || [ $option -eq 5 ]; then
-        make -j${CORES} otapackage
-        if [ "$?" -eq 0 ]; then
-            msgOK "Compilación correcta"
-        else
-            msgErr "Error en compilación"
-            continue
-        fi
-    fi
-
-    if [ $option -eq 2 ] || [ $option -eq 5 ]; then
-    	$SCRIPTDIR/squisher
-        if [ "$?" -eq 0 ]; then
-            msgOK "Personalización correcta"
-        else
-            msgErr "Error al ejecutar squisher"
-            continue
-        fi
-    fi
     
-    if [ $option -eq 3 ] || [ $option -eq 5 ]; then
-    	$SCRIPTDIR/sincronizar.sh $ROMDIR $DEVICE
-        if [ "$?" -eq 0 ]; then
-            msgOK "Sincronización correcta"
-        else
-            msgErr "Error al sincronizar"
-            continue
-        fi
-    fi
-    
-    if [ $option -eq 4 ]; then
-        if [ ! -d $PUBLICDIR ]; then
-        	msgWarn "No existe un directorio con la versión actualmente publicada. Se crea uno nuevo. La propia ROM es el parche."
-            cp -r $BUILDDIR $PUBLICDIR
-        else
-	    	if [ -d $PATCHDIR ]; then
-	            rm -r $PATCHDIR
+    case $option in
+    	1|5)
+    		make -j${CORES} otapackage
+	        if [ "$?" -eq 0 ]; then
+	            msgOK "Compilación correcta"
+	        else
+	            msgErr "Error en compilación"
 	        fi
-	        mkdir $PATCHDIR
-	        msgStatus "Calculando las diferencias con la anterior versión publicada"
-	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
-            $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
-            $SCRIPTDIR/updater.sh $DEVICE
-	    fi        
-    fi    	
-    
-    if [ $option -eq 6 ]; then
-    	make clean
-    fi
-    
-        if [ $option -eq 7 ]; then
-    	adb reboot	
-    fi
-    
-    if [ $option -eq 8 ]; then
-    	$SCRIPTDIR/kernel.sh $DEVICE
-    fi
-    
+	        ;;
+		2|5)
+	    	$SCRIPTDIR/squisher
+	        if [ "$?" -eq 0 ]; then
+	            msgOK "Personalización correcta"
+	        else
+	            msgErr "Error al ejecutar squisher"
+	        fi
+    		;;
+		3|5)
+	    	$SCRIPTDIR/sincronizar.sh $ROMDIR $DEVICE
+	        if [ "$?" -eq 0 ]; then
+	            msgOK "Sincronización correcta"
+	        else
+	            msgErr "Error al sincronizar"
+	        fi
+	        ;;
+		4)
+	        if [ ! -d $PUBLICDIR ]; then
+	        	msgWarn "No existe un directorio con la versión actualmente publicada. Se crea uno nuevo. La propia ROM es el parche."
+	            cp -r $BUILDDIR $PUBLICDIR
+	        else
+		    	if [ -d $PATCHDIR ]; then
+		            rm -r $PATCHDIR
+		        fi
+		        mkdir $PATCHDIR
+		        msgStatus "Calculando las diferencias con la anterior versión publicada"
+		        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
+	            $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
+	            $SCRIPTDIR/updater.sh $DEVICE
+		    fi
+			;;        
+    	6)
+    		make clean
+    		;;
+    	7)
+    		adb reboot
+    		;;
+    	8)	
+    		$SCRIPTDIR/kernel.sh $DEVICE
+    		;;
+    esac    
 done
 	
