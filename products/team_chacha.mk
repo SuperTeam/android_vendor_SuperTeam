@@ -32,8 +32,8 @@ PRODUCT_PACKAGES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=1 \
-    ro.modversion=SuperOSR-chacha-2.2 \
-    ro.stats.romversion=2.2 \
+    ro.modversion=SuperOSR-chacha-2.3 \
+    ro.stats.romversion=2.3 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES := \
@@ -45,7 +45,7 @@ PRODUCT_LOCALES := \
     zh_CN \
     mdpi
 
-#PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/htc/chacha/prelink-linux-arm-msm722x.map
+PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/htc/chacha/prelink-linux-arm-msm722x.map
 
 # Add the FM app
 PRODUCT_PACKAGES += \
