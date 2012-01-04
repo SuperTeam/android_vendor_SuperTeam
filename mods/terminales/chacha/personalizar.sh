@@ -14,18 +14,16 @@ sed -i -e "s/^ro.product.locale.language=.*/ro.product.locale.language=en/" buil
 sed -i -e "s/^ro.product.locale.region=.*/ro.product.locale.region=US/" build.prop
 
 echo "Removing some big files to make space"
-cd $ROOTDIR/system/app
 
-#rm GenieWidget.apk
-#rm HtcCopyright.apk
-#rm HtcEmailPolicy.apk
-#rm HtcSettings.apk
+cd $ROOTDIR/system/app
 rm LatinImeTutorial.apk
 rm Development.*
 rm BooksPhone.apk
 
-# LatinIME FC's on the Chacha. Anyway useless with physical kbd
-#rm LatinIME.apk
+cd $ROOTDIR/system/backup
+rm com.mailtools.saveit*
+rm net.jsecurity.printbot*
+rm at.tomtasche.reader*
 
 #cd $ROOTDIR/system/media
 #mkdir -p $ROOTDIR/data/local/
