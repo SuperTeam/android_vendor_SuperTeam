@@ -43,6 +43,7 @@ PRODUCT_LOCALES := \
     de_DE \
     fr_FR \
     zh_CN \
+    nl_NL \
     mdpi
 
 PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=$(TOP)/vendor/htc/chacha/prelink-linux-arm-msm722x.map
