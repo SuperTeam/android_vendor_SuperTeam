@@ -13,10 +13,10 @@ $(call inherit-product vendor/SuperTeam/products/bcm_fm_radio.mk)
 PRODUCT_NAME := team_chacha
 PRODUCT_BRAND := htc
 PRODUCT_DEVICE := chacha
-PRODUCT_MODEL := A810e
+PRODUCT_MODEL := HTC ChaCha A810e
 PRODUCT_MANUFACTURER := HTC
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=chacha BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GWK74 BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_chacha BUILD_ID=GRJ90 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=htc_europe/htc_chacha/chacha:2.3.5/GRJ90/189894.2:user/release-keys PRIVATE_BUILD_DESC="1.54.401.2 CL189894 release-keys"
 
 # Extra Chacha overlay
 #PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/chacha
