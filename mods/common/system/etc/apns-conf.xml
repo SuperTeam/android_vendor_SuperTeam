@@ -396,7 +396,7 @@
   <apn carrier="Velcom BY // Web 250" mcc="257" mnc="01" apn="web3.velcom.by" user="web3" password="web3" type="default,supl" />
   <apn carrier="MTS BY" mcc="257" mnc="02" apn="mts" user="mts" password="mts" type="default,supl" />
   <apn carrier="MTS BY MMS" mcc="257" mnc="02" apn="mts" user="mts" password="mts" mmsc="http://mmsc" mmsproxy="192.168.192.168" mmsport="8080" type="mms" />
-  <apn carrier="Life:) // Internet" mcc="257" mnc="04" apn="mms.life.com.by" type="default,supl" />
+  <apn carrier="Life:) // Internet" mcc="257" mnc="04" apn="internet.life.com.by" type="default,supl" />
   <apn carrier="Life:) // MMS" mcc="257" mnc="04" apn="mms.life.com.by" mmsc="http://mms.life.com.by/mmsc/" mmsproxy="10.10.10.20" mmsport="8080" type="mms" />
   <apn carrier="GaduAIR" mcc="260" mnc="01" apn="internet.gadu-gadu.pl" type="default,supl" />
   <apn carrier="PlusGSM" mcc="260" mnc="01" apn="internet" type="default,supl" />
