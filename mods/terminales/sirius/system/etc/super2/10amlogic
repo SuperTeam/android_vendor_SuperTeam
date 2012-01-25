@@ -1,0 +1,5 @@
+#!/system/bin/sh
+
+/system/bin/alsa_ctl restore
+/system/bin/remotecfg
+/system/bin/set_display_mode.sh panel
