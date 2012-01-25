@@ -70,7 +70,7 @@ pull)
    ;;
 push)
    switch_branch $BRANCH
-   git push
+   git push git@github.com:${U}/${P}.git $BRANCH
    ;;
 cm)
    switch_branch cm
