@@ -18,6 +18,5 @@ add_lunch_combo team_p970-eng
 add_lunch_combo team_pyramid-eng
 add_lunch_combo team_bravo-eng
 add_lunch_combo team_chacha-eng
-add_lunch_combo team_sirius-eng
 PATH=$PATH:$PWD/vendor/SuperTeam/tools ; export PATH
 VENDOR=$PWD/vendor/SuperTeam

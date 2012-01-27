@@ -54,6 +54,7 @@ ANIM=0
 KERNELMOD=0
 WALL_LOW=0
 APP_GOOGLE=0
+SETUP=1
 ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
@@ -149,6 +150,7 @@ case "$ALIAS" in
 	EXTRATAB=0
 	KERNELMOD=0
 	APP_GOOGLE=1
+	SETUP=0
         ;;
 esac
 
@@ -314,6 +316,11 @@ sed -i \
   -e '/ro\.kernel\.android\.checkjni/d' \
   -e '/ro\.build\.type/s/eng/user/' \
   $REPACKOTA/system/build.prop
+
+# Decidimos si queremos SetupWizard al inicio o no
+if [ "$SETUP" -eq 0 ]; then
+sed -i 's/ro.setupwizard.mode=OPTIONAL/ro.setupwizard.mode=DISABLED/g' $REPACKOTA/system/build.prop
+fi
 
 # Eliminar binarios innecesarios
 cd $REPACKOTA/system/bin
