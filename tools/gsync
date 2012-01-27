@@ -33,6 +33,8 @@ set -- $( git config remote.github.projectname | tr "/" " " )
 U=$1
 P=$2
 
+[ $P = android_packages_apps_Parts ] && P=android_packages_apps_CMParts
+
 function switch_branch {
    # Place ourself in branch "gingerbread", create if it doesn't exist
    if ! git branch | grep -q "* ${1}"
@@ -41,20 +43,38 @@ function switch_branch {
       then
          git checkout ${1}
       else
-         git checkout -b ${1}
+         if [ $1 = $BRANCH ]
+         then # gb / ics
+            git checkout --track github/${1}
+            git config branch.${BRANCH}.remote github
+            git config branch.${BRANCH}.merge refs/heads/${BRANCH}
+            git config branch.${BRANCH}.rebase true
+         else # cm
+            if ! git config -l | grep -q remote.cm.url
+            then
+               git remote add -t ${BRANCH} cm git@github.com:CyanogenMod/${P}.git
+               git fetch cm
+               git branch --track cm cm/${BRANCH}
+               git config branch.cm.rebase true
+            fi
+            git checkout cm
+         fi
       fi
    fi
 }
 
 case $ACTION in
-pull|push)
+pull)
    switch_branch $BRANCH
-   git $ACTION git@github.com:${U}/${P}.git $BRANCH
+   git pull --rebase
+   ;;
+push)
+   switch_branch $BRANCH
+   git push git@github.com:${U}/${P}.git $BRANCH
    ;;
 cm)
    switch_branch cm
-   [ $P = android_packages_apps_Parts ] && P=android_packages_apps_CMParts
-   git pull git@github.com:CyanogenMod/${P}.git $BRANCH
+   git pull
    ;;
 *)
    usage
