@@ -48,16 +48,18 @@ else
 	msgOK "¿Actualizar el directorio? (s/N): "
 	read sync
 	
-	if [ $sync == "s" ]; then
-		$SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
-	fi
+	case $sync in
+		[sS] )
+			$SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $RELEASEDIR release
+	esac
 		    
 	#actualizamos el dispositivo
 	msgOK "¿Actualizar el dispositivo? (s/N): "
 	read sync
 	
-	if [ $sync == "s" ]; then
-		$SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
-	fi
+	case $sync in
+		[sS] )
+			$SCRIPTDIR/fromdiff.sh $ROMDIR/diff.txt $DEVICE release
+	esac
 fi
     
