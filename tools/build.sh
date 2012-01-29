@@ -137,7 +137,7 @@ do
 			parchear
 			;;
 		5)
-			comilar
+			compilar
 			squishear
 			sincronizar
 			;;
