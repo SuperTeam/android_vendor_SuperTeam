@@ -59,6 +59,7 @@ function compilar(){
 	    msgOK "Compilación correcta"
 	else
 	    msgErr "Error en compilación"
+	    FAIL=true
 	fi
 }	 
 
@@ -68,6 +69,7 @@ function squishear(){
 	    msgOK "Personalización correcta"
 	else
 	    msgErr "Error al ejecutar squisher"
+	    FAIL=true
 	fi
 }
 
@@ -77,6 +79,7 @@ function sincronizar(){
 	    msgOK "Sincronización correcta"
 	else
 	    msgErr "Error al sincronizar"
+	    FAIL=true
 	fi
 }
 
@@ -111,6 +114,8 @@ do
 
     read option
     
+    FAIL=false
+    
     if [ $option -eq 99 ]; then
         exit 0
     fi
@@ -138,8 +143,12 @@ do
 			;;
 		5)
 			compilar
-			squishear
-			sincronizar
+			if ! $FAIL ; then
+				squishear
+			fi
+			if ! $FAIL ; then
+				sincronizar
+			fi
 			;;
     	6)
     		make clean
