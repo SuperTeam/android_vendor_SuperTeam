@@ -36,3 +36,6 @@ cd $ROOTDIR/system/xbin
 #rm bash 
 rm irssi
 rm vim
+
+# Remove bloat
+rm -r $ROOTDIR/data/app
