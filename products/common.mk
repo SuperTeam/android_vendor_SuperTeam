@@ -54,9 +54,5 @@ PRODUCT_COPY_FILES += \
 # Common overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/common
 
-# Locales
-PRODUCT_LOCALES := es_ES ca_ES en_US de_DE eu_ES fr_FR it_IT pt_PT
-PRODUCT_DEFAULT_LANGUAGE := es_ES
-
 # T-Mobile theme engine
 include vendor/SuperTeam/products/themes_common.mk
