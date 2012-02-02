@@ -65,6 +65,7 @@ case "$ALIAS" in
 	ANIM=1
         KERNELMOD=1
 	APP_GOOGLE=1
+	SETUP=0
         ;;
     anzu)
 	ANIM=1
