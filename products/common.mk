@@ -6,6 +6,7 @@ PRODUCT_DEVICE := generic
 #Skip test
 LIBCORE_SKIP_TESTS := true
 PHONEAPP_SKIP_TEST := true
+CAMERA_SKIP_TEST   := true
 
 # Used by BusyBox
 KERNEL_MODULES_DIR:=/system/lib/modules
