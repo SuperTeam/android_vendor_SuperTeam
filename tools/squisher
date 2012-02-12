@@ -127,7 +127,6 @@ case "$ALIAS" in
     passion) 
         ANIM=1
         LOWDISK=1
-	APP_GOOGLE=1
         ;;
     boston)
         DPI=mdpi
