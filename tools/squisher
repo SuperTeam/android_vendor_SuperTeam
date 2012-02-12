@@ -20,6 +20,8 @@ updater=$REPACKOTA/META-INF/com/google/android/updater-script
 
 CORES=$( cat /proc/cpuinfo | grep -c processor )
 
+CHANGE_FRAMEWORK=1
+
 . mensajes.sh
 
 # Verificación de entorno de desarrollo operativo
@@ -54,6 +56,7 @@ ANIM=0
 KERNELMOD=0
 WALL_LOW=0
 APP_GOOGLE=0
+SETUP=1
 ALIAS=${TARGET_PRODUCT:5}
 
 #Valores específicos
@@ -62,11 +65,13 @@ case "$ALIAS" in
 	ANIM=1
         KERNELMOD=1
 	APP_GOOGLE=1
+	SETUP=0
         ;;
     anzu)
 	ANIM=1
         KERNELMOD=1
 	APP_GOOGLE=1
+	SETUP=0
         ;;
     bravo)
         ANIM=1
@@ -139,9 +144,21 @@ case "$ALIAS" in
 	ANIM=1
         DPI=mdpi 
         ;;
+    chacha*) 
+	ANIM=1
+        DPI=mdpi 
+	CHANGE_FRAMEWORK=0
+        ;;
     zero) 
         ANIM=1
         DPI=mdpi
+        ;;
+    sirius)
+	ANIM=1
+	EXTRATAB=0
+	KERNELMOD=0
+	APP_GOOGLE=1
+	SETUP=0
         ;;
 esac
 
@@ -209,6 +226,8 @@ mkdir $REPACKOTA
        msgOK "Sin Aplicaciones de Google extras y FlashPlayer en data/app"
     fi
 
+if [ $CHANGE_FRAMEWORK -eq 1 ]
+then
 # Extraemos el framework para modificarlo
     mkdir $REPACKOTA/system/framework/opticharge
     cd $REPACKOTA/system/framework/opticharge
@@ -237,6 +256,9 @@ mkdir $REPACKOTA
     mv -f framework-res.apk ../framework-res.apk
     cd ..
     rm -rf opticharge
+else
+    msgStatus "No se haran cambios del framework-res"
+fi
   
 # Copiado de archivos especificos del dispositivo
     cp -r $ANDROID_BUILD_TOP/$MODS/terminales/$ALIAS/* $REPACKOTA/
@@ -308,12 +330,21 @@ sed -i \
   -e '/ro\.build\.type/s/eng/user/' \
   $REPACKOTA/system/build.prop
 
+# Decidimos si queremos SetupWizard al inicio o no
+if [ "$SETUP" -eq 0 ]; then
+sed -i 's/ro.setupwizard.mode=OPTIONAL/ro.setupwizard.mode=DISABLED/g' $REPACKOTA/system/build.prop
+fi
+
 # Eliminar binarios innecesarios
 cd $REPACKOTA/system/bin
 $ECHO $DELETE_BINS | xargs rm -f
 
 # Eliminar drivers inalambricos
 rm -rf $REPACKOTA/system/lib/modules/*/kernel/drivers/net
+
+# Se eliminan apks conflictivas con gapps
+rm -rf $REPACKOTA/system/app/Provision.apk
+rm -rf $REPACKOTA/system/app/QuickSearchBox.apk
 
 # No se necesita recovery (en caso de existir)
 rm -rf $REPACKOTA/recovery

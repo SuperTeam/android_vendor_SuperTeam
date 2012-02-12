@@ -86,6 +86,8 @@
   <apn carrier="Orange Internet ES" mcc="214" mnc="03" apn="internet" user="orange" password="orange" type="default,supl" />
   <apn carrier="Orange ES MMS" mcc="214" mnc="03" apn="orangemms" user="orange" password="orange" mmsc="http://mms.orange.es" mmsproxy="172.22.188.25" mmsport="8080" type="mms" />
   <apn carrier="Orange World ES" mcc="214" mnc="03" apn="orangeworld" user="orange" password="orange" proxy="10.32.61.10" port="8080" type="default,supl" />
+  <apn carrier="MASmovil ES" mcc="214" mnc="03" apn="internetmas" user="mas" password="" type="default" />
+  <apn carrier="MASmovil Social ES" mcc="214" mnc="03" apn="int.socialmas" user="mas" password="" type="default" />
   <apn carrier="Yoigo" mcc="214" mnc="04" apn="internet" proxy="010.008.000.036" port="8080" type="default,supl" />
   <apn carrier="Yoigo MMS" mcc="214" mnc="04" apn="mms" mmsc="http://mms" mmsproxy="193.209.134.141" mmsport="80" type="mms" />
   <apn carrier="INTERNET GPRS" mcc="214" mnc="06" apn="airtelnet.es" user="vodafone" password="vodafone" type="default,supl" />
@@ -99,13 +101,16 @@
   <apn carrier="Simyo ES-MMS" mcc="214" mnc="19" apn="gprs-service.com" password="1234" mmsc="http://mms-services.eu" mmsproxy="217.12.32.180" mmsport="8080" type="mms" />
   <apn carrier="Jazztel" mcc="214" mnc="21" apn="jazzinternet" type="default,supl" />
   <apn carrier="Jazztel MMS" mcc="214" mnc="21" apn="jazzmms" mmsc="http://jazztelmms.com:8081" mmsproxy="217.18.32.183" mmsport="8081" type="mms" />
-  <apn carrier="Pannon MMS" mcc="216" mnc="01" apn="mms" mmsc="http://mmsc.pgsm.hu/" mmsproxy="193.225.154.22" mmsport="8080" type="mms" />
-  <apn carrier="Pannon" mcc="216" mnc="01" apn="net" type="default,supl" />
-  <apn carrier="T-Mobile NET GPRS" mcc="216" mnc="30" apn="internet" type="default,supl" />
-  <apn carrier="T-Mobile HU MMS" mcc="216" mnc="30" apn="mms" user="mms" password="mms" mmsc="http://mms.t-mobile.hu/servlets/mms" mmsproxy="212.51.126.10" mmsport="8080" type="mms" />
-  <apn carrier="T-Mobile HU" mcc="216" mnc="30" apn="wnw" mmsc="http://mms.t-mobile.hu/servlets/mms" mmsproxy="212.51.126.10" mmsport="8080" type="default,supl" />
-  <apn carrier="Vodafone HU" mcc="216" mnc="70" apn="internet.vodafone.net" type="default,supl" />
-  <apn carrier="Vodafone HU MMS" mcc="216" mnc="70" apn="mms.vodafone.net" mmsc="http://mms.vodafone.hu/servlets/mms" mmsproxy="80.244.97.2" mmsport="8080" type="mms" />
+  <apn carrier="Telenor MMS" mcc="216" mnc="01" apn="mms" mmsc="http://mmsc.telenor.hu/" mmsproxy="84.225.255.1" mmsport="8080" authtype="2" type="mms" />
+  <apn carrier="Telenor Net" mcc="216" mnc="01" apn="net" type="default,supl" />
+  <apn carrier="Telenor Online" mcc="216" mnc="01" apn="online" authtype="2" type="internet" />
+  <apn carrier="Telenor GO" mcc="216" mnc="01" apn="online" proxy="84.225.255.1" port="8080" authtype="2" type="internet" />
+  <apn carrier="T-Mobile NET" mcc="216" mnc="30" apn="internet" type="default,supl" />
+  <apn carrier="T-Mobile MMS" mcc="216" mnc="30" apn="mms" user="mms" password="mms" mmsc="http://mms.t-mobile.hu/servlets/mms" mmsproxy="212.51.126.010" mmsport="8080" authtype="1" type="mms" />
+  <apn carrier="T-Mobile WNW" mcc="216" mnc="30" apn="wnw" mmsc="http://mms.t-mobile.hu/servlets/mms" mmsproxy="212.51.126.010" mmsport="8080" authtype="1" type="default" />
+  <apn carrier="Vodafone Internet" mcc="216" mnc="70" apn="internet.vodafone.net" type="default,supl" />
+  <apn carrier="Vodafone VitaMAX" mcc="216" mnc="70" apn="vitamax.internet.vodafone.net" type="default,supl" />
+  <apn carrier="Vodafone MMS" mcc="216" mnc="70" apn="mms.vodafone.net" mmsc="http://mms.vodafone.hu/servlets/mms" mmsproxy="80.244.97.2" mmsport="8080" type="mms" />
   <apn carrier="ERONET START" mcc="218" mnc="03" apn="gprs.eronet.ba" user="" server="" password="" proxy="" port="" mmsc="" type="default,supl"/>
   <apn carrier="ERONET MI 50" mcc="218" mnc="03" apn="web.eronet.ba" user="" server="" password="" proxy="" port="" mmsc="" type="supl"/>
   <apn carrier="ERONET MI 200" mcc="218" mnc="03" apn="web.eronet.ba" user="" server="" password="" proxy="" port="" mmsc="" type="supl"/>
@@ -218,7 +223,7 @@
   <apn carrier="T-Mobile UK" mcc="234" mnc="30" apn="general.t-mobile.uk" user="t-mobile" password="tm" server="*" mmsc="http://mmsc.t-mobile.co.uk:8002" mmsproxy="149.254.201.135" mmsport="8080" type="default,supl,mms" />
   <apn carrier="Picture Message" mcc="234" mnc="30" apn="general.t-mobile.uk" user="user" password="wap" mmsc="http://mmsc.t-mobile.co.uk:8002" mmsproxy="149.254.201.135" mmsport="8080" type="mms" />
   <apn carrier="Virgin UK" mcc="234" mnc="30" apn="goto.virginmobile.uk" user="user" type="default,supl" />
-  <apn carrier="Virgin UK MMS" mcc="234" mnc="30" apn="pp.vodafone.co.uk" user="wap" password="wap" mmsc="http://mms.virginmobile.co.uk:8002" mmsproxy="149.254.201.135" mmsport="8080" type="mms" />
+  <apn carrier="Virgin UK MMS" mcc="234" mnc="30" apn="goto.virginmobile.uk" mmsc="http://mms.virginmobile.co.uk:8002" mmsproxy="193.30.166.2" mmsport="8080" type="mms" />
   <apn carrier="Virgin UK" mcc="234" mnc="31" apn="goto.virginmobile.uk" user="user" type="default,supl" />
   <apn carrier="Virgin UK MMS" mcc="234" mnc="31" apn="pp.vodafone.co.uk" user="wap" password="wap" mmsc="http://mms.virginmobile.co.uk:8002" mmsproxy="149.254.201.135" mmsport="8080" type="mms" />
   <apn carrier="Virgin UK" mcc="234" mnc="32" apn="goto.virginmobile.uk" user="user" type="default,supl" />
@@ -391,7 +396,7 @@
   <apn carrier="Velcom BY // Web 250" mcc="257" mnc="01" apn="web3.velcom.by" user="web3" password="web3" type="default,supl" />
   <apn carrier="MTS BY" mcc="257" mnc="02" apn="mts" user="mts" password="mts" type="default,supl" />
   <apn carrier="MTS BY MMS" mcc="257" mnc="02" apn="mts" user="mts" password="mts" mmsc="http://mmsc" mmsproxy="192.168.192.168" mmsport="8080" type="mms" />
-  <apn carrier="Life:) // Internet" mcc="257" mnc="04" apn="mms.life.com.by" type="default,supl" />
+  <apn carrier="Life:) // Internet" mcc="257" mnc="04" apn="internet.life.com.by" type="default,supl" />
   <apn carrier="Life:) // MMS" mcc="257" mnc="04" apn="mms.life.com.by" mmsc="http://mms.life.com.by/mmsc/" mmsproxy="10.10.10.20" mmsport="8080" type="mms" />
   <apn carrier="GaduAIR" mcc="260" mnc="01" apn="internet.gadu-gadu.pl" type="default,supl" />
   <apn carrier="PlusGSM" mcc="260" mnc="01" apn="internet" type="default,supl" />
@@ -1105,6 +1110,10 @@
   <apn carrier="Celcom MMS" mcc="502" mnc="13" apn="celcom3g" user="mms" password="mms" mmsc="http://mms.celcom.net.my" mmsproxy="10.128.1.242" mmsport="8080" type="mms" />
   <apn carrier="Digi MMS" mcc="502" mnc="16" apn="digimms" user="mms" password="mms" mmsc="http://mms.digi.com.my/servlets/mms" mmsproxy="203.92.128.160" mmsport="9201" type="mms" />
   <apn carrier="Digi" mcc="502" mnc="16" apn="diginet" user="digi" password="digi" type="default,supl" />
+  <apn carrier="Celcom 3G Internet" mcc="502" mnc="19" apn="celcom3g" type="default,supl" />
+  <apn carrier="Celcom 3G MMS" mcc="502" mnc="19" apn="celcom3g" mmsc="http://mms.celcom.net.my" mmsproxy="10.128.1.242" mmsport="8080" type="mms" />
+  <apn carrier="Celcom 2G Internet" mcc="502" mnc="19" apn="celcom.net.my" type="default,supl" />
+  <apn carrier="Celcom 2G MMS" mcc="502" mnc="19" apn="mms.celcom.net.my" mmsc="http://mms.celcom.net.my" mmsproxy="10.128.1.242" mmsport="8080" type="mms" />
   <apn carrier="U Mobile Internet" mcc="502" mnc="18" apn="my3g" type="default,supl" />
   <apn carrier="U Mobile MMS" mcc="502" mnc="18" apn="my3g" mmsc="http://10.30.3.11/servlets/mms" mmsproxy="10.30.5.11" mmsport="8080" type="mms" />
   <apn carrier="Telstra MMS" mcc="505" mnc="01" apn="Telstra.mms" mmsc="http://mmsc.telstra.com:8002" mmsproxy="10.1.1.180" mmsport="80" type="mms" />

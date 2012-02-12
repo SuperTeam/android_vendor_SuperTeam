@@ -29,7 +29,7 @@ BUILDDIR=$ROMDIR/last_build
 RELEASEDIR=$ROMDIR/last_release
 PATCHDIR=$ROMDIR/last_patch
 PUBLICDIR=$ROMDIR/last_public
-CONFIGFILE=$TOPDIR/.SuperOSR.conf
+CONFIGFILE=$HOME/.SuperOSR.conf
 
 #Buscamos valores personalizados para el build
 CORES=$( grep CORES $CONFIGFILE | cut -f 2 -d "=" )
@@ -47,14 +47,58 @@ fi
 
 if [ $# -lt 1 ]
 then
-   msgErr >&2 "Usage: $0 <device>"
-   exit 1
+	msgErr >&2 "Usage: $0 <device>"
+	exit 1
 fi
 	
 $SCRIPTDIR/preparasource.sh $DEVICE
 
-option=0
-while [ $option -ne 99 ]
+function compilar(){
+    make -j${CORES} otapackage
+	if [ "$?" -eq 0 ]; then
+	    msgOK "Compilación correcta"
+	else
+	    msgErr "Error en compilación"
+	    FAIL=true
+	fi
+}	 
+
+function squishear(){
+	$SCRIPTDIR/squisher
+	if [ "$?" -eq 0 ]; then
+	    msgOK "Personalización correcta"
+	else
+	    msgErr "Error al ejecutar squisher"
+	    FAIL=true
+	fi
+}
+
+function sincronizar(){
+   	$SCRIPTDIR/sincronizar.sh $ROMDIR $DEVICE
+	if [ "$?" -eq 0 ]; then
+	    msgOK "Sincronización correcta"
+	else
+	    msgErr "Error al sincronizar"
+	    FAIL=true
+	fi
+}
+
+function parchear(){
+	if [ ! -d $PUBLICDIR ]; then
+		msgWarn "No existe un directorio con la versión actualmente publicada. Se crea uno nuevo. La propia ROM es el parche."
+		cp -r $BUILDDIR $PUBLICDIR
+	else
+		if [ -d $PATCHDIR ]; then
+			rm -r $PATCHDIR
+		fi
+		mkdir $PATCHDIR
+		msgStatus "Calculando las diferencias con la anterior versión publicada"
+		$SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
+		$SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
+		$SCRIPTDIR/updater.sh $DEVICE
+	fi
+}
+while true
 do
     #inicializamos estados
     echo "Elige una opción:"
@@ -69,6 +113,12 @@ do
     echo "99: salir"
 
     read option
+    
+    FAIL=false
+    
+    if [ $option -eq 99 ]; then
+        exit 0
+    fi
 
     if [ "$OUT" = "" ]; then
     	. build/envsetup.sh
@@ -77,64 +127,38 @@ do
             continue
         fi
     fi
-	
-    if [ $option -eq 1 ] || [ $option -eq 5 ]; then
-        make -j${CORES} otapackage
-        if [ "$?" -eq 0 ]; then
-            msgOK "Compilación correcta"
-        else
-            msgErr "Error en compilación"
-            continue
-        fi
-    fi
-
-    if [ $option -eq 2 ] || [ $option -eq 5 ]; then
-    	$SCRIPTDIR/squisher
-        if [ "$?" -eq 0 ]; then
-            msgOK "Personalización correcta"
-        else
-            msgErr "Error al ejecutar squisher"
-            continue
-        fi
-    fi
     
-    if [ $option -eq 3 ] || [ $option -eq 5 ]; then
-    	$SCRIPTDIR/sincronizar.sh $ROMDIR $DEVICE
-        if [ "$?" -eq 0 ]; then
-            msgOK "Sincronización correcta"
-        else
-            msgErr "Error al sincronizar"
-            continue
-        fi
-    fi
-    
-    if [ $option -eq 4 ]; then
-        if [ ! -d $PUBLICDIR ]; then
-        	msgWarn "No existe un directorio con la versión actualmente publicada. Se crea uno nuevo. La propia ROM es el parche."
-            cp -r $BUILDDIR $PUBLICDIR
-        else
-	    	if [ -d $PATCHDIR ]; then
-	            rm -r $PATCHDIR
-	        fi
-	        mkdir $PATCHDIR
-	        msgStatus "Calculando las diferencias con la anterior versión publicada"
-	        $SCRIPTDIR/sacadiff.sh $BUILDDIR $PUBLICDIR $ROMDIR/public.diff.txt
-            $SCRIPTDIR/fromdiff.sh $ROMDIR/public.diff.txt $PATCHDIR patch
-            $SCRIPTDIR/updater.sh $DEVICE
-	    fi        
-    fi    	
-    
-    if [ $option -eq 6 ]; then
-    	make clean
-    fi
-    
-        if [ $option -eq 7 ]; then
-    	adb reboot	
-    fi
-    
-    if [ $option -eq 8 ]; then
-    	$SCRIPTDIR/kernel.sh $DEVICE
-    fi
-    
+    case $option in
+    	1) 
+    		compilar 
+    		;;
+		2) 
+			squishear 
+			;;
+		3) 
+			sincronizar 
+			;;
+		4)
+			parchear
+			;;
+		5)
+			compilar
+			if ! $FAIL ; then
+				squishear
+			fi
+			if ! $FAIL ; then
+				sincronizar
+			fi
+			;;
+    	6)
+    		make clean
+    		;;
+    	7)
+    		adb reboot
+    		;;
+    	8)	
+    		$SCRIPTDIR/kernel.sh $DEVICE
+    		;;
+    esac    
 done
 	
