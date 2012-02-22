@@ -6,7 +6,6 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 $(call inherit-product vendor/SuperTeam/products/bcm_fm_radio.mk)
 
-
 #
 # Setup device specific product configuration.
 #
@@ -16,7 +15,19 @@ PRODUCT_DEVICE := chacha
 PRODUCT_MODEL := HTC ChaCha A810e
 PRODUCT_MANUFACTURER := HTC
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_chacha BUILD_ID=GRJ90 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=htc_europe/htc_chacha/chacha:2.3.5/GRJ90/189894.2:user/release-keys PRIVATE_BUILD_DESC="1.54.401.2 CL189894 release-keys"
+UTC_DATE := $(shell date +%s)
+DATE     := $(shell date +%Y%m%d)
+	
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=htc_chacha \
+    BUILD_ID=GRJ90 \
+    BUILD_DISPLAY_ID=GRJ90 \
+    BUILD_FINGERPRINT=htc_europe/htc_chacha/chacha:2.3.5/GRJ90/189894.2:user/release-keys \
+    PRIVATE_BUILD_DESC="1.54.401.2 CL189894 release-keys" \
+    BUILD_NUMBER=${DATE} \
+    BUILD_UTC_DATE=${UTC_DATE} \
+    BUILD_VERSION_TAGS=release-keys \
+    TARGET_BUILD_TYPE=user
 
 # Extra Chacha overlay
 #PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/chacha

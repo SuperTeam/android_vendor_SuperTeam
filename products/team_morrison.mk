@@ -6,7 +6,6 @@ $(call inherit-product, vendor/SuperTeam/products/common_full.mk)
 
 $(call inherit-product vendor/SuperTeam/products/bcm_fm_radio.mk)
 
-
 #
 # Setup device specific product configuration.
 #
@@ -16,7 +15,19 @@ PRODUCT_DEVICE := morrison
 PRODUCT_MODEL := MB200
 PRODUCT_MANUFACTURER := Motorola
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=morrison BUILD_ID=GRJ22 BUILD_DISPLAY_ID=GWK74 BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys"
+UTC_DATE := $(shell date +%s)
+DATE     := $(shell date +%Y%m%d)
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=morrison \
+    BUILD_ID=GRJ22 \
+    BUILD_DISPLAY_ID=GWK74 \
+    BUILD_FINGERPRINT=google/passion/passion:2.3.4/GRJ22/121341:user/release-keys \
+    PRIVATE_BUILD_DESC="passion-user 2.3.4 GRJ22 121341 release-keys" \
+    BUILD_NUMBER=${DATE} \
+    BUILD_UTC_DATE=${UTC_DATE} \
+    BUILD_VERSION_TAGS=release-keys \
+    TARGET_BUILD_TYPE=user
 
 # Extra overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/morrison
@@ -47,4 +58,9 @@ PRODUCT_LOCALES := \
     it_IT \
     pt_PT \
     pt_BR \
+    zh_CN \
+    ru_RU \
     mdpi
+
+# Asian IME stuff
+PRODUCT_PACKAGES += PinyinIME
