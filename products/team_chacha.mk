@@ -47,6 +47,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.stats.romversion=2.5 \
     ro.config.play.bootsound=0
 
+# Goo updater app
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.goo.developerid=adlx \
+    ro.goo.board=$(PRODUCT_DEVICE) \
+    ro.goo.rom=SuperOSR \
+    ro.goo.version=${UTC_DATE}
+
 PRODUCT_LOCALES := \
     en_US \
     es_ES \
