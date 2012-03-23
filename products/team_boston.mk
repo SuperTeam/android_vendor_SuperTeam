@@ -28,7 +28,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=1 \
     ro.modversion=SuperOSR-ST@-Boston-2-AW \
-    ro.stats.romversion=2 \
     ro.config.play.bootsound=0
 
 PRODUCT_LOCALES += \

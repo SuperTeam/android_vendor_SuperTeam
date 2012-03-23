@@ -25,7 +25,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.additionalmounts=/mnt/sdcard/External_SD \
     ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-GalaxyS-2.2.8 \
-    ro.stats.romversion=2.2.8 \
     ro.config.play.bootsound=0
 
 #include vendor/SuperTeam/products/asian.mk

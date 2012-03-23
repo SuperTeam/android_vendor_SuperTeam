@@ -27,9 +27,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rommanager.developerid=supermvl \
-    ro.sup.superteam \
-    ro.stats.devname=SuperTe@m \
-    ro.stats.romname=SuperOSR
+    ro.sup.superteam
     
 # Default ringtone
 PRODUCT_PROPERTY_OVERRIDES += \

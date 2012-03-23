@@ -36,7 +36,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=0 \
     ro.modversion=SuperOSR-ST@-Desire-2.2.0 \
-    ro.stats.romversion=2.2.0 \
     ro.ril.enable.managed.roaming=0 \
     ro.ril.oem.nosim.ecclist=911,112,113,115,117,999,000,08,118,120,122,110,119,995 \
     ro.ril.emc.mode=2 \

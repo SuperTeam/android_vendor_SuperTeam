@@ -12,7 +12,6 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/SuperTeam/overlay/p970
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.modversion=SuperOSR-ST@-Black-2.0.0 \
-    ro.stats.romversion=2.0.0 \
     ro.config.play.bootsound=0 \
     ro.data.on=0
 

@@ -43,8 +43,7 @@ PRODUCT_PACKAGES += \
 #
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=1 \
-    ro.modversion=SuperOSR-zeppelin-2.1.1 \
-    ro.stats.romversion=2.1.1 \
+    ro.modversion=SuperOSR-zeppelin-2.2 \
     ro.config.play.bootsound=0
 
 # Goo updater app

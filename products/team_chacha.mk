@@ -44,7 +44,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.data.on=1 \
     ro.modversion=SuperOSR-chacha-2.5 \
-    ro.stats.romversion=2.5 \
     ro.config.play.bootsound=0
 
 # Goo updater app
