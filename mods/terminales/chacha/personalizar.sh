@@ -39,3 +39,6 @@ rm vim
 
 # Remove bloat
 rm -r $ROOTDIR/data/app
+
+# No quiero ejecutar un fixpermisos
+rm $ROOTDIR/system/etc/super2/02permisos
