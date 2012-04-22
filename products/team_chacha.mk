@@ -60,6 +60,7 @@ PRODUCT_LOCALES := \
     de_DE \
     fr_FR \
     zh_CN \
+    pt_PT \
     nl_NL \
     mdpi
 
